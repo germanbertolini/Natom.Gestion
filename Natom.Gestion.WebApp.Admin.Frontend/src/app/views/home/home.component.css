@@ -1,0 +1,43 @@
+.dashboard .card {
+    height:12rem;
+    margin:1rem;
+    box-shadow: #666666 0.1rem 0.1rem 0.3rem;
+}
+
+.card.card-style-1 {
+    background-color:#d4cdd9;
+}
+
+.card.card-style-2 {
+    background-color:#bed1e6;
+}
+
+.card.card-style-3 {
+    background-color:#b2dcdd;
+}
+
+.card.card-style-4 {
+    background-color:#c29ac9;
+}
+
+.card.card-style-5 {
+    background-color:#7fabd5;
+}
+
+.card.card-style-6 {
+    background-color:#60c7d3;
+}
+
+.card-header {
+    font-weight: bold;
+}
+
+.card-body {
+    font-weight: bold;
+    font-size: 2rem;
+    box-shadow: inset rgba(0, 0, 0, 0.2) -2rem -2rem 10rem;
+}
+
+.card-body.percent {
+    font-size: 4rem;
+}

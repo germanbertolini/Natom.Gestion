@@ -1,0 +1,142 @@
+/* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Montserrat";
+  src: local("Montserrat"), url(./assets/fonts/montserrat/Montserrat-Regular.ttf) format("truetype");
+}
+
+:root {
+  --color-01: #03a6a9;
+  --color-01-light: #04bfc2;
+  --color-01-high: #037f81;
+  --color-02: #0d467f;
+  --color-02-light: #11579d;
+  --color-02-high: #0a325a;
+  --color-03: #330d7f;
+  --color-03-light: #4311a6;
+  --color-03-high: #220953;
+  --color-04: #5d0993;
+  --color-04-light: #770bbc;
+  --color-04-high: #400665;
+  --color-05: #9403a9;
+  --color-05-light: #be03d9;
+  --color-05-high: #6a0279;
+}
+
+body {
+  font-family: "Montserrat", Arial, Helvetica, sans-serif;
+}
+
+.table {
+  width: 100%!important;
+}
+
+hr.divider {
+  margin-top:0;
+}
+
+.right {
+  float:right;
+}
+
+.left {
+  float:left;
+}
+
+.btn-circular {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1.75rem;
+  font-size: 1.8rem;
+  padding: 0;
+}
+
+a.btn-circular {
+  line-height: 3.2rem;
+}
+
+.crud-footer {
+  bottom: 15px;
+  position: fixed;
+  width: calc(100% - 30px);
+  overflow: hidden;
+}
+
+.spacingLeft {
+  margin-left:5px;
+}
+
+/* Provide sufficient contrast against white background */
+  a {
+  color: #0366d6;
+}
+
+code {
+  color: #e01a76;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #1b6ec2;
+  border-color: #1861ac;
+}
+
+
+
+.switch-default{background-color:#777}
+.switch-default[href]:hover,.switch-default[href]:focus{background-color:#5e5e5e}
+.switch-primary{background-color:#428bca}
+.switch-primary[href]:hover,.switch-primary[href]:focus{background-color:#3071a9}
+.switch-success{background-color:#5cb85c}
+.switch-success[href]:hover,.switch-success[href]:focus{background-color:#449d44}
+.switch-info{background-color:#5bc0de}
+.switch-info[href]:hover,.switch-info[href]:focus{background-color:#31b0d5}
+.switch-warning{background-color:#f0ad4e}
+.switch-warning[href]:hover,.switch-warning[href]:focus{background-color:#ec971f}
+.switch-danger{background-color:#d9534f}
+.switch-danger[href]:hover,.switch-danger[href]:focus{background-color:#c9302c}
+
+
+.material-switch > input[type="checkbox"] {
+  display: none;   
+}
+
+.material-switch > label {
+  cursor: pointer;
+  height: 0px;
+  position: relative; 
+  width: 40px;  
+}
+
+.material-switch > label::before {
+  background: rgb(0, 0, 0);
+  box-shadow: inset 0px 0px 10px rgba(0, 0, 0, 0.5);
+  border-radius: 8px;
+  content: '';
+  height: 16px;
+  margin-top: -8px;
+  position:absolute;
+  opacity: 0.3;
+  transition: all 0.4s ease-in-out;
+  width: 40px;
+}
+.material-switch > label::after {
+  background: rgb(255, 255, 255);
+  border-radius: 16px;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+  content: '';
+  height: 24px;
+  left: -4px;
+  margin-top: -8px;
+  position: absolute;
+  top: -4px;
+  transition: all 0.3s ease-in-out;
+  width: 24px;
+}
+.material-switch > input[type="checkbox"]:checked + label::before {
+  background: inherit;
+  opacity: 0.5;
+}
+.material-switch > input[type="checkbox"]:checked + label::after {
+  background: inherit;
+  left: 20px;
+}

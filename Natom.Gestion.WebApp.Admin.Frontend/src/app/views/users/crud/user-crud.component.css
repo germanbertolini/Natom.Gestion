@@ -1,0 +1,10 @@
+.btn-search-device {
+    background-color: var(--color-05);
+    color:white;
+    cursor:pointer;
+}
+
+.divPermisos {
+    padding: 30px;
+    background-color: #ABF;
+}

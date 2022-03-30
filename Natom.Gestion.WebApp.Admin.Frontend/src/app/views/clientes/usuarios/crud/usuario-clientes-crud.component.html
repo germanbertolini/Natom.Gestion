@@ -1,0 +1,83 @@
+<div class="container-fluid" id="user-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{ crud.mode }} usuario del cliente</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-3 offset-md-1">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre"
+          [(ngModel)]="crud.model.first_name" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Apellido</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Apellido"
+          [(ngModel)]="crud.model.last_name" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="ejemplo@ejemplo.com"
+            [(ngModel)]="crud.model.email"
+            [readonly]="crud.isEditMode"
+            />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="!crud.isEditMode">
+    <div class="col-md-8 offset-md-2">
+      <div class="alert alert-success" role="alert">
+        <i class="fa fa-bell" aria-hidden="true"></i>&nbsp;&nbsp; Se enviará un mail a la casilla de correo indicada para que el usuario pueda establecer su contraseña
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12 divPermisos">
+      <div class="row">
+        <div class="col-md-4" *ngFor="let permiso of permisos; let i = index">
+          <div class="material-switch pull-left" style="margin-top: 2px; margin-bottom:10px;"><!-- <div class="material-switch pull-right"> -->
+              <input
+                type="checkbox"
+                class="switchPermiso"
+                style="cursor:pointer;"
+                id="switchPermiso{{ i }}"
+                [checked]="containsPermiso(permiso.encrypted_id)"
+                (change)="onSwitchPermisoChanged($event, permiso.encrypted_id)"
+                />
+              <label for="switchPermiso{{ i }}" class="switch-danger"></label>
+          </div>
+          &nbsp;&nbsp;&nbsp;<b>{{ permiso.descripcion }}</b>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

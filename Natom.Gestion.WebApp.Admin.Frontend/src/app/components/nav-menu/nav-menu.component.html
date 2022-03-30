@@ -1,0 +1,70 @@
+<header>
+  <nav
+    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3"
+  >
+    <div class="container-fluid">
+      <div class="nav-menu-button"
+        [ngStyle]="{backgroundImage: 'url(assets/img/menu-button.png)'}"
+        data-toggle="tooltip"
+        data-placement="right"></div>
+      <a class="navbar-brand" [routerLink]="['/']"><b style="color: var(--color-04-light);">Bio</b><b style="color: var(--color-02-light);">Anviz</b>&nbsp;<b style="color: var(--color-01-high);">+</b></a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item dropdown" *ngIf="authService.can('abm_usuarios')">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              SysAdmins
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/users']">Ver todos</a>
+              <a class="dropdown-item" [routerLink]="['/users/new']">Nuevo SysAdmin</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown" *ngIf="authService.can('abm_clientes')">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Clientes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" [routerLink]="['/clientes']">Ver todos</a>
+              <a class="dropdown-item" [routerLink]="['/clientes/new']">Nuevo cliente</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Usuario
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- <div
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
+        [ngClass]="{ show: isExpanded }"
+      >
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Usuario
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
+            </div>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </nav>
+</header>

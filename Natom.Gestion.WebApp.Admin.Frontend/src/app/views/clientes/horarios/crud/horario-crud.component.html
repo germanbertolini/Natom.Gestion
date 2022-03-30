@@ -1,0 +1,145 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{ crud.isNewMode ? "Nuevo" : "Ver" }} horario / tolerancia</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-3">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Aplica desde</span>
+        </div>
+        <input class="form-control"
+          *ngIf="!crud.isNewMode"
+          value="{{ crud.model.aplica_desde  |  date:'dd/MM/yyyy' }}"
+          readonly>
+        <input class="form-control"
+          *ngIf="crud.isNewMode"
+          placeholder="Click para seleccionar..."
+          name="dp"
+          [(ngModel)]="aplica_fecha_desde"
+          (ngModelChange)="onFechaAplicaDesdeChange($event)"
+          ngbDatepicker
+          #d="ngbDatepicker"
+          restoreFocus="false"
+          (click)="d.toggle(); $event.stopPropagation()"
+          (document:click)="decideClosure($event, d)"
+          readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Aplica hasta</span>
+        </div>
+        <input class="form-control"
+          placeholder="-"
+          value="{{ crud.model.aplica_hasta  |  date:'dd/MM/yyyy' }}"
+          readonly>
+      </div>
+    </div>
+  </div>
+  <br/>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <h5>Fichado</h5>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Tolerancia en INGRESO</label>
+                    <div class="input-group input-sm">
+                        <input type="number"
+                            class="form-control"
+                            [disabled]="!crud.isNewMode"
+                            [(ngModel)]="crud.model.ingreso_tolerancia_mins">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="formGroupExampleInput">Tolerancia en EGRESO</label>
+                    <div class="input-group input-sm">
+                        <input type="number"
+                            class="form-control"
+                            [disabled]="!crud.isNewMode"
+                            [(ngModel)]="crud.model.egreso_tolerancia_mins">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">minutos</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="row">
+              <div class="col-md-12">
+                  <h5>Almuerzo</h5>
+                  <hr>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Rango horario DESDE</label>
+                      <div class="input-group input-sm">
+                          <input type="text"
+                              class="form-control"
+                              placeholder="HH:MM"
+                              maxlength="5"
+                              onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 58"
+                              [disabled]="!crud.isNewMode"
+                              [(ngModel)]="crud.model.almuerzo_horario_desde">
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Rango horario HASTA</label>
+                      <div class="input-group input-sm">
+                          <input type="text"
+                              class="form-control"
+                              placeholder="HH:MM"
+                              maxlength="5"
+                              onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 58"
+                              [disabled]="!crud.isNewMode"
+                              [(ngModel)]="crud.model.almuerzo_horario_hasta">
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                      <label for="formGroupExampleInput">Tiempo límite para almuerzo</label>
+                      <div class="input-group input-sm">
+                          <input type="number"
+                              class="form-control"
+                              [disabled]="!crud.isNewMode"
+                              [(ngModel)]="crud.model.almuerzo_tiempo_limite_mins">
+                          <div class="input-group-prepend">
+                              <span class="input-group-text">minutos</span>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button *ngIf="crud.isNewMode" class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>
