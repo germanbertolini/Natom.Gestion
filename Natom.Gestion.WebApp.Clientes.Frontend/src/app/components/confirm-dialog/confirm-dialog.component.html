@@ -1,0 +1,36 @@
+<div *ngIf="message" class="modal" tabindex="-1" role="dialog" style="display:block!important">    
+    <div class="modal-dialog confirm-modal" role="document">
+
+        <!-- CONFIRM DIALOG -->
+        <div *ngIf="message?.type == 'confirm'" class="modal-content">
+          <div class="modal-body">
+            <p class="text-center confirm-message">{{message.text}}</p>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-success" (click)="message.onYesClick()">SI</button>
+            <button type="button" class="btn btn-danger" (click)="message.onNoClick()">NO</button>
+          </div>
+        </div>
+
+        <!-- OK DIALOG -->
+        <div *ngIf="message?.type == 'ok'" class="modal-content">
+          <div class="modal-body">
+            <p class="text-center confirm-message">{{message.text}}</p>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="message.onOkClick()">OK</button>
+          </div>
+        </div>
+
+        <!-- ERROR DIALOG -->
+        <div *ngIf="message?.type == 'error'" class="modal-content">
+          <div class="modal-body">
+            <p class="text-center confirm-message">{{message.text}}</p>  
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" (click)="message.onOkClick()">OK</button>
+          </div>
+        </div>
+
+    </div>
+</div>

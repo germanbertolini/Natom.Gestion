@@ -1,0 +1,82 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Cta. Cte. Proveedor</h3>
+    </div>
+    <div class="col-md-8">
+      <div class="row" style="padding:0">
+        <div class="col-md-3">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Monto</span>
+            </div>
+            <input type="text" class="form-control monto" value="{{ monto | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Disponible</span>
+            </div>
+            <input type="text" class="form-control monto" value="{{ disponible | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Deudor</span>
+            </div>
+            <input type="text" class="form-control monto" value="{{ monto - disponible | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Ver fecha</span>
+            </div>
+            <input class="form-control"
+                placeholder="- todas -"
+                name="dp"
+                [(ngModel)]="filtroFecha"
+                (ngModelChange)="onFiltroFechaChange($event)"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                restoreFocus="false"
+                (click)="d.toggle(); $event.stopPropagation()"
+                (document:click)="decideClosure($event, d)"
+                readonly>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-sm btn-success right" (click)="onNuevoClick()">[+] Nuevo</button>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <table datatable [dtOptions]="dtIndex" class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+          <tr>
+            <th>Fecha / Hora</th>
+            <th>Usuario</th>
+            <th>Tipo</th>
+            <th>Importe</th>
+            <th>Observaciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movimiento of Movimientos">
+            <td>{{ movimiento.fechaHora  |  date:'dd/MM/yyyy HH:mm' }} hs</td>
+            <td>{{ movimiento.usuarioNombre }}</td>
+            <td>{{ movimiento.tipo }}</td>
+            <td class="monto" *ngIf="movimiento.tipo !== 'Egreso'">{{ movimiento.importe | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+            <td class="monto debito" *ngIf="movimiento.tipo === 'Egreso'">( - {{ movimiento.importe | currency:'ARS':'symbol':'1.2-2':'es-AR' }}  )</td>
+            <td>{{ movimiento.observaciones }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

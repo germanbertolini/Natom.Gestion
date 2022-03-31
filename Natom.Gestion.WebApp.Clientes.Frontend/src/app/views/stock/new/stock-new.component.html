@@ -1,0 +1,185 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Nuevo Ingreso / Egreso de Mercadería</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <br>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Producto</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
+          <input
+            id="productoSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="productoFilterText"
+            placeholder="Buscar por código o palabra clave..." />
+          <ul class="input-autocomplete-options">
+            <li
+              class="no-results"
+              *ngIf="productosSearch !== undefined && productosSearch.length === 0"
+              >
+                <small>SIN RESULTADOS</small>
+            </li>
+            <li
+              *ngFor="let producto of productosSearch; let i = index"
+              (click)="onProductoSearchSelectItem(producto)"
+              >
+                <small>({{ producto.codigo }}) {{ producto.marca }} {{ producto.descripcion }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Depósito</label>
+        <select size="1"
+          class="form-control"
+          [(ngModel)]="crud.model.deposito_encrypted_id"
+          (ngModelChange)="consultarStock()"
+          #cboDeposito>
+          <option value="" disabled selected>Seleccione...</option>
+          <option *ngFor="let deposito of Depositos" value="{{ deposito.encrypted_id }}">{{ deposito.descripcion }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Stock actual</label>
+        <input type="text"
+            class="form-control"
+            readonly
+            [(ngModel)]="stockActual" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3 offset-md-5">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Tipo</label>
+        <select size="1"
+          class="form-control"
+          [(ngModel)]="crud.model.tipo"
+          #tipoMovimiento>
+          <option value="" disabled selected>Seleccione...</option>
+          <option value="I">Ingreso</option>
+          <option value="E">Egreso</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Cantidad</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span *ngIf="tipoMovimiento.value === 'I'" class="input-group-text ingreso" id="basic-addon1"><i class="fa fa-plus" aria-hidden="true"></i></span>
+            <span *ngIf="tipoMovimiento.value === 'E'" class="input-group-text egreso" id="basic-addon1"><i class="fa fa-minus" aria-hidden="true"></i></span>
+          </div>
+          <input type="number"
+            class="form-control"
+            placeholder="0,00"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+            [(ngModel)]="crud.model.cantidad" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Efectuado por</label>
+        <input type="text"
+            class="form-control"
+            placeholder="Efectuado por"
+            [(ngModel)]="crud.model.usuarioNombre"
+            readonly
+             />
+      </div>
+    </div>
+  </div>
+  <!-- <br/>
+  <div class="row">
+    <div class="col-md-12" style="margin-bottom:15px;">
+      <div class="material-switch pull-left" style="margin-top: 2px;">
+        <input
+          id="switchEsCompra"
+          type="checkbox"
+          [(ngModel)]="crud.model.esCompra"
+          />
+        <label for="switchEsCompra" class="switch-danger"></label>
+      </div>
+      &nbsp;&nbsp;&nbsp;<b>ES COMPRA</b>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Proveedor</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
+          <input
+            id="proveedorSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="proveedor_search"
+            placeholder="Buscar por CUIT o Razón social..." />
+          <ul class="input-autocomplete-options">
+            <li
+              class="no-results"
+              *ngIf="proveedoresSearch !== undefined && proveedoresSearch.length === 0"
+              >
+                <small>SIN RESULTADOS</small>
+            </li>
+            <li
+              *ngFor="let proveedor of proveedoresSearch; let i = index"
+              (click)="onProveedorSearchSelectItem(proveedor)"
+              >
+                <small *ngIf="proveedor.esEmpresa">{{ proveedor.tipoDocumento }} {{ proveedor.numeroDocumento }} /// {{ proveedor.razonSocial }}</small>
+                <small *ngIf="!proveedor.esEmpresa">{{ proveedor.tipoDocumento }} {{ proveedor.numeroDocumento }} /// {{ proveedor.nombre }} {{ proveedor.apellido }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Costo unitario</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number"
+            class="form-control"
+            placeholder="0,00"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+            [(ngModel)]="crud.model.costoUnitario" />
+        </div>
+      </div>
+    </div>
+  </div> -->
+  <br/>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Observaciones del movimiento</label>
+        <textarea type="text"
+            class="form-control"
+            placeholder="Observaciones"
+            maxlength="200"
+            [(ngModel)]="crud.model.observaciones">
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using Natom.Gestion.Core.Biz.Managers;
+using Natom.Gestion.WebApp.Admin.Backend.Biz.Managers;
 using Natom.Extensions.Auth.Entities;
 using Natom.Extensions.Configuration.Services;
 using Natom.Extensions.Logger.Entities;

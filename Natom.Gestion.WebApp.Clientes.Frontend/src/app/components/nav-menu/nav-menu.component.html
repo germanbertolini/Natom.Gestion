@@ -1,0 +1,160 @@
+<header>
+  <nav
+    class="navbar navbar-expand-lg navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3"
+  >
+    <div class="container-fluid">
+      <a class="navbar-brand" [routerLink]="['/']">
+        <img src="assets/img/logo.png" />
+      </a>
+      <button
+        class="navbar-toggler-button"
+        type="button"
+        data-toggle="collapse"
+        data-target=".navbar-collapse"
+        aria-label="Toggle navigation"
+        [attr.aria-expanded]="isExpanded"
+        (click)="toggleMenu()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <!-- <li class="nav-item nav-item-now">
+            <a class="nav-link" [routerLink]="['/']"><b>Ahora</b></a>
+          </li> -->
+
+          <li *ngIf="authService.can('transportes_crud') || authService.can('zonas_crud') || authService.can('abm_marcas') || authService.can('abm_usuarios') || authService.can('proveedores_ver') || authService.can('proveedores_crud')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              ABM
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a readonly *ngIf="authService.can('abm_marcas')" class="dropdown-item" [routerLink]="['/marcas']">Marcas</a>
+              <a *ngIf="authService.can('abm_marcas')" class="dropdown-item" [routerLink]="['/marcas/new']">[+] Nueva Marca</a>
+              <div *ngIf="authService.can('transportes_crud')" class="dropdown-divider"></div>
+              <a readonly *ngIf="authService.can('transportes_crud')" class="dropdown-item" [routerLink]="['/transportes']">Transportes</a>
+              <a *ngIf="authService.can('transportes_crud')" class="dropdown-item" [routerLink]="['/transportes/new']">[+] Nuevo Transporte</a>
+              <div *ngIf="authService.can('zonas_crud')" class="dropdown-divider"></div>
+              <a readonly *ngIf="authService.can('zonas_crud')" class="dropdown-item" [routerLink]="['/zonas']">Zonas</a>
+              <a *ngIf="authService.can('zonas_crud')" class="dropdown-item" [routerLink]="['/zonas/new']">[+] Nueva Zona</a>
+              <div *ngIf="authService.can('proveedores_ver')" class="dropdown-divider"></div>
+              <a *ngIf="authService.can('proveedores_ver')" class="dropdown-item" [routerLink]="['/proveedores']">Proveedores</a>
+              <a *ngIf="authService.can('proveedores_crud')" class="dropdown-item" [routerLink]="['/proveedores/new']">[+] Nuevo Proveedor</a>
+              <div *ngIf="authService.can('abm_usuarios')" class="dropdown-divider"></div>
+              <a *ngIf="authService.can('abm_usuarios')" class="dropdown-item" [routerLink]="['/users']">Usuarios</a>
+              <a *ngIf="authService.can('abm_usuarios')" class="dropdown-item" [routerLink]="['/users/new']">[+] Nuevo Usuario</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('caja_diaria_ver') || authService.can('caja_fuerte_ver')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Caja
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('caja_diaria_ver')" class="dropdown-item" [routerLink]="['/cajas/diaria']">Ver caja diaria</a>
+              <a *ngIf="authService.can('caja_diaria_nuevo_movimiento')" class="dropdown-item" [routerLink]="['/cajas/diaria/new']">[+] Nuevo movimiento</a>
+              <div class="dropdown-divider"></div>
+              <a *ngIf="authService.can('caja_fuerte_ver')" class="dropdown-item" [routerLink]="['/cajas/fuerte']">Ver tesoreria</a>
+              <a *ngIf="authService.can('caja_fuerte_nuevo_movimiento')" class="dropdown-item" [routerLink]="['/cajas/fuerte/new']">[+] Nuevo movimiento</a>
+              <div class="dropdown-divider"></div>
+              <a *ngIf="authService.can('caja_transferencia')" class="dropdown-item" [routerLink]="['/cajas/transferencia']">[+] Transferencia entre cajas</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('clientes_ver')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Clientes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('clientes_ver')" class="dropdown-item" [routerLink]="['/clientes']">Ver clientes</a>
+              <a *ngIf="authService.can('clientes_crud')" class="dropdown-item" [routerLink]="['/clientes/new']">[+] Nuevo cliente</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('productos_ver') || authService.can('precios_ver')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Productos
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('productos_ver')" class="dropdown-item" [routerLink]="['/productos']">Productos</a>
+              <a *ngIf="authService.can('productos_crud')" class="dropdown-item" [routerLink]="['/productos/new']">[+] Nuevo Producto</a>
+              <div class="dropdown-divider"></div>
+              <a *ngIf="authService.can('precios_ver')" class="dropdown-item" [routerLink]="['/precios']">Precios</a>
+              <a *ngIf="authService.can('precios_crud')" class="dropdown-item" [routerLink]="['/precios/new']">[+] Nuevo Precio</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('stock_ver')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Stock
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('stock_ver')" class="dropdown-item" [routerLink]="['/stock']">Ver movimientos</a>
+              <a *ngIf="authService.can('stock_nuevo_movimiento')" class="dropdown-item" [routerLink]="['/stock/new']">[+] Nuevo Ingreso / Egreso</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('pedidos_ver')
+                      || authService.can('ventas_ver')
+                      || authService.can('pedidos_deposito')
+                      || authService.can('pedidos_anular')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pedidos y Ventas
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('pedidos_ver') || authService.can('pedidos_deposito')" class="dropdown-item" [routerLink]="['/pedidos']">Ver ordenes de pedido</a>
+              <a *ngIf="authService.can('pedidos_nuevo')" class="dropdown-item" [routerLink]="['/pedidos/new']">[+] Nueva orden de pedido</a>
+              <div class="dropdown-divider"></div>
+              <a *ngIf="authService.can('ventas_ver')" class="dropdown-item" [routerLink]="['/ventas']">Ver facturación</a>
+              <a *ngIf="authService.can('ventas_nuevo')" class="dropdown-item" [routerLink]="['/ventas/new']">[+] Nueva facturación</a>
+            </div>
+          </li>
+
+          <li *ngIf="authService.can('REPORTES_LISTADO_VENTAS_POR_PRODUCTO')
+                      || authService.can('REPORTES_LISTADO_CLIENTES_QUE_NO_COMPRAN')
+                      || authService.can('REPORTES_ESTADISTICA_KILOS_COMPRADOS_POR_PROVEEDOR')
+                      || authService.can('REPORTES_ESTADISTICA_VENTAS_REPARTO_MOSTRADOR')
+                      || authService.can('REPORTES_ESTADISTICA_VENTAS_POR_LISTA_DE_PRECIOS')
+                      || authService.can('REPORTES_COMPRAS')
+                      || authService.can('REPORTES_GANANCIAS')" class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Reportes
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('REPORTES_LISTADO_VENTAS_POR_PRODUCTO')" class="dropdown-item" [routerLink]="['/reportes/listados/ventas-por-producto-vendedor']">Listado de ventas por producto y/o proveedor</a>
+              <a *ngIf="authService.can('REPORTES_LISTADO_CLIENTES_QUE_NO_COMPRAN')" class="dropdown-item" [routerLink]="['/reportes/listados/clientes-que-no-compran-desde-fecha']">Listado de clientes que no compran desde una cierta fecha</a>
+              <a *ngIf="authService.can('REPORTES_ESTADISTICA_KILOS_COMPRADOS_POR_PROVEEDOR')" class="dropdown-item" [routerLink]="['/reportes/estadistica/kilos-comprados-por-cada-proveedor']">Estadística de kilos comprados por proveedor</a>
+              <a *ngIf="authService.can('REPORTES_ESTADISTICA_VENTAS_REPARTO_MOSTRADOR')" class="dropdown-item" [routerLink]="['/reportes/estadistica/ventas-reparto-vs-mostrador']">Estadística de cuánto vendió reparto vs mostrador</a>
+              <a *ngIf="authService.can('REPORTES_ESTADISTICA_VENTAS_POR_LISTA_DE_PRECIOS')" class="dropdown-item" [routerLink]="['/reportes/estadistica/total-ventas-por-lista-de-precios']">Estadística de cuánto se vendió por cada lista de precios</a>
+              <a *ngIf="authService.can('REPORTES_COMPRAS')" class="dropdown-item" [routerLink]="['/reportes/estadistica/compras']">Estadística de compras</a>
+              <a *ngIf="authService.can('REPORTES_GANANCIAS')" class="dropdown-item" [routerLink]="['/reportes/estadistica/ganancias']">Estadística de ganancias</a>
+            </div>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Usuario
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+
+      <!-- <div
+        class="navbar-collapse collapse d-sm-inline-flex justify-content-end">
+        <ul class="navbar-nav flex-grow">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Usuario
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
+            </div>
+          </li>
+        </ul>
+      </div> -->
+    </div>
+  </nav>
+</header>

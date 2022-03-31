@@ -1,0 +1,109 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Listado de ventas por producto y/o proveedor</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <br>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Producto</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
+          <input
+            id="productoSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="productoFilterText"
+            placeholder="- TODOS -   (Buscar por código o palabra clave...)" />
+          <ul class="input-autocomplete-options">
+            <li
+              class="no-results"
+              *ngIf="productosSearch !== undefined && productosSearch.length === 0"
+              >
+                <small>SIN RESULTADOS</small>
+            </li>
+            <li
+              *ngFor="let producto of productosSearch; let i = index"
+              (click)="onProductoSearchSelectItem(producto)"
+              >
+                <small>({{ producto.codigo }}) {{ producto.marca }} {{ producto.descripcion }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Proveedor</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1"><i class="fa fa-search" aria-hidden="true"></i></span>
+          </div>
+          <input
+            id="proveedorSearch"
+            type="text"
+            class="form-control"
+            [(ngModel)]="proveedor_search"
+            placeholder="- TODOS -   (Buscar por CUIT o Razón social...)" />
+          <ul class="input-autocomplete-options">
+            <li
+              class="no-results"
+              *ngIf="proveedoresSearch !== undefined && proveedoresSearch.length === 0"
+              >
+                <small>SIN RESULTADOS</small>
+            </li>
+            <li
+              *ngFor="let proveedor of proveedoresSearch; let i = index"
+              (click)="onProveedorSearchSelectItem(proveedor)"
+              >
+                <small *ngIf="proveedor.esEmpresa">{{ proveedor.tipoDocumento }} {{ proveedor.numeroDocumento }} /// {{ proveedor.razonSocial }}</small>
+                <small *ngIf="!proveedor.esEmpresa">{{ proveedor.tipoDocumento }} {{ proveedor.numeroDocumento }} /// {{ proveedor.nombre }} {{ proveedor.apellido }}</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Desde</label>
+        <input class="form-control"
+          placeholder="Seleccione..."
+          name="dp"
+          [(ngModel)]="filtroFechaDesdeText"
+          (ngModelChange)="onFechaDesdeChange($event)"
+          ngbDatepicker
+          #desde="ngbDatepicker"
+          restoreFocus="false"
+          (click)="desde.toggle(); $event.stopPropagation()"
+          (document:click)="decideClosure($event, desde)"
+          readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Hasta</label>
+        <input class="form-control"
+          placeholder="Seleccione..."
+          name="dp"
+          [(ngModel)]="filtroFechaHastaText"
+          (ngModelChange)="onFechaHastaChange($event)"
+          ngbDatepicker
+          #hasta="ngbDatepicker"
+          restoreFocus="false"
+          (click)="hasta.toggle(); $event.stopPropagation()"
+          (document:click)="decideClosure($event, hasta)"
+          readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success" (click)="onConsultar()" style="margin-top:32px;"><i class="fa fa-search"></i>&nbsp;&nbsp;Consultar</button>
+    </div>
+  </div>
+</div>

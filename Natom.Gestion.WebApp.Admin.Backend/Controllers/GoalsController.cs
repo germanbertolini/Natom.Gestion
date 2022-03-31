@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Natom.Extensions.Common.Exceptions;
-using Natom.Gestion.Core.Biz.Entities.Models;
-using Natom.Gestion.Core.Biz.Managers;
+using Natom.Gestion.WebApp.Admin.Backend.Biz.Entities.Models;
+using Natom.Gestion.WebApp.Admin.Backend.Biz.Managers;
 using Natom.Extensions.Auth.Attributes;
 using Natom.Gestion.WebApp.Admin.Backend.Controllers;
 using Natom.Gestion.WebApp.Admin.Backend.DTO;

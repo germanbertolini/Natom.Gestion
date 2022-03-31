@@ -1,4 +1,4 @@
-﻿using Natom.Gestion.Core.Biz.Entities.Models;
+﻿using Natom.Gestion.WebApp.Admin.Backend.Biz.Entities.Models;
 using Natom.Gestion.WebApp.Admin.Backend.Services;
 using Newtonsoft.Json;
 using System;

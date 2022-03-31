@@ -1,0 +1,55 @@
+<div class="container-fluid" id="device-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Mi perfil</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="photo-border">
+        <div class="photo"
+        [ngStyle]="{backgroundImage: 'url(' + crud.model.picture_url + ')'}"></div>
+      </div>
+    </div>
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Yo</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre y Apellido"
+          readonly="readonly"
+          value="{{ crud.model.first_name }} {{ crud.model.last_name }}" />
+      </div>
+    </div>
+    <div class="col-md-4 offset-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Email"
+          readonly="readonly"
+          [(ngModel)]="crud.model.email" />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Registrado desde</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Registrado desde"
+          readonly="readonly"
+          value="{{ crud.model.registered_at  |  date:'MM/dd/yyyy' }}" />
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Volver"><i class="fa fa-times"></i></button>
+      <button class="btn btn-warning btn-circular right" (click)="onChangePasswordClick()" data-toggle="tooltip" data-placement="left" title="Cambiar clave"><i class="fa fa-key"></i></button>
+    </div>
+  </div>
+</div>

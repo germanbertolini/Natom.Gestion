@@ -1,0 +1,16 @@
+﻿{
+  "acceso": {
+    "restringir_por_horario": true,
+    "rango_horario_permitido_desde": 6,
+    "rango_horario_permitido_hasta": 21
+  },
+  "clientes": {
+    "validar_solo_domicilio": false
+  },
+  "stock": {
+    "permitir_venta_con_stock_negativo": false
+  },
+  "pedidos": {
+    "fecha_y_hora_entrega_obligatorio": false
+  }
+}

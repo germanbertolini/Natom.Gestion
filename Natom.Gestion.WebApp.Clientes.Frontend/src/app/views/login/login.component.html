@@ -1,0 +1,42 @@
+<div class="background"></div>
+
+<div class="container login-container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 login-form">
+        <div class="profile-img">
+          <img src="https://electronicssoftware.net/wp-content/uploads/user.png" alt="profile_img" height="140px" width="140px;">
+        </div>
+        <h3>Identificarse</h3>
+        <form>
+          <div class="form-group">
+            <input
+                type="text"
+                class="form-control"
+                name="email"
+                placeholder="ejemplo"
+                [(ngModel)]="email"
+                (keyup.enter)="passwordField.focus()"
+                autofocus
+                required>
+          </div>
+          <div class="form-group">
+            <input
+                type="password"
+                class="form-control"
+                name="password"
+                #passwordField
+                placeholder="Clave"
+                [(ngModel)]="password"
+                (keyup.enter)="onLoginClick()"
+                required>
+          </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="onLoginClick()">Acceder</button>
+          </div>
+          <div class="form-group forget-password">
+              <a (click)="onRecoverPasswordClick()">¿Olvidó la clave?</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>

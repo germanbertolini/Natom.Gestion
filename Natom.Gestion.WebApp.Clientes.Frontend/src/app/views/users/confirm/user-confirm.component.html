@@ -1,0 +1,77 @@
+<div class="container-fluid" id="user-crud">
+  <br/><br/><br/>
+  <div class="row">
+    <div class="col-md-12">
+      <img src="assets/img/logo.png" style="margin: auto; display: block;" height="150" />
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <h3 style="text-align: center;">Establecer nueva contraseña</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-envelope"></i>
+            </span>
+          </div>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="email"
+            readonly
+            />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Clave</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            [(ngModel)]="clave"
+            />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Repetir clave</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">
+              <i class="fa fa-key"></i>
+            </span>
+          </div>
+          <input
+            type="password"
+            class="form-control"
+            [(ngModel)]="clave2"
+            />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4 offset-md-4">
+      <button class="btn btn-success right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i>&nbsp;&nbsp;&nbsp;CONFIRMAR</button>
+    </div>
+  </div>
+</div>

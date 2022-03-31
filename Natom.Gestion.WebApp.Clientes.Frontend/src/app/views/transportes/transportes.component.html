@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Transportes</h3>
+    </div>
+    <div class="col-md-4">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Ver</span>
+        </div>
+        <select class="form-control" size="1" #filtroEstado (change)="onFiltroEstadoChange(filtroEstado.value)">
+          <option value="TODOS">Todos</option>
+          <option value="ACTIVOS" selected>Solo vigentes</option>
+          <option value="INACTIVOS">Solo dados de baja</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-sm btn-success right" [routerLink]="['/transportes/new']">[+] Nuevo</button>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <table datatable [dtOptions]="dtIndex" class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+          <tr>
+            <th>Transporte</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let transporte of Transportes">
+            <td>{{ transporte.descripcion }}</td>
+            <td>
+              <a class="btn btn-primary btn-sm edit-smt-btn" (click)="onEditClick(transporte.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit" aria-hidden="true"></i></a>
+              <a *ngIf="transporte.activo" class="btn btn-danger btn-sm disable-smt-btn spacingLeft" (click)="onDisableClick(transporte.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Dar de baja"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a *ngIf="!transporte.activo" class="btn btn-success btn-sm enable-smt-btn spacingLeft" (click)="onEnableClick(transporte.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Dar de alta"><i class="fa fa-check" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

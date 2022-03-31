@@ -1,0 +1,11 @@
+tr.pending {
+    background-color:#feef87 !important;
+}
+tr.prepared {
+    background-color:#95fe87 !important;
+}
+
+::ng-deep .modalConfirmarPedido .modal-dialog {
+    max-width: 920px !important;
+    width: 920px !important;
+}

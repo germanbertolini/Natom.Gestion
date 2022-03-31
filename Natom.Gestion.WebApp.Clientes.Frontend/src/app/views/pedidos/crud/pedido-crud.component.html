@@ -1,0 +1,468 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>{{ crud.mode }} pedido</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row cabecera">
+    <div class="col-md-2 offset-md-5">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Fecha</span>
+        </div>
+        <input
+            type="text"
+            class="form-control"
+            style="text-align:right;"
+            value="{{ crud.model.fechaHora  |  date:'dd/MM/yyyy' }}"
+            readonly>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Usuario</span>
+        </div>
+        <input
+            type="text"
+            class="form-control"
+            style="text-align:right;"
+            value="{{ crud.model.usuario }}"
+            readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text"># Pedido</span>
+        </div>
+        <input
+            type="text"
+            class="form-control"
+            style="text-align:right;"
+            value="{{ crud.model.numero }}"
+            readonly>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-general-tab" data-toggle="tab" href="#nav-general" role="tab" aria-controls="nav-home" aria-selected="true">General</a>
+      <a class="nav-item nav-link" id="nav-detalle-tab" (click)="onDetalleTabClick()" data-toggle="tab" href="#nav-detalle" role="tab" aria-controls="nav-detalle" aria-selected="false">Detalle</a>
+      <a class="nav-item nav-link" id="nav-entrega-tab" data-toggle="tab" href="#nav-entrega" role="tab" aria-controls="nav-entrega" aria-selected="false">Entrega</a>
+    </div>
+  </nav>
+
+  <div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-general" role="tabpanel" aria-labelledby="nav-general-tab">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Cliente</span>
+            </div>
+            <input
+              id="clienteSearch"
+              type="text"
+              class="form-control"
+              [(ngModel)]="general_cliente"
+              placeholder="Buscar por CUIT, Razón social o Domicilio..." />
+            <ul class="input-autocomplete-options">
+              <li
+                class="no-results"
+                *ngIf="clientesSearch !== undefined && clientesSearch.length === 0"
+                >
+                  <small>SIN RESULTADOS</small>
+              </li>
+              <li
+                *ngFor="let cliente of clientesSearch; let i = index"
+                (click)="onClienteSearchSelectItem(cliente)"
+                >
+                  <small *ngIf="cliente.esEmpresa">{{ cliente.tipoDocumento }} {{ cliente.numeroDocumento }} /// {{ cliente.razonSocial }} /// {{ cliente.domicilio }}, {{ cliente.localidad }}</small>
+                  <small *ngIf="!cliente.esEmpresa">{{ cliente.tipoDocumento }} {{ cliente.numeroDocumento }} /// {{ cliente.nombre }} {{ cliente.apellido }} /// {{ cliente.domicilio }}, {{ cliente.localidad }}</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">N° de Remito</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="crud.model.numero_remito"
+              placeholder="XXXX-XXXXXXXX (opcional)" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          
+        </div>
+        <div class="col-md-5">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Medio de pago</span>
+            </div>
+            <select
+              [(ngModel)]="crud.model.medio_de_pago"
+              class="form-control">
+              <option value="" selected>Seleccione... (opcional - solo informativo)</option>
+              <option value="Efectivo">Efectivo</option>
+              <option value="Cheque">Cheque</option>
+              <option value="Mercado Pago">Mercado Pago</option>
+              <option value="Tarjeta">Tarjeta</option>
+              <option value="Transferencia">Transferencia</option>
+              <option value="Cuenta Corriente">Cuenta Corriente</option>
+            </select>
+            <!-- <input
+              type="text"
+              class="form-control"
+              [(ngModel)]="crud.model.pago_referencia"
+              maxlength="50"
+              placeholder="(opcional)" /> -->
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Monto Cta. Cte.</span>
+            </div>
+            <input *ngIf="cliente_cta_cte !== null" type="text" class="form-control" value="{{ cliente_cta_cte.monto | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+            <input *ngIf="cliente_cta_cte === null" type="text" class="form-control" value="- SIN CUENTA -" readonly />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Saldo Deudor</span>
+            </div>
+            <input *ngIf="cliente_cta_cte !== null" type="text" class="form-control" value="{{ cliente_cta_cte.deudor | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+            <input *ngIf="cliente_cta_cte === null" type="text" class="form-control" value="- SIN CUENTA -" readonly />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Saldo disponible</span>
+            </div>
+            <input *ngIf="cliente_cta_cte !== null" type="text" class="form-control" value="{{ cliente_cta_cte.disponible | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly />
+            <input *ngIf="cliente_cta_cte === null" type="text" class="form-control" value="- SIN CUENTA -" readonly />
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Observaciones</label>
+            <textarea
+              class="form-control"
+              style="resize: none; height:100px;"
+              maxlength="200"
+              [(ngModel)]="crud.model.observaciones"
+              placeholder="¿Alguna aclaración?"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-detalle" role="tabpanel" aria-labelledby="nav-detalle-tab">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Lista de precios</span>
+            </div>
+            <select
+                  class="form-control"
+                  size="1"
+                  [(ngModel)]="detalle_listaDePrecios_encrypted_id"
+                  (ngModelChange)="consultarPrecio()">
+              <option value="">Seleccione...</option>
+              <option value="-1">NO APLICA (A definir en la Venta)</option>
+              <option *ngFor="let lista of listasDePrecios" value="{{ lista.encrypted_id }}">{{ lista.descripcion }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Producto</span>
+            </div>
+            <input
+              id="productoSearch"
+              type="text"
+              class="form-control"
+              [(ngModel)]="detalle_producto"
+              placeholder="Buscar por código o palabra clave..." />
+            <ul class="input-autocomplete-options">
+              <li
+                class="no-results"
+                *ngIf="productosSearch !== undefined && productosSearch.length === 0"
+                >
+                  <small>SIN RESULTADOS</small>
+              </li>
+              <li
+                *ngFor="let producto of productosSearch; let i = index"
+                (click)="onProductoSearchSelectItem(producto)"
+                >
+                  <small>({{ producto.codigo }}) {{ producto.marca }} {{ producto.descripcion }}</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+        
+        <div class="col-md-2">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Precio</span>
+            </div>
+            <input type="text"
+                class="form-control"
+                readonly
+                value="{{ detalle_precio | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-2">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Depósito</span>
+            </div>
+            <select size="1"
+              class="form-control"
+              [(ngModel)]="detalle_deposito_encrypted_id"
+              (ngModelChange)="consultarStock()"
+              #cboDeposito>
+              <option value="" disabled selected>Seleccione...</option>
+              <option *ngFor="let deposito of depositos" value="{{ deposito.encrypted_id }}">{{ deposito.descripcion }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Stock actual</span>
+            </div>
+            <input type="text"
+                class="form-control"
+                readonly
+                [(ngModel)]="detalle_stock_actual" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Cantidad</span>
+            </div>
+            <input type="number"
+                class="form-control"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57)"
+                [(ngModel)]="detalle_cantidad" />
+          </div>
+        </div>
+        <div class="col-md-2">
+          <button class="btn btn-sm btn-success" (click)="onAgregarDetalleClick()">[+] Agregar</button>
+        </div>
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-md-12">
+          <table datatable [dtOptions]="dtDetalle" class="table table-striped table-bordered dt-responsive nowrap">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Depósito</th>
+                <th>Cantidad</th>
+                <th>Peso total</th>
+                <th>Lista de precios</th>
+                <th>Precio unitario</th>
+                <th>Monto total</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let detalle of crud.model.detalle; let i = index">
+                <td>{{ detalle.producto_descripcion }}</td>
+                <td>{{ detalle.deposito_descripcion }}</td>
+                <td>{{ detalle.cantidad }}</td>
+                <td>{{ ((detalle.producto_peso_gramos * detalle.cantidad) / 1000).toFixed(2).replace('.', ',') }} KG</td>
+                <td>{{ detalle.precio_descripcion }}</td>
+                <td>{{ detalle.precio | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+                <td>{{ detalle.precio * detalle.cantidad | currency:'ARS':'symbol':'1.2-2':'es-AR' }}</td>
+                <td>
+                  <a class="btn btn-danger btn-sm disable-smt-btn spacingLeft" (click)="onQuitarDetalleClick(i)" data-toggle="tooltip" data-placement="top" title="Quitar"><i class="fa fa-times" aria-hidden="true"></i></a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-pane fade" id="nav-entrega" role="tabpanel" aria-labelledby="nav-entrega-tab">
+      <div class="row">
+        <div class="col-md-3" style="margin:20px;">
+          <div class="material-switch pull-left" style="margin-top: 2px;"><!-- <div class="material-switch pull-right"> -->
+              <input
+                id="switchRetiraPersonalmente"
+                type="checkbox"
+                [(ngModel)]="crud.model.retira_personalmente"
+                />
+              <label for="switchRetiraPersonalmente" class="switch-danger"></label>
+          </div>
+          &nbsp;&nbsp;&nbsp;<b>RETIRA PERSONALMENTE</b>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Fecha estimada de entrega</span>
+            </div>
+            <input class="form-control"
+              placeholder="Click para seleccionar..."
+              name="dp"
+              [(ngModel)]="entrega_fecha_estimada"
+              (ngModelChange)="onFechaEntregaEstimadaChange($event)"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              restoreFocus="false"
+              (click)="d.toggle(); $event.stopPropagation()"
+              (document:click)="decideClosure($event, d)"
+              readonly>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Rango horario de entrega</span>
+            </div>
+            <select
+                  class="form-control"
+                  size="1"
+                  [(ngModel)]="crud.model.entrega_estimada_rango_horario_encrypted_id">
+              <option value="">Seleccione...</option>
+              <option *ngFor="let rango of rangosHorarios" value="{{ rango.encrypted_id }}">{{ rango.descripcion }}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Domicilio</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              maxlength="50"
+              [(ngModel)]="crud.model.entrega_domicilio"
+              placeholder="Domicilio de entrega" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Entre calles</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              maxlength="50"
+              [(ngModel)]="crud.model.entrega_entre_calles"
+              placeholder="Entre calles de entrega" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Localidad</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              maxlength="50"
+              [(ngModel)]="crud.model.entrega_localidad"
+              placeholder="Localidad de entrega" />
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Teléfono 1</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              maxlength="30"
+              [(ngModel)]="crud.model.entrega_telefono1"
+              placeholder="Teléfono 1 de contacto por entrega" />
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Teléfono 2</span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              maxlength="30"
+              [(ngModel)]="crud.model.entrega_telefono2"
+              placeholder="Teléfono 2 de contacto por entrega" />
+          </div>
+        </div>
+      </div>
+      <br/>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Observaciones</label>
+            <textarea
+              class="form-control"
+              style="resize: none; height:100px;"
+              maxlength="200"
+              [(ngModel)]="crud.model.entrega_observaciones"
+              placeholder="¿Alguna aclaración sobre la entrega?"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="form-group col-md-2 offset-md-4">
+      <label for="exampleInputEmail1">Monto total</label>
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control" value="{{ totalizador_monto | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly>
+      </div>
+    </div>
+    <div class="form-group col-md-2">
+      <label for="exampleInputEmail1">Peso total</label>
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control" value="{{ (totalizador_peso_gramos / 1000).toFixed(2).replace('.', ',') }}" readonly>
+        <div class="input-group-prepend">
+          <span class="input-group-text">KG</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,152 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{ crud.mode }} producto</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Marca</label>
+          <div class="input-group">
+            <select
+              size="1"
+              class="form-control"
+              [(ngModel)]="crud.model.marca_encrypted_id">
+
+                <option value="" disabled selected>Seleccione...</option>
+                <option *ngFor="let marca of marcas; let i = index" value="{{ marca.encrypted_id }}">{{ marca.descripcion }}</option>
+            </select>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+        <div class="form-group">
+            <label for="formGroupExampleInput">Codigo</label>
+            <div class="input-group">
+            <input
+                type="text"
+                class="form-control"
+                maxlength="15"
+                placeholder="Codigo (opcional)"
+                required
+                [(ngModel)]="crud.model.codigo" />
+            </div>
+        </div>
+    </div>
+    <div class="col-md-7">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Descripción corta (50 caracteres)</label>
+          <div class="input-group">
+          <input
+              type="text"
+              class="form-control"
+              placeholder="Descripción corta"
+              maxlength="50"
+              required
+              [(ngModel)]="crud.model.descripcionCorta" />
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Descripción larga (200 caracteres) [opcional]</label>
+          <div class="input-group">
+          <textarea
+              class="form-control"
+              placeholder="Descripción larga"
+              maxlength="200"
+              style="resize: none; height:150px;"
+              [(ngModel)]="crud.model.descripcionLarga"></textarea>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <br/><br/>
+
+  <div class="row">
+    <div class="col-md-3" style="margin-top:40px;">
+      <div class="material-switch pull-left" style="margin-top: 2px;"><!-- <div class="material-switch pull-right"> -->
+          <input
+            id="switchMueveStock"
+            type="checkbox"
+            [(ngModel)]="crud.model.mueveStock"
+            />
+          <label for="switchMueveStock" class="switch-danger"></label>
+      </div>
+      &nbsp;&nbsp;&nbsp;<b>MUEVE STOCK</b>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Categoría</label>
+          <div class="input-group">
+            <select
+              size="1"
+              class="form-control"
+              [(ngModel)]="crud.model.categoria_encrypted_id">
+
+                <option value="" disabled selected>Seleccione...</option>
+                <option *ngFor="let categoria of categorias; let i = index" value="{{ categoria.encrypted_id }}">{{ categoria.descripcion }}</option>
+            </select>
+          </div>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Peso unitario</label>
+          <div class="input-group">
+          <input
+              type="number"
+              class="form-control"
+              placeholder="0,00"
+              onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+              required
+              [(ngModel)]="crud.model.pesoUnitario" />
+          </div>
+      </div>
+    </div>
+    
+    <div class="col-md-2">
+      <div class="form-group">
+          <label for="formGroupExampleInput">Unidad de medida</label>
+          <div class="input-group">
+            <select
+              size="1"
+              class="form-control"
+              [(ngModel)]="crud.model.unidadPeso_encrypted_id">
+                <option value="" disabled selected>Seleccione...</option>
+                <option *ngFor="let unidad of unidades; let i = index" value="{{ unidad.encrypted_id }}">{{ unidad.descripcion }}</option>
+            </select>
+          </div>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Costo unitario</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number"
+            class="form-control"
+            placeholder="- Sin especificar -"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+            [(ngModel)]="crud.model.costo_unitario" />
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

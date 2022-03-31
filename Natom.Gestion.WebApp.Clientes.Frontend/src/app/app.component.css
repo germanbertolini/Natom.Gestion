@@ -1,0 +1,13 @@
+ng-sidebar-container {
+    height:calc(100vh - 58px);
+}
+
+::ng-deep .ng-sidebar {
+    background-color:#212324 !important;
+    color:var(--color-01-light);
+    width:370px;
+    padding:0 !important;
+    box-shadow: 0 0 2.5em rgba(85, 85, 85, 0.5);
+    box-shadow: inset #111 -2rem -2rem 5rem;
+    z-index: 10 !important;
+}

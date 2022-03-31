@@ -1,0 +1,38 @@
+textarea {
+    resize:none;
+    height:100px;
+}
+
+.egreso {
+    color:rgb(209, 12, 12);
+}
+
+.ingreso {
+    color:rgb(6, 109, 12);
+}
+
+/* AUTOCOMPLETE */
+ul.input-autocomplete-options {
+    position: absolute;
+    margin-top: 38px;
+    list-style-type: none;
+    min-width: 300px;
+    z-index:99999;
+}
+
+ul.input-autocomplete-options li {
+    border: #c1c5c8 1px solid;
+    padding: 7px 15px;
+    background-color: #e9ecef;
+}
+
+ul.input-autocomplete-options li.no-results {
+    color:brown;
+    text-align: center;
+    cursor: default;
+}
+
+ul.input-autocomplete-options li:hover:not(.no-results) {
+    background-color: #f6f6f6;
+    cursor:pointer;
+}

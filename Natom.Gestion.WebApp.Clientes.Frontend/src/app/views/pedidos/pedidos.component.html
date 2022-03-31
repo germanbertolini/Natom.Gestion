@@ -1,0 +1,248 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <h3>Ordenes de pedido</h3>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Ver</span>
+        </div>
+        <select class="form-control" size="1" #filtroEstado (change)="onFiltroEstadoChange(filtroEstado.value)">
+          <option value="TODOS" selected>Todos</option>
+          <option value="PENDIENTE">Pendiente de preparación</option>
+          <option value="EN_PREPARACION" >En preparación</option>
+          <option value="PENDIENTE_RETIRO">Listo para retirar por el cliente</option>
+          <option value="PENDIENTE_DESPACHO">Pendiente de despacho</option>
+          <option value="EN_RUTA">En ruta</option>
+          <option value="PENDIENTE_FACTURACION">Entregado - Pendiente de facturación</option>
+          <option value="ENTREGADO">Entregado - Completado</option>
+          <option value="ANULADO">Anulados</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Zona</span>
+        </div>
+        <select
+              class="form-control"
+              size="1"
+              #filtroZona
+              (change)="onFiltroZonaChange(filtroZona.value)">
+          <option value="" selected>Todas</option>
+          <option *ngFor="let zona of zonas" value="{{ zona.encrypted_id }}">{{ zona.descripcion }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Transporte</span>
+        </div>
+        <select
+              class="form-control"
+              size="1"
+              #filtroTransporte
+              (change)="onFiltroTransporteChange(filtroTransporte.value)">
+          <option value="" selected>Todas</option>
+          <option *ngFor="let transporte of transportes" value="{{ transporte.encrypted_id }}">{{ transporte.descripcion }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-1">
+      <button class="btn btn-sm btn-success right" [routerLink]="['/pedidos/new']">[+] Nueva</button>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <table datatable [dtOptions]="dtIndex" class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+          <tr>
+            <th># Pedido</th>
+            <th>Documento</th>
+            <th>Cliente</th>
+            <th>Fecha / Hora</th>
+            <th>Preparado</th>
+            <th>Estado</th>
+            <th>Peso total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let pedido of Pedidos"
+              [ngClass]="{
+                  'pending' : pedido.estado === 'Pendiente de preparación' || pedido.estado === 'Entregado - Pendiente de Facturación',
+                  'prepared' : pedido.estado === 'Entregado - Completado'
+              }"
+            >
+            <td><b>{{ pedido.numero }}</b><br/><small>{{ pedido.numeroVenta }}</small></td>
+            <td>{{ pedido.remito }}<br/><small>{{ pedido.factura }}</small></td>
+            <td>{{ pedido.cliente }}<br/><small *ngIf="pedido.zona !== null">{{ pedido.zona }}</small></td>
+            <td>{{ pedido.fechaHora  |  date:'dd/MM/yyyy HH:mm' }} hs</td>
+            <td>
+              <b *ngIf="!pedido.enPreparacion && !pedido.anulado && !pedido.prepared" style="color:brown;">PENDIENTE<br/></b>
+              <b *ngIf="pedido.enPreparacion && !pedido.anulado" style="color:chocolate">EN PREPARACIÓN<br/></b>
+              <b *ngIf="!pedido.enPreparacion && pedido.prepared">{{ pedido.fechaHoraPreparado  |  date:'dd/MM/yyyy HH:mm' }} hs<br/></b>
+              <small>{{ pedido.preparadoPor }}</small>
+            </td>
+            <td>{{ pedido.estado }}<br/><small>{{ pedido.transporte }}</small></td>
+            <td>{{ (pedido.peso_total_gramos / 1000).toFixed(2).replace('.', ',') }} KG</td>
+            <td>
+              <a *ngIf="authService.can('pedidos_deposito') && (pedido.estado === 'Pendiente de despacho' || pedido.estado === 'Pendiente de preparación')" class="btn btn-warning btn-sm modificar-cantidades-smt-btn spacingLeft" (click)="onModificarCantidadesClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Modificar cantidades"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+              
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'Pendiente de preparación'" class="btn btn-warning btn-sm comenzar-smt-btn spacingLeft" (click)="onIniciarOrdenClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Iniciar preparación"><i class="fa fa-play" aria-hidden="true"></i></a>
+              
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'En preparación'" class="btn btn-success btn-sm finalizar-smt-btn spacingLeft" (click)="onCompletarOrdenClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Finalizar orden"><i class="fa fa-check" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'En preparación'" class="btn btn-warning btn-sm cancelar-preparacion-smt-btn spacingLeft" (click)="onCancelarPreparacionOrdenClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Cancelar preparación"><i class="fa fa-times" aria-hidden="true"></i></a>
+
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'Pendiente de despacho'" class="btn btn-warning btn-sm despachar-smt-btn spacingLeft" (click)="onDespacharPedidoClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Despachar orden"><i class="fa fa-truck" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'En ruta'" class="btn btn-success btn-sm entregado-smt-btn spacingLeft" (click)="onMarcarEntregaPedidoClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Marcar como entregado"><i class="fa fa-flag-checkered" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_deposito') && pedido.estado === 'En ruta'" class="btn btn-danger btn-sm no-entregado-smt-btn spacingLeft" (click)="onNoEntregadoOrdenClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Marcar como entrega NO CONCRETADA"><i class="fa fa-times" aria-hidden="true"></i>&nbsp;<i class="fa fa-flag-checkered" aria-hidden="true"></i></a>
+
+              <a *ngIf="authService.can('pedidos_ver')" class="btn btn-secondary btn-sm print-orden-smt-btn spacingLeft" (click)="onPrintOrdenClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Imprimir orden"><i class="fa fa-print" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_ver') && pedido.remito !== null" class="btn btn-primary btn-sm print-remito-smt-btn spacingLeft" (click)="onPrintRemitoClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Imprimir remito"><i class="fa fa-print" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_anular') && (pedido.estado === 'Pendiente de preparación' || pedido.estado === 'En preparación' || pedido.estado === 'Pendiente de despacho')" class="btn btn-danger btn-sm delete-smt-btn spacingLeft" (click)="onDeleteClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Anular"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('pedidos_ver')" class="btn btn-warning btn-sm historico-smt-btn spacingLeft" (click)="onVerHistoricoCambiosClick(pedido.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Ver histórico de cambios"><i class="fa fa-history" aria-hidden="true"></i></a>              
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+<ng-template #despacharPedidoModal let-modal>
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Despacho de pedido</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div class="input-group input-group-sm">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Transporte</span>
+          </div>
+          <select
+                class="form-control"
+                size="1"
+                [(ngModel)]="despachar_pedido_transporte_encrypted_id">
+            <option value="" selected>Seleccione...</option>
+            <option *ngFor="let transporte of transportes" value="{{ transporte.encrypted_id }}">{{ transporte.descripcion }}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" style="float:left;" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-success" style="float:right;" (click)="onDespacharOrdenConfirmadoClick()">Despachar</button>
+  </div>
+  
+</ng-template>
+
+<ng-template #confirmarPedidoModal let-modal>
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Confirmación de entrega de pedido</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtConfirmarPedido" class="table table-striped table-bordered dt-responsive nowrap">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Depósito</th>
+              <th>Pedido</th>
+              <th>Entregado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of PedidoDetail">
+              <td>({{ detalle.codigo }}) {{ detalle.descripcion }}</td>
+              <td>{{ detalle.deposito }}</td>
+              <td>{{ detalle.cantidad }}</td>
+              <td>
+                <input
+                  type="number"
+                  style="width:4rem;"
+                  [(ngModel)]="detalle.entregado">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" style="float:left;" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-success" style="float:right;" (click)="onEntregadoOrdenClick()">Confirmar</button>
+  </div>
+  
+</ng-template>
+
+<ng-template #modificarPedidoModal let-modal>
+
+  <div class="modal-header">
+    <h5 class="modal-title" id="modal-basic-title">Modificar cantidades del pedido</h5>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  
+  <div class="modal-body">
+    
+    <div class="row">
+      <div class="col-md-12">
+        <table datatable [dtOptions]="dtModificarPedido" class="table table-striped table-bordered dt-responsive nowrap">
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Depósito</th>
+              <th>Pedido</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let detalle of PedidoDetailModificar">
+              <td>({{ detalle.codigo }}) {{ detalle.descripcion }}</td>
+              <td>{{ detalle.deposito }}</td>
+              <td>
+                <input
+                  type="number"
+                  style="width:4rem;"
+                  [(ngModel)]="detalle.cantidad">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+  </div>
+  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" style="float:left;" (click)="modal.close()">Cancelar</button>
+    <button type="button" class="btn btn-success" style="float:right;" (click)="onCambiarCantidadesOrdenClick()">Guardar</button>
+  </div>
+  
+</ng-template>

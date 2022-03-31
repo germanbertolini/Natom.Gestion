@@ -1,0 +1,24 @@
+.photo {
+    width:100%;
+    height:100%;
+    background-position: center;
+    background-size: 100%;
+}
+
+.photo-border {
+    width:7rem;
+    height:7rem;
+    border-radius:3.5rem;
+    overflow: hidden;
+    border: solid var(--color-04-high) 0.5rem;
+    box-shadow: 0rem 0rem 0.4rem #555;
+    margin: 0 auto;
+    margin-bottom:2rem;
+}
+
+.country-flag {
+    background-size: 75%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 3.4rem;
+}

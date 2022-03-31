@@ -1,0 +1,68 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Nuevo movimiento en Cta Cte Proveedor</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <br>
+  <div class="row">
+    <div class="col-md-3 offset-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Tipo</label>
+        <select size="1"
+          class="form-control"
+          [(ngModel)]="crud.model.tipo"
+          disabled>
+          <!-- <option value="" disabled selected>Seleccione...</option>
+          <option value="C">Ingreso</option> -->
+          <option value="D" selected>Egreso</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Importe</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+          </div>
+          <input type="number"
+            class="form-control"
+            placeholder="0,00"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+            [(ngModel)]="crud.model.importe" />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Efectuado por</label>
+        <input type="text"
+            class="form-control"
+            placeholder="Efectuado por"
+            readonly
+            [(ngModel)]="crud.model.usuarioNombre" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Observaciones</label>
+        <textarea type="text"
+            class="form-control"
+            placeholder="Observaciones"
+            maxlength="200"
+            [(ngModel)]="crud.model.observaciones">
+        </textarea>
+      </div>
+    </div>
+  </div>
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

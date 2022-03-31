@@ -1,0 +1,42 @@
+<div *ngIf="message" class="modal" tabindex="-1" role="historicoCambios" style="display:block!important">    
+    <div class="modal-dialog historico-modal" role="document">
+
+        <!-- CONFIRM DIALOG -->
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-basic-title">Histórico de cambios</h5>
+            <button type="button" class="close" aria-label="Close" (click)="message.onCloseClick()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-12">
+                <table  class="table table-striped table-bordered dt-responsive nowrap">
+                  <thead>
+                    <tr>
+                      <th>Fecha / Hora</th>
+                      <th>Usuario</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                        *ngFor="let historico of Historico"
+                      >
+                      <td>{{ historico.fechaHora  |  date:'dd/MM/yyyy HH:mm' }} hs</td>
+                      <td>{{ historico.usuario }}</td>
+                      <td>{{ historico.descripcion }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="message.onCloseClick()">Cerrar</button>
+          </div>
+        </div>
+
+    </div>
+</div>

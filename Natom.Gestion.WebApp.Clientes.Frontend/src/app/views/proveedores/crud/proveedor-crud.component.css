@@ -1,0 +1,8 @@
+.tab-content {
+    padding-top:16px;
+}
+.btn-search-device {
+    background-color: var(--color-05);
+    color:white;
+    cursor:pointer;
+}

@@ -1,0 +1,10 @@
+@media (max-width: 992px) {
+    .container-fluid {
+        margin-bottom:6rem;
+    }
+}
+
+textarea {
+    resize:none;
+    height:100px;
+}

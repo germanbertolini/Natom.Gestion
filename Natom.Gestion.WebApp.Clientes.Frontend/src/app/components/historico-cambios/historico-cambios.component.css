@@ -1,0 +1,44 @@
+.historico-modal {  
+    width:700px;
+    top:5rem;
+}  
+
+thead, tbody { display: block; }
+
+tbody {
+    height: 300px;       /* Just for the demo          */
+    overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+@media (min-width: 576px)
+{
+    .modal-dialog {
+        max-width: 700px;
+    }
+}
+
+.modal[role='dialog'] {
+    z-index:99999999999;
+}
+  
+.modal-backdrop.in {  
+    opacity: 0.9;  
+}  
+  
+.modal {  
+    background-color: rgba(58, 51, 51, 0.4);  
+    padding-top:5px;  
+}  
+
+.historico-modal .modal-footer {
+    padding: .25rem;
+}
+  
+.historico-modal .confirm-message {  
+    /* font-family:'Times New Roman', Times, serif;   */
+    font-size:16px;  
+    font-weight:bold;  
+    margin-bottom:0px;  
+    margin-top:5px;  
+}

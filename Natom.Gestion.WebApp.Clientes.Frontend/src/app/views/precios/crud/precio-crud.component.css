@@ -1,0 +1,31 @@
+.btn-search-device {
+    background-color: var(--color-05);
+    color:white;
+    cursor:pointer;
+}
+
+/* AUTOCOMPLETE */
+ul.input-autocomplete-options {
+    position: absolute;
+    margin-top: 38px;
+    list-style-type: none;
+    min-width: 300px;
+    z-index:1;
+}
+
+ul.input-autocomplete-options li {
+    border: #c1c5c8 1px solid;
+    padding: 7px 15px;
+    background-color: #e9ecef;
+}
+
+ul.input-autocomplete-options li.no-results {
+    color:brown;
+    text-align: center;
+    cursor: default;
+}
+
+ul.input-autocomplete-options li:hover:not(.no-results) {
+    background-color: #f6f6f6;
+    cursor:pointer;
+}

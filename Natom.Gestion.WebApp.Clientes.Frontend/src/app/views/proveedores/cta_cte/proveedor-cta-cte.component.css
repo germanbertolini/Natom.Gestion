@@ -1,0 +1,9 @@
+.monto {
+    text-align:right !important;
+    font-weight: bold;
+    padding-right:20px;
+}
+
+.monto.debito {
+    color:rgb(209, 12, 12);
+}

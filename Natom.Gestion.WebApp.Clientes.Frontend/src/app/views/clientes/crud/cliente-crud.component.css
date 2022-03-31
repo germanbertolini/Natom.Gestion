@@ -1,0 +1,14 @@
+@media (max-width: 992px) {
+    .container-fluid {
+        margin-bottom:6rem;
+    }
+}
+
+.tab-content {
+    padding-top:16px;
+}
+.btn-search-device {
+    background-color: var(--color-05);
+    color:white;
+    cursor:pointer;
+}

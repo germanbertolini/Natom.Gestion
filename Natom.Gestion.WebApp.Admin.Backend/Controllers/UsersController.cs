@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Natom.Extensions.Common.Exceptions;
-using Natom.Gestion.Core.Biz.Entities.Models;
+using Natom.Gestion.WebApp.Admin.Backend.Biz.Entities.Models;
 using Natom.Extensions.Auth.Attributes;
 using Natom.Extensions.Auth.Entities.Models;
 using Natom.Extensions.Auth.Repository;
@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Natom.Extensions.Logger.Entities;
 
 namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
 {
@@ -120,7 +121,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 var usuario = await manager.GuardarUsuarioAsync(scope: "WebApp.Admin", model, secretConfirmation, (_accessToken.UserId ?? 0));
 
                 if (isNew)
-                    await _mailService.EnviarEmailParaConfirmarRegistroAsync(_transaction, scope: "WebApp.Admin", usuario);
+                    await EnviarEmailParaConfirmarRegistroAsync(_transaction, scope: "WebApp.Admin", usuario);
 
                 return Ok(new ApiResultDTO<UserDTO>
                 {
@@ -217,7 +218,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 if (usuario.FechaHoraUltimoEmailEnviado.HasValue && usuario.FechaHoraUltimoEmailEnviado.Value.AddMinutes(10) > DateTime.Now)
                     throw new HandledException("Se ha enviado un mail de recuperación de clave hace menos de 10 minutos. Aguarde unos minutos y vuelva a intentarlo.");
 
-                await _mailService.EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Admin", usuario);
+                await EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Admin", usuario);
 
                 return Ok(new ApiResultDTO
                 {
@@ -252,7 +253,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 if (usuario.FechaHoraUltimoEmailEnviado.HasValue && usuario.FechaHoraUltimoEmailEnviado.Value.AddMinutes(10) > DateTime.Now)
                     throw new HandledException("Se ha enviado un mail de recuperación de clave hace menos de 10 minutos. Aguarde unos minutos y vuelva a intentarlo.");
 
-                await _mailService.EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Admin", usuario);
+                await EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Admin", usuario);
 
                 return Ok(new ApiResultDTO
                 {
@@ -364,7 +365,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 var usuario = await manager.GuardarUsuarioAsync(scope: "WebApp.Clientes", model, secretConfirmation, (_accessToken.UserId ?? 0));
 
                 if (isNew)
-                    await _mailService.EnviarEmailParaConfirmarRegistroAsync(_transaction, scope: "WebApp.Clientes", usuario);
+                    await EnviarEmailParaConfirmarRegistroAsync(_transaction, scope: "WebApp.Clientes", usuario);
 
                 return Ok(new ApiResultDTO<UserDTO>
                 {
@@ -431,7 +432,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 if (usuario.FechaHoraUltimoEmailEnviado.HasValue && usuario.FechaHoraUltimoEmailEnviado.Value.AddMinutes(10) > DateTime.Now)
                     throw new HandledException("Se ha enviado un mail de recuperación de clave hace menos de 10 minutos. Aguarde unos minutos y vuelva a intentarlo.");
 
-                await _mailService.EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Clientes", usuario);
+                await EnviarEmailParaRecuperarClaveAsync(_transaction, scope: "WebApp.Clientes", usuario);
 
                 return Ok(new ApiResultDTO
                 {
@@ -447,6 +448,32 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
+        }
+
+        private async Task EnviarEmailParaConfirmarRegistroAsync(Transaction transaction, string scope, Usuario usuario)
+        {
+            string subject = "Confirmar registración";
+            string appAddress = await _configurationService.GetValueAsync($"{scope}.URL");
+            string productName = await _configurationService.GetValueAsync("General.ProductName");
+            var dataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new { s = usuario.SecretConfirmacion, e = usuario.Email }));
+            var data = Uri.EscapeDataString(Convert.ToBase64String(dataBytes));
+            string link = new Uri($"{appAddress}/users/confirm/{data}").AbsoluteUri;
+            string body = System.IO.File.ReadAllText("EmailTemplates/Default.html");
+            body = body.Replace("$body$", String.Format("<h2>¡Bienvenido a " + productName + "!</h2><br/><p>Por favor, para <b>generar la clave de acceso al sistema</b> haga clic en el siguiente link: <a href='{0}'>{0}</a></p>", link));
+            await _mailService.EnviarMailAsync(transaction, subject, body, usuario.Email, usuario.Nombre);
+        }
+
+        private async Task EnviarEmailParaRecuperarClaveAsync(Transaction transaction, string scope, Usuario usuario)
+        {
+            string subject = "Recuperar clave";
+            string appAddress = await _configurationService.GetValueAsync($"{scope}.URL");
+            string productName = await _configurationService.GetValueAsync("General.ProductName");
+            var dataBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(new { s = usuario.SecretConfirmacion, e = usuario.Email }));
+            var data = Uri.EscapeDataString(Convert.ToBase64String(dataBytes));
+            string link = new Uri($"{appAddress}/users/confirm/{data}").AbsoluteUri;
+            string body = System.IO.File.ReadAllText("EmailTemplates/Default.html");
+            body = body.Replace("$body$", String.Format("<h2>Recupero de clave " + productName + "</h2><br/><p>Por favor, para <b>recuperar la clave de acceso al sistema</b> haga clic en el siguiente link: <a href='{0}'>{0}</a></p>", link));
+            await _mailService.EnviarMailAsync(transaction, subject, body, usuario.Email, usuario.Nombre);
         }
     }
 }

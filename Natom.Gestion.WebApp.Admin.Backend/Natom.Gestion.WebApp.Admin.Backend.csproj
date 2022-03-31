@@ -6,13 +6,19 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.13" />
-    <PackageReference Include="Natom.Extensions.Auth" Version="1.0.0" />
-    <PackageReference Include="Natom.Extensions.Logger" Version="1.0.0" />
-    <PackageReference Include="Natom.Extensions.Mailer" Version="1.0.0" />
+    <PackageReference Include="Natom.Extensions.Auth" Version="1.0.1" />
+    <PackageReference Include="Natom.Extensions.Logger" Version="1.0.1" />
+    <PackageReference Include="Natom.Extensions.Mailer" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\_core\Natom.Gestion.Core.Biz\Natom.Gestion.Core.Biz.csproj" />
+    <ProjectReference Include="..\Natom.Gestion.WebApp.Admin.Backend.Biz\Natom.Gestion.WebApp.Admin.Backend.Biz.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="EmailTemplates\Default.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

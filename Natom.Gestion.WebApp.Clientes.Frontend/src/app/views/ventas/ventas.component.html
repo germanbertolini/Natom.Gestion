@@ -1,0 +1,69 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-5">
+      <h3>Facturación</h3>
+    </div>
+    <div class="col-md-5">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text" id="basic-addon1">Ver</span>
+        </div>
+        <select class="form-control" size="1" #filtroEstado (change)="onFiltroEstadoChange(filtroEstado.value)">
+          <option value="TODOS" selected>Todos</option>
+          <option value="FACTURADO">Facturados</option>
+          <option value="ANULADO">Anulados</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <button class="btn btn-sm btn-success right" [routerLink]="['/ventas/new']">[+] Nueva</button>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <table datatable [dtOptions]="dtIndex" class="table table-striped table-bordered dt-responsive nowrap">
+        <thead>
+          <tr>
+            <th># Venta</th>
+            <th>Comprobante</th>
+            <th>Cliente</th>
+            <th>Fecha / Hora</th>
+            <th>Pedidos</th>
+            <th>Remitos</th>
+            <th>Peso total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+              *ngFor="let venta of Ventas"
+              [ngClass]="{
+                'anulado' : venta.anulado === true
+              }">
+            <td><b>{{ venta.numeroVenta }}</b></td>
+            <td>{{ venta.factura }}<br/><small>{{ venta.medio_de_pago }}</small></td>
+            <td>{{ venta.cliente }}</td>
+            <td>{{ venta.fechaHora  |  date:'dd/MM/yyyy HH:mm' }} hs</td>
+            <td>
+              <ng-container *ngFor="let pedido of venta.pedidos; let isLast = last">
+                N° {{pedido}} <br *ngIf="!isLast" />
+              </ng-container>
+            </td>
+            <td>
+              <ng-container *ngFor="let remito of venta.remitos; let isLast = last">
+                {{remito}} <br *ngIf="!isLast" />
+              </ng-container>
+            </td>
+            <td>{{ (venta.peso_total_gramos / 1000).toFixed(2).replace('.', ',') }} KG</td>
+            <td>
+              <a *ngIf="authService.can('ventas_ver')" class="btn btn-primary btn-sm print-comprobante-smt-btn spacingLeft" (click)="onPrintVentaClick(venta.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Imprimir comprobante de venta"><i class="fa fa-print" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('ventas_anular') && !venta.anulado" class="btn btn-danger btn-sm anular-smt-btn spacingLeft" (click)="onAnularFacturacionClick(venta.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Anular facturación"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a *ngIf="authService.can('ventas_ver')" class="btn btn-warning btn-sm historico-smt-btn spacingLeft" (click)="onVerHistoricoCambiosClick(venta.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Ver histórico de cambios"><i class="fa fa-history" aria-hidden="true"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

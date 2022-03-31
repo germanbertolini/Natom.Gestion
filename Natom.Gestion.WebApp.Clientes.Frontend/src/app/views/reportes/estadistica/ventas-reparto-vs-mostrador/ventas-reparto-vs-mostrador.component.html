@@ -1,0 +1,30 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Estadística de cuánto vendió reparto vs mostrador</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <br>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Desde</label>
+        <input class="form-control"
+          placeholder="- SIEMPRE -   (Seleccione...)"
+          name="dp"
+          [(ngModel)]="filtroFechaDesdeText"
+          (ngModelChange)="onFechaDesdeChange($event)"
+          ngbDatepicker
+          #desde="ngbDatepicker"
+          restoreFocus="false"
+          (click)="desde.toggle(); $event.stopPropagation()"
+          (document:click)="decideClosure($event, desde)"
+          readonly>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success" (click)="onConsultar()" style="margin-top:32px;"><i class="fa fa-search"></i>&nbsp;&nbsp;Consultar</button>
+    </div>
+  </div>
+</div>

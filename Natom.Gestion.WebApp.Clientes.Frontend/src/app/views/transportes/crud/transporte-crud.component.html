@@ -1,0 +1,27 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{ crud.mode }} transporte</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Nombre del transporte"
+          [(ngModel)]="crud.model.descripcion" />
+      </div>
+    </div>
+  </div>
+  
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>

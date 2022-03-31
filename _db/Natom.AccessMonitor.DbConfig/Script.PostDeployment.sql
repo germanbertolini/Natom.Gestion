@@ -4,7 +4,7 @@ set nocount on;
 ;with cte_data([Clave],[Valor],[Description])
 as (select * from (values
 --//////////////////////////////////////////////////////////////////////////////////////////////////
-('General.ProductName', 'BioAnviz+', 'Nombre del producto en General. Aplica para el envio de mails por registro y recupero de clave'),
+('General.ProductName', 'Gestión', 'Nombre del producto en General. Aplica para el envio de mails por registro y recupero de clave'),
 ('Sync.Receiver.URL','http://localhost:5000','URL de acceso a la API REST del Sincronizador'),
 ('Logging.Discord.WebhookInvoker.CancellationTokenDurationMS', '5000', 'Duración del CancellationToken del llamado Http a Discord.'),
 ('Logging.Discord.EnableLog', 'True', 'Habilita / Deshabilita el Log en el servicio de Discord.'),
@@ -36,7 +36,7 @@ as (select * from (values
 ('RabbitMQ.UserName', 'admin', 'Credenciales RabbitMQ'),
 ('RabbitMQ.Password', '1234', 'Credenciales RabbitMQ'),
 ('RabbitMQ.EnabbleSSL', 'False', 'Si utilizar o no SSL en la conexión a RabbitMQ'),
-('Mailing.SenderName', 'BioAnviz+', 'Servicio de mailing: Nombre fantasia emisor'),
+('Mailing.SenderName', 'Natom Gestión', 'Servicio de mailing: Nombre fantasia emisor'),
 ('Mailing.SMTP.User', 'no-reply@w1362013.ferozo.com', 'Servicio de mailing: Usuario SMTP'),
 ('Mailing.SMTP.Password', '6uC/Vz78qJ', 'Servicio de mailing: Clave del usuario SMTP'),
 ('Mailing.SMTP.Host', 'mail.w1362013.ferozo.com', 'Servicio de mailing: Dirección Host SMTP'),

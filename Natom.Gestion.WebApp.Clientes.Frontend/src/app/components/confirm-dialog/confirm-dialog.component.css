@@ -1,0 +1,54 @@
+.confirm-modal {  
+    width:300px;
+    top:5rem;
+}  
+
+.modal[role='dialog'] {
+    z-index:99999999999;
+}
+  
+.modal-backdrop.in {  
+    opacity: 0.9;  
+}  
+  
+.modal {  
+    background-color: rgba(58, 51, 51, 0.4);  
+    padding-top:5px;  
+}  
+
+.confirm-modal .modal-footer {
+    padding: .25rem;
+}
+  
+.confirm-modal .confirm-message {  
+    /* font-family:'Times New Roman', Times, serif;   */
+    font-size:16px;  
+    font-weight:bold;  
+    margin-bottom:0px;  
+    margin-top:5px;  
+}  
+  
+.confirm-button {  
+    text-align: center;  
+    margin: 15px 0px 15px 0px;  
+}  
+  
+.btn-no {  
+    background-color: #f4516c;  
+    color:white;  
+}  
+  
+.btn-yes {  
+    background-color: #716aca;  
+    color:white;  
+}
+
+
+@media (max-width: 575px) {
+    .confirm-modal {  
+        width: 300px;
+        top: 5rem;
+        left: 50%;
+        margin-left: -150px;
+    }  
+  }

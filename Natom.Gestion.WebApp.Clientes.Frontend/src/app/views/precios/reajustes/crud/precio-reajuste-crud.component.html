@@ -1,0 +1,82 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>{{ crud.mode }} reajuste de precio por Marca</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Aplica a Marca</label>
+        <select
+              class="form-control"
+              size="1"
+              [(ngModel)]="crud.model.aplicoMarca_encrypted_id">
+          <option value="" selected>Seleccione...</option>
+          <option *ngFor="let marca of Marcas" value="{{ marca.encrypted_id }}">{{ marca.descripcion }}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Lista de precios</label>
+        <select
+              class="form-control"
+              size="1"
+              [(ngModel)]="crud.model.aplicoListaDePrecios_encrypted_id">
+          <option value="" selected>Seleccione...</option>
+          <option value="-1">Todas</option>
+          <option *ngFor="let lista of ListasDePrecios" value="{{ lista.encrypted_id }}">{{ lista.descripcion }} {{(lista.esPorcentual ? '(porcentual)' : '')}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Tipo</label>
+        <select
+              class="form-control"
+              size="1"
+              [(ngModel)]="tipoReajuste">
+          <option value="" selected>Seleccione...</option>
+          <option value="1">Aumento - Porcentaje</option>
+          <option value="2">Aumento - Monto fijo</option>
+          <option value="3">Decremento - Porcentaje</option>
+          <option value="4">Decremento - Monto fijo</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Valor</label>
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text" *ngIf="tipoReajuste.value === '2' || tipoReajuste.value === '4'">$</span>
+            <span class="input-group-text" *ngIf="tipoReajuste.value === '1' || tipoReajuste.value === '3'">%</span>
+          </div>
+          <input type="number"
+            class="form-control"
+            placeholder="0,00"
+            onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+            [(ngModel)]="crud.model.valor" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <br/><br/><br/>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-warning" role="alert">
+        <b>NOTA:</b> Los reajustes sobre listas de precios "porcentuales" van a aplicarse unicamente en aquellos precios que fueron definidos de manera manual.
+      </div>
+    </div>
+  </div>
+  <br/><br/>
+  
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
+      <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
+    </div>
+  </div>
+</div>
