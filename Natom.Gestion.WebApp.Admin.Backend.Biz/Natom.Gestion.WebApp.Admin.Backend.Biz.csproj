@@ -11,4 +11,8 @@
     <PackageReference Include="Natom.Extensions.Configuration" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\Results\" />
+  </ItemGroup>
+
 </Project>
