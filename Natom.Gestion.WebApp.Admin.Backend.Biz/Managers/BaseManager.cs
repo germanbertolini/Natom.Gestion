@@ -24,19 +24,19 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
 
         public async Task RegistrarEnHistoricoCambiosAsync(int clienteId, int entityId, string entityName, string accion, int usuarioId)
         {
-            using (var command = _db.Database.GetDbConnection().CreateCommand())
-            {
-                command.CommandText = "EXEC [dbo].[sp_history_insert] @ClientId, @EntityName, @EntityId, @UsuarioId, @Action";
-                command.Parameters.Add(new SqlParameter("@ClientId", clienteId));
-                command.Parameters.Add(new SqlParameter("@EntityName", entityName));
-                command.Parameters.Add(new SqlParameter("@EntityId", entityId));
-                command.Parameters.Add(new SqlParameter("@UsuarioId", usuarioId));
-                command.Parameters.Add(new SqlParameter("@Action", accion));
+            //using (var command = _db.Database.GetDbConnection().CreateCommand())
+            //{
+            //    command.CommandText = "EXEC [dbo].[sp_history_insert] @ClientId, @EntityName, @EntityId, @UsuarioId, @Action";
+            //    command.Parameters.Add(new SqlParameter("@ClientId", clienteId));
+            //    command.Parameters.Add(new SqlParameter("@EntityName", entityName));
+            //    command.Parameters.Add(new SqlParameter("@EntityId", entityId));
+            //    command.Parameters.Add(new SqlParameter("@UsuarioId", usuarioId));
+            //    command.Parameters.Add(new SqlParameter("@Action", accion));
 
-                await _db.Database.OpenConnectionAsync();
-                await command.ExecuteNonQueryAsync();
-                await _db.Database.CloseConnectionAsync();
-            }
+            //    await _db.Database.OpenConnectionAsync();
+            //    await command.ExecuteNonQueryAsync();
+            //    await _db.Database.CloseConnectionAsync();
+            //}
         }
 
         //public Task<List<HistoricoCambios>> ConsultarHistoricoCambiosAsync(int entityId, string entityName)

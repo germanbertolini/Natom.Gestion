@@ -5,13 +5,13 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Db", "Db", "{B9CEDFA4-736E-4F2B-B3AA-575EB1989B8A}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.AccessMonitor.DbConfig", "_db\Natom.AccessMonitor.DbConfig\Natom.AccessMonitor.DbConfig.sqlproj", "{7E38F135-6D96-48C1-87B3-E3E8D0D70FFF}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.Gestion.DbConfig", "_db\Natom.Gestion.DbConfig\Natom.Gestion.DbConfig.sqlproj", "{7E38F135-6D96-48C1-87B3-E3E8D0D70FFF}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.AccessMonitor.DbLogs", "_db\Natom.AccessMonitor.DbLogs\Natom.AccessMonitor.DbLogs.sqlproj", "{F3A25CBF-1DDE-47E1-A86A-5D215AFD0B90}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.Gestion.DbLogs", "_db\Natom.Gestion.DbLogs\Natom.Gestion.DbLogs.sqlproj", "{F3A25CBF-1DDE-47E1-A86A-5D215AFD0B90}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.AccessMonitor.DbMaster", "_db\Natom.AccessMonitor.DbMaster\Natom.AccessMonitor.DbMaster.sqlproj", "{2BA0020B-EC1A-4A83-9996-636ACE03AB4F}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.Gestion.DbMaster", "_db\Natom.Gestion.DbMaster\Natom.Gestion.DbMaster.sqlproj", "{2BA0020B-EC1A-4A83-9996-636ACE03AB4F}"
 EndProject
-Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.AccessMonitor.DbSecurity", "_db\Natom.AccessMonitor.DbSecurity\Natom.AccessMonitor.DbSecurity.sqlproj", "{40213DC5-12C7-49D6-80F5-336B80A2078C}"
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.Gestion.DbSecurity", "_db\Natom.Gestion.DbSecurity\Natom.Gestion.DbSecurity.sqlproj", "{40213DC5-12C7-49D6-80F5-336B80A2078C}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Natom.Gestion.WebApp.Admin.Backend.Biz", "Natom.Gestion.WebApp.Admin.Backend.Biz\Natom.Gestion.WebApp.Admin.Backend.Biz.csproj", "{9F8870A7-4742-455D-9DE6-DF9BFB1947A1}"
 EndProject
@@ -22,6 +22,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Natom.Gestion.WebApp.Clientes.Backend.Biz", "Natom.Gestion.WebApp.Clientes.Backend.Biz\Natom.Gestion.WebApp.Clientes.Backend.Biz.csproj", "{42B5AFD7-19D2-421C-9FC3-094766141712}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Natom.Gestion.WebApp.Clientes.Backend", "Natom.Gestion.WebApp.Clientes.Backend\Natom.Gestion.WebApp.Clientes.Backend.csproj", "{0635C5A2-0FE5-455B-BD01-E473EE020271}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Natom.Gestion.Dbz000", "_db\Natom.Gestion.Dbz000\Natom.Gestion.Dbz000.sqlproj", "{DA4E47E2-D58B-4A07-A505-FD1B394F3013}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -73,6 +75,12 @@ Global
 		{0635C5A2-0FE5-455B-BD01-E473EE020271}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0635C5A2-0FE5-455B-BD01-E473EE020271}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0635C5A2-0FE5-455B-BD01-E473EE020271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -82,6 +90,7 @@ Global
 		{F3A25CBF-1DDE-47E1-A86A-5D215AFD0B90} = {B9CEDFA4-736E-4F2B-B3AA-575EB1989B8A}
 		{2BA0020B-EC1A-4A83-9996-636ACE03AB4F} = {B9CEDFA4-736E-4F2B-B3AA-575EB1989B8A}
 		{40213DC5-12C7-49D6-80F5-336B80A2078C} = {B9CEDFA4-736E-4F2B-B3AA-575EB1989B8A}
+		{DA4E47E2-D58B-4A07-A505-FD1B394F3013} = {B9CEDFA4-736E-4F2B-B3AA-575EB1989B8A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CA59FB5D-99D7-4963-A32E-F0DBB0D69C86}

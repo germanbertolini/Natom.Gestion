@@ -1,0 +1,25 @@
+﻿CREATE TABLE [dbo].[Cliente] (
+    [ClienteId]             INT             IDENTITY (1, 1) NOT NULL,
+    [EsEmpresa]             BIT             NULL,
+    [Nombre]                NVARCHAR (50)   NULL,
+    [Apellido]              NVARCHAR (50)   NULL,
+    [RazonSocial]           NVARCHAR (50)   NULL,
+    [NombreFantasia]        NVARCHAR (50)   NULL,
+    [TipoDocumentoId]       INT             NULL,
+    [NumeroDocumento]       NVARCHAR (20)   NULL,
+    [Domicilio]             NVARCHAR (50)   NULL,
+    [EntreCalles]           NVARCHAR (50)   NULL,
+    [Localidad]             NVARCHAR (50)   NULL,
+    [ContactoTelefono1]     NVARCHAR (30)   NULL,
+    [ContactoTelefono2]     NVARCHAR (30)   NULL,
+    [ContactoEmail1]        NVARCHAR (50)   NULL,
+    [ContactoEmail2]        NVARCHAR (50)   NULL,
+    [ContactoObservaciones] NVARCHAR (200)  NULL,
+    [Activo]                BIT             NOT NULL,
+    [MontoCtaCte]           DECIMAL (18, 2) DEFAULT ((0)) NULL,
+    [ZonaId]                INT             NULL,
+    [ListaDePreciosId]      INT             NULL,
+    PRIMARY KEY CLUSTERED ([ClienteId] ASC),
+    FOREIGN KEY ([TipoDocumentoId]) REFERENCES [dbo].[TipoDocumento] ([TipoDocumentoId])
+);
+

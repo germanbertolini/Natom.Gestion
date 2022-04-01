@@ -1,7 +1,0 @@
-﻿CREATE TABLE [dbo].[Title]
-(
-	TitleId INT NOT NULL IDENTITY(1,1) PRIMARY KEY,
-	[Name] NVARCHAR(50) NOT NULL,
-	ClienteId INT NOT NULL,
-	RemovedAt DATETIME
-);

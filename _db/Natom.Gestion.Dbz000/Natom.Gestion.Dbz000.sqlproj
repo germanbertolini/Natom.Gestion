@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>Natom.Gestion.Dbz000</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{da4e47e2-d58b-4a07-a505-fd1b394f3013}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql130DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath>
+    </RootPath>
+    <RootNamespace>Natom.Gestion.Dbz000</RootNamespace>
+    <AssemblyName>Natom.Gestion.Dbz000</AssemblyName>
+    <ModelCollation>1033, CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Functions\" />
+    <Folder Include="dbo\Stored Procedures\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\Zona.sql" />
+    <Build Include="dbo\Tables\VentaDetalle.sql" />
+    <Build Include="dbo\Tables\Venta.sql" />
+    <Build Include="dbo\Tables\UsuarioPermiso.sql" />
+    <Build Include="dbo\Tables\Usuario.sql" />
+    <Build Include="dbo\Tables\UnidadPeso.sql" />
+    <Build Include="dbo\Tables\Transporte.sql" />
+    <Build Include="dbo\Tables\TipoResponsable.sql" />
+    <Build Include="dbo\Tables\TipoDocumento.sql" />
+    <Build Include="dbo\Tables\RangoHorario.sql" />
+    <Build Include="dbo\Tables\Proveedor.sql" />
+    <Build Include="dbo\Tables\ProductoPrecio.sql" />
+    <Build Include="dbo\Tables\Producto.sql" />
+    <Build Include="dbo\Tables\Permiso.sql" />
+    <Build Include="dbo\Tables\OrdenDePedidoDetalle.sql" />
+    <Build Include="dbo\Tables\OrdenDePedido.sql" />
+    <Build Include="dbo\Tables\MovimientoStock.sql" />
+    <Build Include="dbo\Tables\MovimientoCtaCteProveedor.sql" />
+    <Build Include="dbo\Tables\MovimientoCtaCteCliente.sql" />
+    <Build Include="dbo\Tables\MovimientoCajaFuerte.sql" />
+    <Build Include="dbo\Tables\MovimientoCajaDiaria.sql" />
+    <Build Include="dbo\Tables\Marca.sql" />
+    <Build Include="dbo\Tables\Log.sql" />
+    <Build Include="dbo\Tables\ListaDePrecios.sql" />
+    <Build Include="dbo\Tables\HistoricoReajustePrecio.sql" />
+    <Build Include="dbo\Tables\HistoricoCambiosMotivo.sql" />
+    <Build Include="dbo\Tables\HistoricoCambios.sql" />
+    <Build Include="dbo\Tables\Deposito.sql" />
+    <Build Include="dbo\Tables\Cliente.sql" />
+    <Build Include="dbo\Tables\CategoriaProducto.sql" />
+    <Build Include="dbo\Views\vwPreciosVigentesFijados.sql" />
+    <Build Include="dbo\Views\vwPreciosVigentes.sql" />
+    <Build Include="dbo\Views\vwClientesUltimaCompra.sql" />
+    <Build Include="dbo\Functions\fnVentaGetRemitos.sql" />
+    <Build Include="dbo\Functions\fnCalcularVariacion.sql" />
+    <Build Include="dbo\Functions\fnCalcularTotalVentas.sql" />
+    <Build Include="dbo\Functions\fnCalcularTotalCostosVentas.sql" />
+    <Build Include="dbo\Functions\fnCalcularStockAlMovimiento.sql" />
+    <Build Include="dbo\Functions\fnCalcularEgresosCajaDiaria.sql" />
+    <Build Include="dbo\Stored Procedures\spVentasRepartoVsMostradorReport.sql" />
+    <Build Include="dbo\Stored Procedures\spVentasPorProductoProveedorReport.sql" />
+    <Build Include="dbo\Stored Procedures\spTotalVendidoPorListaDePreciosReport.sql" />
+    <Build Include="dbo\Stored Procedures\spStockListaReport.sql" />
+    <Build Include="dbo\Stored Procedures\spReportVenta.sql" />
+    <Build Include="dbo\Stored Procedures\spReportRemito.sql" />
+    <Build Include="dbo\Stored Procedures\spReportOrdenDePedido.sql" />
+    <Build Include="dbo\Stored Procedures\spPreciosListaReport.sql" />
+    <Build Include="dbo\Stored Procedures\spPreciosList.sql" />
+    <Build Include="dbo\Stored Procedures\spPrecioGet.sql" />
+    <Build Include="dbo\Stored Procedures\spMovimientosStockList.sql" />
+    <Build Include="dbo\Stored Procedures\spKilosCompradosPorProveedorReport.sql" />
+    <Build Include="dbo\Stored Procedures\spEstadisticaGananciasReport.sql" />
+    <Build Include="dbo\Stored Procedures\spEstadisticaComprasReport.sql" />
+    <Build Include="dbo\Stored Procedures\spClientesQueNoCompranDesdeFechaReport.sql" />
+  </ItemGroup>
+</Project>

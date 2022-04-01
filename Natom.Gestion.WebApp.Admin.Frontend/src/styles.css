@@ -5,21 +5,11 @@
 }
 
 :root {
-  --color-01: #03a6a9;
-  --color-01-light: #04bfc2;
-  --color-01-high: #037f81;
-  --color-02: #0d467f;
-  --color-02-light: #11579d;
-  --color-02-high: #0a325a;
-  --color-03: #330d7f;
-  --color-03-light: #4311a6;
-  --color-03-high: #220953;
-  --color-04: #5d0993;
-  --color-04-light: #770bbc;
-  --color-04-high: #400665;
-  --color-05: #9403a9;
-  --color-05-light: #be03d9;
-  --color-05-high: #6a0279;
+  --color-01: #2ba2c9;
+  --color-02: #30a6b7;
+  --color-03: #32a3a4;
+  --color-04: #387f77;
+  --color-05: #314741;
 }
 
 body {
