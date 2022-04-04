@@ -112,7 +112,7 @@ export class ProveedorCuentaCorrienteComponent implements OnInit {
       },
       columns: [
         { data: 'fechaHora' },
-        { data: 'usuario' },
+        { data: 'usuario', orderable: false },
         { data: 'tipo' },
         { data: 'importe' },
         { data: 'observaciones', orderable: false }

@@ -30,7 +30,6 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
         {
             var queryable = _db.Ventas
                                     .Include(op => op.Cliente)
-                                    .Include(op => op.Usuario)
                                     .Include(op => op.Detalle)
                                             .ThenInclude(d => d.OrdenDePedido)
                                     .Where(u => true);
@@ -101,6 +100,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     .Skip(start)
                     .Take(size)
                     .ToListAsync();
+
+
+            var usuariosIds = result.Where(c => c.UsuarioId.HasValue).Select(c => c.UsuarioId.Value).ToList();
+            var usuarios = await _authService.ListUsersByIds(usuariosIds);
+            result.ForEach(d => d.Usuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.UsuarioId));
+
 
             result.ForEach(r => r.CantidadFiltrados = countFiltrados);
 

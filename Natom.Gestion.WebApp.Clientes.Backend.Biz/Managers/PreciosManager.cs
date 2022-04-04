@@ -108,20 +108,18 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             return _db.ListasDePrecios.ToListAsync();
         }
 
-        public Task<List<HistoricoReajustePrecio>> ObtenerPreciosReajustesDataTableAsync(int start, int size, string filter, int sortColumnIndex, string sortDirection, string statusFilter, string listaFilter)
+        public async Task<List<HistoricoReajustePrecio>> ObtenerPreciosReajustesDataTableAsync(int start, int size, string filter, int sortColumnIndex, string sortDirection, string statusFilter, string listaFilter)
         {
             var queryable = _db.HistoricosReajustePrecios
                                     .Include(r => r.AplicoMarca)
                                     .Include(r => r.AplicoListaDePrecios)
-                                    .Include(r => r.Usuario)
                                     .Where(u => true);
 
             //FILTROS
             if (!string.IsNullOrEmpty(filter))
             {
                 queryable = queryable.Where(p => p.AplicoMarca.Descripcion.ToLower().Contains(filter.ToLower())
-                                                    || p.AplicoListaDePrecios.Descripcion.ToLower().Contains(filter.ToLower())
-                                                    || p.Usuario.Nombre.ToLower().Contains(filter.ToLower()));
+                                                    || p.AplicoListaDePrecios.Descripcion.ToLower().Contains(filter.ToLower()));
             }
 
             //FILTRO DE ESTADO
@@ -157,20 +155,24 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 queryableOrdered = sortDirection.ToLower().Equals("asc")
                                         ? queryable.OrderBy(c => sortColumnIndex == 0 ? c.AplicoMarca.Descripcion :
                                                                     sortColumnIndex == 3 ? c.AplicoListaDePrecios.Descripcion :
-                                                                    sortColumnIndex == 5 ? c.Usuario.Nombre :
                                                             "")
                                         : queryable.OrderByDescending(c => sortColumnIndex == 0 ? c.AplicoMarca.Descripcion :
                                                                     sortColumnIndex == 3 ? c.AplicoListaDePrecios.Descripcion :
-                                                                    sortColumnIndex == 5 ? c.Usuario.Nombre :
                                                             "");
             }
             
 
             //SKIP Y TAKE
-            return queryableOrdered
-                    .Skip(start)
-                    .Take(size)
-                    .ToListAsync();
+            var data = await queryableOrdered
+                                .Skip(start)
+                                .Take(size)
+                                .ToListAsync();
+
+            var usuariosIds = data.Where(c => c.UsuarioId.HasValue).Select(c => c.UsuarioId.Value).ToList();
+            var usuarios = await _authService.ListUsersByIds(usuariosIds);
+            data.ForEach(d => d.Usuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.UsuarioId));
+
+            return data;
         }
 
         public Task<int> ObtenerPreciosReajustesCountAsync()

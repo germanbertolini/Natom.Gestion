@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public async Task<List<MovimientoCajaDiaria>> ObtenerMovimientosCajaDiariaDataTableAsync(int start, int size, string filter, int sortColumnIndex, string sortDirection, DateTime? dateTimeFilter)
         {
-            var queryable = _db.MovimientosCajaDiaria.Include(m => m.Usuario).Where(u => true);
+            var queryable = _db.MovimientosCajaDiaria.Where(u => true);
 
             //FILTROS
             if (!string.IsNullOrEmpty(filter))
@@ -59,11 +59,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             else //OTROS (STRING)
             {
                 queryableOrdered = sortDirection.ToLower().Equals("asc")
-                                        ? queryable.OrderBy(c => sortColumnIndex == 1 ? c.Usuario.Nombre :
-                                                                    sortColumnIndex == 2 ? c.Tipo :
+                                        ? queryable.OrderBy(c =>    sortColumnIndex == 2 ? c.Tipo :
                                                             "")
-                                        : queryable.OrderByDescending(c => sortColumnIndex == 1 ? c.Usuario.Nombre :
-                                                                    sortColumnIndex == 2 ? c.Tipo :
+                                        : queryable.OrderByDescending(c =>  sortColumnIndex == 2 ? c.Tipo :
                                                             "");
             }
 
@@ -74,6 +72,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     .Skip(start)
                     .Take(size)
                     .ToListAsync();
+
+            
+            var usuariosIds = result.Where(c => c.UsuarioId.HasValue).Select(c => c.UsuarioId.Value).ToList();
+            var usuarios = await _authService.ListUsersByIds(usuariosIds);
+            result.ForEach(d => d.Usuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.UsuarioId));
+
 
             result.ForEach(r => r.CantidadFiltrados = countFiltrados);
 
@@ -153,7 +157,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public async Task<List<MovimientoCajaFuerte>> ObtenerMovimientosCajaFuerteDataTableAsync(int start, int size, string filter, int sortColumnIndex, string sortDirection, DateTime? dateTimeFilter)
         {
-            var queryable = _db.MovimientosCajaFuerte.Include(m => m.Usuario).Where(u => true);
+            var queryable = _db.MovimientosCajaFuerte.Where(u => true);
 
             //FILTROS
             if (!string.IsNullOrEmpty(filter))
@@ -190,11 +194,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             else //OTROS (STRING)
             {
                 queryableOrdered = sortDirection.ToLower().Equals("asc")
-                                        ? queryable.OrderBy(c => sortColumnIndex == 1 ? c.Usuario.Nombre :
-                                                                    sortColumnIndex == 2 ? c.Tipo :
+                                        ? queryable.OrderBy(c =>    sortColumnIndex == 2 ? c.Tipo :
                                                             "")
-                                        : queryable.OrderByDescending(c => sortColumnIndex == 1 ? c.Usuario.Nombre :
-                                                                    sortColumnIndex == 2 ? c.Tipo :
+                                        : queryable.OrderByDescending(c =>  sortColumnIndex == 2 ? c.Tipo :
                                                             "");
             }
 
@@ -205,6 +207,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     .Skip(start)
                     .Take(size)
                     .ToListAsync();
+
+
+            var usuariosIds = result.Where(c => c.UsuarioId.HasValue).Select(c => c.UsuarioId.Value).ToList();
+            var usuarios = await _authService.ListUsersByIds(usuariosIds);
+            result.ForEach(d => d.Usuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.UsuarioId));
+
 
             result.ForEach(r => r.CantidadFiltrados = countFiltrados);
 

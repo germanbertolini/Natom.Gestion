@@ -19,6 +19,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public int ProveedorId { get; set; }
 
 		public int? UsuarioId { get; set; }
+
+		[NotMapped]
 		public Usuario Usuario { get; set; }
 
 		public int? CompraMovimientoStockId { get; set; }

@@ -20,6 +20,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public DateTime FechaHoraVenta { get; set; }
 
 		public int? UsuarioId { get; set; }
+
+		[NotMapped]
 		public Usuario Usuario { get; set; }
 
 		public string MedioDePago { get; set; }

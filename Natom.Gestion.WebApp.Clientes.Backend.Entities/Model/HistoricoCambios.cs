@@ -16,6 +16,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public int HistoricoCambiosId { get; set; }
 		
 		public int? UsuarioId { get; set; }
+
+		[NotMapped]
 		public Usuario Usuario { get; set; }
 
 		public DateTime FechaHora { get; set; }

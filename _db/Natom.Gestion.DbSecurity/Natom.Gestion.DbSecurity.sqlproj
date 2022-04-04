@@ -82,6 +82,7 @@
     <Build Include="dbo\Stored Procedures\sp_token_delete_by_clientid_and_scope.sql" />
     <Build Include="dbo\Stored Procedures\sp_token_select_by_usuarioid.sql" />
     <Build Include="dbo\Stored Procedures\sp_token_delete_by_usuarioid.sql" />
+    <Build Include="dbo\Stored Procedures\sp_usuarios_select_by_multiples_ids.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Script.PostDeployment.sql" />

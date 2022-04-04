@@ -31,8 +31,6 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             var queryable = _db.OrdenesDePedido
                                     .Include(op => op.Cliente)
                                         .ThenInclude(c => c.Zona)
-                                    .Include(op => op.Usuario)
-                                    .Include(op => op.PreparacionUsuario)
                                     .Include(op => op.DespachoTransporte)
                                     .Where(u => true);
 
@@ -129,6 +127,18 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     .Take(size)
                     .ToListAsync();
 
+
+            var usuariosIds = result.Where(c => c.UsuarioId.HasValue).Select(c => c.UsuarioId.Value).ToList();
+            usuariosIds.AddRange(result.Where(c => c.PreparacionUsuarioId.HasValue).Select(c => c.PreparacionUsuarioId.Value).ToList());
+
+            var usuarios = await _authService.ListUsersByIds(usuariosIds);
+            result.ForEach(d => {
+                d.Usuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.UsuarioId);
+                if (d.PreparacionUsuarioId.HasValue)
+                    d.PreparacionUsuario = usuarios.FirstOrDefault(u => u.UsuarioId == d.PreparacionUsuarioId.Value);
+            });
+
+
             result.ForEach(r => r.CantidadFiltrados = countFiltrados);
 
             return result;
@@ -159,15 +169,18 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             return _db.RangosHorario.Where(r => r.Activo).ToListAsync();
         }
 
-        public Task<OrdenDePedido> ObtenerPedidoAsync(int pedidoId)
+        public async Task<OrdenDePedido> ObtenerPedidoAsync(int pedidoId)
         {
-            return _db.OrdenesDePedido
-                        .Include(op => op.Cliente)
-                        .Include(op => op.Usuario)
-                        .Include(op => op.Detalle).ThenInclude(d => d.Producto)
-                        .Include(op => op.Detalle).ThenInclude(d => d.Deposito)
-                        .Include(op => op.Detalle).ThenInclude(d => d.ListaDePrecios)
-                        .FirstAsync(op => op.OrdenDePedidoId == pedidoId);
+            var orden = await _db.OrdenesDePedido
+                                .Include(op => op.Cliente)
+                                .Include(op => op.Detalle).ThenInclude(d => d.Producto)
+                                .Include(op => op.Detalle).ThenInclude(d => d.Deposito)
+                                .Include(op => op.Detalle).ThenInclude(d => d.ListaDePrecios)
+                                .FirstAsync(op => op.OrdenDePedidoId == pedidoId);
+            
+            orden.Usuario = (await _authService.ListUsersByIds(new List<int>() { orden.UsuarioId.Value })).FirstOrDefault();
+            
+            return orden;
         }
 
         public async Task ValidarStockAsync(List<PedidoDetalleDTO> detallePedidoDto)

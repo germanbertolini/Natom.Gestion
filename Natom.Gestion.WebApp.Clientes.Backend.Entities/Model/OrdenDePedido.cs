@@ -34,7 +34,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public string EntregaObservaciones { get; set; }
 
 		public int? UsuarioId { get; set; }
-		[ForeignKey("UsuarioId")]
+
+		[NotMapped]
 		public Usuario Usuario { get; set; }
 
 		public string NumeroRemito { get; set; }
@@ -48,7 +49,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public DateTime? PreparacionFechaHoraInicio { get; set; }
 		public DateTime? PreparacionFechaHoraFin { get; set; }
 		public int? PreparacionUsuarioId { get; set; }
-		[ForeignKey("PreparacionUsuarioId")]
+
+		[NotMapped]
 		public Usuario PreparacionUsuario { get; set; }
 
 		public DateTime? DespachoFechaHora { get; set; }

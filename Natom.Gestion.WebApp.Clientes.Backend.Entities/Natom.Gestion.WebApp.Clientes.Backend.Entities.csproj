@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="5.0.12" />
-    <PackageReference Include="Natom.Extensions.Auth" Version="1.0.1" />
+    <PackageReference Include="Natom.Extensions.Auth" Version="1.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 

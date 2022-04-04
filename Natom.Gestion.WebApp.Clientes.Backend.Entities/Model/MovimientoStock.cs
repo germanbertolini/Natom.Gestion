@@ -21,7 +21,6 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public DateTime FechaHora { get; set; }
 
 		public int? UsuarioId { get; set; }
-		public Usuario Usuario { get; set; }
 
 		public string Tipo { get; set; } //(I) NGRESO / (E) GRESO
 		public int Cantidad { get; set; }
