@@ -66,8 +66,6 @@
     <Build Include="dbo\Tables\Zona.sql" />
     <Build Include="dbo\Tables\VentaDetalle.sql" />
     <Build Include="dbo\Tables\Venta.sql" />
-    <Build Include="dbo\Tables\UsuarioPermiso.sql" />
-    <Build Include="dbo\Tables\Usuario.sql" />
     <Build Include="dbo\Tables\UnidadPeso.sql" />
     <Build Include="dbo\Tables\Transporte.sql" />
     <Build Include="dbo\Tables\TipoResponsable.sql" />
@@ -76,7 +74,6 @@
     <Build Include="dbo\Tables\Proveedor.sql" />
     <Build Include="dbo\Tables\ProductoPrecio.sql" />
     <Build Include="dbo\Tables\Producto.sql" />
-    <Build Include="dbo\Tables\Permiso.sql" />
     <Build Include="dbo\Tables\OrdenDePedidoDetalle.sql" />
     <Build Include="dbo\Tables\OrdenDePedido.sql" />
     <Build Include="dbo\Tables\MovimientoStock.sql" />
@@ -117,5 +114,8 @@
     <Build Include="dbo\Stored Procedures\spEstadisticaGananciasReport.sql" />
     <Build Include="dbo\Stored Procedures\spEstadisticaComprasReport.sql" />
     <Build Include="dbo\Stored Procedures\spClientesQueNoCompranDesdeFechaReport.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="dbo\Script.PostDeployment.sql" />
   </ItemGroup>
 </Project>

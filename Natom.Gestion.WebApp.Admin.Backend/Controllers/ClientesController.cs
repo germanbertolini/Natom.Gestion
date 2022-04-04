@@ -120,11 +120,20 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
         {
             try
             {
+                var dacpacManager = new DacpacManager(_serviceProvider);
+                await dacpacManager.CheckDeploymentParamsAsync();
+
                 var esAlta = string.IsNullOrEmpty(clienteDto.EncryptedId);
                 var manager = new ClientesManager(_serviceProvider);
                 var cliente = await manager.GuardarClienteAsync(clienteDto.ToModel());
 
                 await RegistrarAccionAsync(clienteId: 0, cliente.ClienteId, nameof(Cliente), esAlta ? "Alta" : "Edición");
+
+                if (esAlta)
+                {
+                    var successInfo = await dacpacManager.DeployNewDacpacAsync(cliente);
+                    _loggerService.LogInfo(_transaction.TraceTransactionId, "DACPAC desplegado correctamente", new { result = successInfo });
+                }
 
                 if (esAlta)
                     _ = _discordService.LogInfoAsync(":tada: NUEVO CLIENTE :partying_face:", _transaction.TraceTransactionId, new { Cliente = (cliente.EsEmpresa ? cliente.RazonSocial : $"{cliente.Nombre} {cliente.Apellido}"), Tipo = (cliente.EsEmpresa ? "Empresa" : "Particular") });

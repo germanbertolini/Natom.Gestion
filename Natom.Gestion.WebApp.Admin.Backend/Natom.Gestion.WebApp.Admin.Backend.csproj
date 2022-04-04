@@ -19,6 +19,9 @@
     <None Update="EmailTemplates\Default.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="_dacpacs\Natom.Gestion.Dbz000.dacpac">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
