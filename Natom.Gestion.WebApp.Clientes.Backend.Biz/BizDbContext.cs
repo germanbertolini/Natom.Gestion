@@ -26,15 +26,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz
         public DbSet<MovimientoStock> MovimientosStock { get; set; }
         public DbSet<OrdenDePedido> OrdenesDePedido { get; set; }
         public DbSet<OrdenDePedidoDetalle> OrdenesDePedidoDetalle { get; set; }
-        public DbSet<Permiso> Permisos { get; set; }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<ProductoPrecio> ProductosPrecios { get; set; }
         public DbSet<RangoHorario> RangosHorario { get; set; }
         public DbSet<TipoDocumento> TiposDocumento { get; set; }
         public DbSet<TipoResponsable> TiposResponsable { get; set; }
         public DbSet<UnidadPeso> UnidadesPeso { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<UsuarioPermiso> UsuariosPermisos { get; set; }
         public DbSet<Venta> Ventas { get; set; }
         public DbSet<VentaDetalle> VentasDetalle { get; set; }
 

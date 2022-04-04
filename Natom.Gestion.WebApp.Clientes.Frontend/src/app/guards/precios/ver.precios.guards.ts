@@ -18,7 +18,8 @@ export class VerPreciosGuard implements CanActivate {
         Promise<boolean | UrlTree> | boolean | UrlTree {
 
         let containsPermission = this._authService.getCurrentPermissions().indexOf("precios_ver") >= 0
-                                    || this._authService.getCurrentPermissions().indexOf("precios_crud") >= 0;
+                                    || this._authService.getCurrentPermissions().indexOf("precios_crud") >= 0
+                                    || this._authService.getCurrentPermissions().indexOf("*") >= 0;
 
         if (!containsPermission)
             this.confirmDialogService.showError("¡Ups! No tienes permisos");

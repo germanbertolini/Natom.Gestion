@@ -17,7 +17,8 @@ export class ReajustarPreciosGuard implements CanActivate {
         state: RouterStateSnapshot): Observable<boolean | UrlTree> |
         Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        let containsPermission = this._authService.getCurrentPermissions().indexOf("precios_reajustar") >= 0;
+        let containsPermission = this._authService.getCurrentPermissions().indexOf("precios_reajustar") >= 0
+                                        || this._authService.getCurrentPermissions().indexOf("*") >= 0;
 
         if (!containsPermission)
             this.confirmDialogService.showError("¡Ups! No tienes permisos");

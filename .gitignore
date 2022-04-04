@@ -29,11 +29,11 @@ _ReSharper*/
 .vs/
 #Nuget packages folder
 packages/
-/_db/Natom.AccessMonitor.DbConfig/Natom.AccessMonitor.DbConfig.dbmdl
-/_db/Natom.AccessMonitor.DbConfig/Natom.AccessMonitor.DbConfig.jfm
-/_db/Natom.AccessMonitor.DbLogs/Natom.AccessMonitor.DbLogs.dbmdl
-/_db/Natom.AccessMonitor.DbLogs/Natom.AccessMonitor.DbLogs.jfm
-/_db/Natom.AccessMonitor.DbMaster/Natom.AccessMonitor.DbMaster.dbmdl
-/_db/Natom.AccessMonitor.DbMaster/Natom.AccessMonitor.DbMaster.jfm
-/_db/Natom.AccessMonitor.DbSecurity/Natom.AccessMonitor.DbSecurity.dbmdl
-/_db/Natom.AccessMonitor.DbSecurity/Natom.AccessMonitor.DbSecurity.jfm
+/_db/Natom.Gestion.DbConfig/Natom.Gestion.DbConfig.dbmdl
+/_db/Natom.Gestion.DbConfig/Natom.Gestion.DbConfig.jfm
+/_db/Natom.Gestion.DbLogs/Natom.Gestion.DbLogs.dbmdl
+/_db/Natom.Gestion.DbLogs/Natom.Gestion.DbLogs.jfm
+/_db/Natom.Gestion.DbMaster/Natom.Gestion.DbMaster.dbmdl
+/_db/Natom.Gestion.DbMaster/Natom.Gestion.DbMaster.jfm
+/_db/Natom.Gestion.DbSecurity/Natom.Gestion.DbSecurity.dbmdl
+/_db/Natom.Gestion.DbSecurity/Natom.Gestion.DbSecurity.jfm

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Natom.Gestion.WebApp.Clientes.Backend.Biz.Exceptions;
+using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Services;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Ventas;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;

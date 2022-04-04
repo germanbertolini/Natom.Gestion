@@ -70,7 +70,7 @@ export class AuthService {
   }
 
   public can(permission: string) {
-    return this.getCurrentPermissions().indexOf(permission.toLowerCase()) >= 0;
+    return this.getCurrentPermissions().indexOf('*') >= 0 || this.getCurrentPermissions().indexOf(permission.toLowerCase()) >= 0;
   }
   
   public Login(email: string, password: string, onSuccess: () => void, onError: (errorMessage: string) => void) {

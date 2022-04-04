@@ -4,8 +4,8 @@
     height: 100%;
     top: 0;
     left: 0;
-    background: rgb(188, 11, 11);
-    background: linear-gradient(90deg, rgb(188, 11, 11) 0%, rgb(58, 44, 44) 44%, rgb(37, 28, 28) 75%, rgb(24, 24, 24) 100%, rgb(12, 12, 12) 100%);
+    background: rgb(43, 162, 201);
+    background: linear-gradient(90deg, rgb(43, 162, 201) 0%, rgb(48 166 183) 23%, rgb(56 127 119) 50%, rgb(56 127 119) 90%, rgb(51 114 93) 100%);
     position: fixed;
 }
 

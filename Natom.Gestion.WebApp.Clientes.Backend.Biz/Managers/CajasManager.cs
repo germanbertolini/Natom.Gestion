@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Natom.Gestion.WebApp.Clientes.Backend.Biz.Exceptions;
+using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Cajas;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;

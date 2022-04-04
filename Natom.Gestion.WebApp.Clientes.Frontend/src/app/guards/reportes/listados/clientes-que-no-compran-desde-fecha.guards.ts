@@ -17,7 +17,8 @@ export class ClientesQueNoCompranDesdeFechaGuard implements CanActivate {
         state: RouterStateSnapshot): Observable<boolean | UrlTree> |
         Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        let containsPermission = this._authService.getCurrentPermissions().indexOf("reportes_listado_clientes_que_no_compran") >= 0;
+        let containsPermission = this._authService.getCurrentPermissions().indexOf("reportes_listado_clientes_que_no_compran") >= 0
+                                    || this._authService.getCurrentPermissions().indexOf("*") >= 0;
 
         if (!containsPermission)
             this.confirmDialogService.showError("¡Ups! No tienes permisos");

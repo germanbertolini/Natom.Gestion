@@ -1,4 +1,4 @@
-﻿using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
+﻿using Natom.Extensions.Auth.Entities.Models;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using Newtonsoft.Json;
 using System;

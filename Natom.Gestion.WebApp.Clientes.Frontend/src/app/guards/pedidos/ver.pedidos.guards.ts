@@ -19,7 +19,8 @@ export class VerPedidosGuard implements CanActivate {
 
         let containsPermission = this._authService.getCurrentPermissions().indexOf("pedidos_ver") >= 0
                                     || this._authService.getCurrentPermissions().indexOf("pedidos_anular") >= 0
-                                    || this._authService.getCurrentPermissions().indexOf("pedidos_deposito") >= 0;
+                                    || this._authService.getCurrentPermissions().indexOf("pedidos_deposito") >= 0
+                                    || this._authService.getCurrentPermissions().indexOf("*") >= 0;
 
         if (!containsPermission)
             this.confirmDialogService.showError("¡Ups! No tienes permisos");

@@ -1,12 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Natom.Gestion.WebApp.Clientes.Backend.Services;
-using Natom.Gestion.WebApp.Clientes.Backend.Biz.Exceptions;
+using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Cajas;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.DataTable;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -58,7 +56,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                await LoggingService.LogExceptionAsync(_db, ex, usuarioId: (int?)_token?.UserId, _userAgent);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
@@ -71,7 +69,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             try
             {
                 var manager = new CajasManager(_serviceProvider);
-                var movimiento = await manager.GuardarMovimientoCajaDiariaAsync(user, (int)(_token?.UserId ?? 0));
+                var movimiento = await manager.GuardarMovimientoCajaDiariaAsync(user, (int)(_accessToken?.UserId ?? 0));
 
                 return Ok(new ApiResultDTO<MovimientoCajaDiariaDTO>
                 {
@@ -85,7 +83,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                await LoggingService.LogExceptionAsync(_db, ex, usuarioId: (int?)_token?.UserId, _userAgent);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
@@ -128,7 +126,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                await LoggingService.LogExceptionAsync(_db, ex, usuarioId: (int?)_token?.UserId, _userAgent);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
@@ -141,7 +139,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             try
             {
                 var manager = new CajasManager(_serviceProvider);
-                var movimiento = await manager.GuardarMovimientoCajaFuerteAsync(user, (int)(_token?.UserId ?? 0));
+                var movimiento = await manager.GuardarMovimientoCajaFuerteAsync(user, (int)(_accessToken?.UserId ?? 0));
 
                 return Ok(new ApiResultDTO<MovimientoCajaFuerteDTO>
                 {
@@ -155,7 +153,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                await LoggingService.LogExceptionAsync(_db, ex, usuarioId: (int?)_token?.UserId, _userAgent);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
@@ -168,7 +166,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             try
             {
                 var manager = new CajasManager(_serviceProvider);
-                await manager.GuardarMovimientoEntreCajasAsync(movimientoDto, (int)(_token?.UserId ?? 0));
+                await manager.GuardarMovimientoEntreCajasAsync(movimientoDto, (int)(_accessToken?.UserId ?? 0));
 
                 return Ok(new ApiResultDTO
                 {
@@ -181,7 +179,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                await LoggingService.LogExceptionAsync(_db, ex, usuarioId: (int?)_token?.UserId, _userAgent);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex);
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }

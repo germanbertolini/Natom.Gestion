@@ -24,6 +24,7 @@ as (select * from (values
 ('ConnectionStrings.DbLogs', 'Data Source=localhost; Initial Catalog=Gestion_Logs; Integrated Security=SSPI;', 'ConnectionString de la base de datos de Logs'),
 ('ConnectionStrings.DbSecurity', 'Data Source=localhost; Initial Catalog=Gestion_Security; Integrated Security=SSPI;', 'ConnectionString de la base de datos de Security'),
 ('ConnectionStrings.DbMaster', 'Data Source=localhost; Initial Catalog=Gestion_Master; Integrated Security=SSPI;', 'ConnectionString de la base de datos de Master'),
+('ConnectionStrings.DbzXXX', 'Data Source=localhost; Initial Catalog=Gestion_zXXX; Integrated Security=SSPI;', 'ConnectionString de la base de datos de cada cliente'),
 ('Cache.RedisServer.IP','localhost','IP del servidor Redis'),
 ('Cache.RedisServer.Port','6379','Puerto del servidor Redis'),
 ('Cache.RedisServer.Ssl','False','Si utilizar o no SSL en la conexión a Redis'),

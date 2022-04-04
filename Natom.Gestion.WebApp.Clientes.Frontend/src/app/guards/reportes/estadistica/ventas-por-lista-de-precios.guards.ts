@@ -17,7 +17,8 @@ export class VentasPorListsaDePreciosGuard implements CanActivate {
         state: RouterStateSnapshot): Observable<boolean | UrlTree> |
         Promise<boolean | UrlTree> | boolean | UrlTree {
 
-        let containsPermission = this._authService.getCurrentPermissions().indexOf("reportes_estadistica_ventas_por_lista_de_precios") >= 0;
+        let containsPermission = this._authService.getCurrentPermissions().indexOf("reportes_estadistica_ventas_por_lista_de_precios") >= 0
+                                        || this._authService.getCurrentPermissions().indexOf("*") >= 0;
 
         if (!containsPermission)
             this.confirmDialogService.showError("¡Ups! No tienes permisos");
