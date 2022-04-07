@@ -21,5 +21,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
         public int? IncrementoDeListaDePreciosId { get; set; }
         [ForeignKey("IncrementoDeListaDePreciosId")]
         public ListaDePrecios IncrementoDeListaDePrecios { get; set; }
+
+        [NotMapped]
+        public int CantidadFiltrados { get; set; }
     }
 }

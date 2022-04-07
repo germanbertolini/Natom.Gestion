@@ -23,13 +23,25 @@
             <a class="nav-link" [routerLink]="['/']"><b>Ahora</b></a>
           </li> -->
 
-          <li *ngIf="authService.can('transportes_crud') || authService.can('zonas_crud') || authService.can('abm_marcas') || authService.can('abm_usuarios') || authService.can('proveedores_ver') || authService.can('proveedores_crud')" class="nav-item dropdown">
+          <li *ngIf="authService.can('transportes_crud') || authService.can('zonas_crud') || authService.can('abm_marcas')
+                    || authService.can('abm_usuarios') || authService.can('proveedores_ver') || authService.can('proveedores_crud')
+                    || authService.can('productos_categorias_crud') || authService.can('depositos_crud') || authService.can('pedidos_rangos_horarios_crud')
+                    || authService.can('precios_listas_crud')" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               ABM
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
               <a readonly *ngIf="authService.can('abm_marcas')" class="dropdown-item" [routerLink]="['/marcas']">Marcas</a>
               <a *ngIf="authService.can('abm_marcas')" class="dropdown-item" [routerLink]="['/marcas/new']">[+] Nueva Marca</a>
+              <div *ngIf="authService.can('depositos_crud')" class="dropdown-divider"></div>
+              <a readonly *ngIf="authService.can('precios_listas_crud')" class="dropdown-item" [routerLink]="['/listas-de-precios']">Listas de precios</a>
+              <a *ngIf="authService.can('precios_listas_crud')" class="dropdown-item" [routerLink]="['/listas-de-precios/new']">[+] Nueva Lista de precios</a>
+              <div *ngIf="authService.can('precios_listas_crud')" class="dropdown-divider"></div>
+              <a readonly *ngIf="authService.can('depositos_crud')" class="dropdown-item" [routerLink]="['/depositos']">Depósitos</a>
+              <a *ngIf="authService.can('depositos_crud')" class="dropdown-item" [routerLink]="['/depositos/new']">[+] Nuevo Depósito</a>
+              <div *ngIf="authService.can('productos_categorias_crud')" class="dropdown-divider"></div>
+              <a readonly *ngIf="authService.can('productos_categorias_crud')" class="dropdown-item" [routerLink]="['/categorias-productos']">Categorías de producto</a>
+              <a *ngIf="authService.can('productos_categorias_crud')" class="dropdown-item" [routerLink]="['/categorias-productos/new']">[+] Nueva Categoría de producto</a>
               <div *ngIf="authService.can('transportes_crud')" class="dropdown-divider"></div>
               <a readonly *ngIf="authService.can('transportes_crud')" class="dropdown-item" [routerLink]="['/transportes']">Transportes</a>
               <a *ngIf="authService.can('transportes_crud')" class="dropdown-item" [routerLink]="['/transportes/new']">[+] Nuevo Transporte</a>
@@ -39,6 +51,9 @@
               <div *ngIf="authService.can('proveedores_ver')" class="dropdown-divider"></div>
               <a *ngIf="authService.can('proveedores_ver')" class="dropdown-item" [routerLink]="['/proveedores']">Proveedores</a>
               <a *ngIf="authService.can('proveedores_crud')" class="dropdown-item" [routerLink]="['/proveedores/new']">[+] Nuevo Proveedor</a>
+              <div *ngIf="authService.can('pedidos_rangos_horarios_crud')" class="dropdown-divider"></div>
+              <a *ngIf="authService.can('pedidos_rangos_horarios_crud')" class="dropdown-item" [routerLink]="['/rangos-horarios']">Rangos horarios</a>
+              <a *ngIf="authService.can('pedidos_rangos_horarios_crud')" class="dropdown-item" [routerLink]="['/rangos-horarios/new']">[+] Nuevo Rango horario</a>
               <div *ngIf="authService.can('abm_usuarios')" class="dropdown-divider"></div>
               <a *ngIf="authService.can('abm_usuarios')" class="dropdown-item" [routerLink]="['/users']">Usuarios</a>
               <a *ngIf="authService.can('abm_usuarios')" class="dropdown-item" [routerLink]="['/users/new']">[+] Nuevo Usuario</a>

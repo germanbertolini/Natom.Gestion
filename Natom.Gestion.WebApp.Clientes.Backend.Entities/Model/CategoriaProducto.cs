@@ -12,8 +12,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
     public class CategoriaProducto
     {
         [Key]
-        public string CategoriaProductoId { get; set; }
+        public int CategoriaProductoId { get; set; }
         public string Descripcion { get; set; }
         public bool Eliminado { get; set; }
+
+        [NotMapped]
+        public int CantidadFiltrados { get; set; }
     }
 }

@@ -79,6 +79,14 @@ import { ProveedorCuentaCorrienteComponent } from './views/proveedores/cta_cte/p
 import { ProveedorCuentaCorrienteNewComponent } from './views/proveedores/cta_cte/new/proveedor-cta-cte-new.component';
 import { FeatureFlagsService } from './services/feature-flags.service';
 import { FeatureFlags } from './classes/feature-flags';
+import { CategoriasProductosComponent } from './views/categorias-productos/categorias-productos.component';
+import { CategoriaProductoCrudComponent } from './views/categorias-productos/crud/categoria-producto-crud.component';
+import { DepositosComponent } from './views/depositos/depositos.component';
+import { DepositoCrudComponent } from './views/depositos/crud/deposito-crud.component';
+import { RangosHorariosComponent } from './views/rangos-horarios/rangos-horarios.component';
+import { RangoHorarioCrudComponent } from './views/rangos-horarios/crud/rango-horario-crud.component';
+import { ListasDePreciosComponent } from './views/listas-de-precios/listas-de-precios.component';
+import { ListaDePreciosCrudComponent } from './views/listas-de-precios/crud/lista-de-precios-crud.component';
 
 
 export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsService: FeatureFlagsService) {
@@ -115,6 +123,8 @@ export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsS
     ProveedorCrudComponent,
     ProductosComponent,
     ProductoCrudComponent,
+    CategoriasProductosComponent,
+    CategoriaProductoCrudComponent,
     PreciosComponent,
     PrecioCrudComponent,
     PreciosReajustesComponent,
@@ -140,6 +150,12 @@ export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsS
     ClienteCuentaCorrienteNewComponent,
     ProveedorCuentaCorrienteComponent,
     ProveedorCuentaCorrienteNewComponent,
+    DepositosComponent,
+    DepositoCrudComponent,
+    RangosHorariosComponent,
+    RangoHorarioCrudComponent,
+    ListasDePreciosComponent,
+    ListaDePreciosCrudComponent,
     NgbdDatepickerPopup
   ],
   imports: [

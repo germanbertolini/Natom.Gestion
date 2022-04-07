@@ -24,11 +24,14 @@ as (select * from (values
 ('PEDIDOS_DEPOSITO','WebApp.Clientes','Pedidos: Armado / Finalización de preparación'),
 ('PEDIDOS_NUEVO','WebApp.Clientes','Pedidos: Carga nuevo pedido'),
 ('PEDIDOS_VER','WebApp.Clientes','Pedidos: Ver pedidos'),
+('PEDIDOS_RANGOS_HORARIOS_CRUD','WebApp.Clientes','Rangos horarios de entrega: Alta, Baja, Modificación'),
 ('PRECIOS_CRUD','WebApp.Clientes','Precios: Alta, Baja, Modificación'),
 ('PRECIOS_REAJUSTAR','WebApp.Clientes','Precios: Reajuste por Marca'),
 ('PRECIOS_VER','WebApp.Clientes','Precios: Consultar'),
+('PRECIOS_LISTAS_CRUD','WebApp.Clientes','Listas de precios: Alta, Baja, Modificación'),
 ('PRODUCTOS_CRUD','WebApp.Clientes','Productos: Alta, Baja, Modificación'),
 ('PRODUCTOS_VER','WebApp.Clientes','Productos: Consultar'),
+('PRODUCTOS_CATEGORIAS_CRUD','WebApp.Clientes','Categorías de producto: Alta, Baja, Modificación'),
 ('PROVEEDORES_CRUD','WebApp.Clientes','Proveedores: Alta, Baja, Modificación'),
 ('PROVEEDORES_CTA_CTE_NUEVO','WebApp.Clientes','Proveedores: Nuevo movimiento en Cuenta Corriente'),
 ('PROVEEDORES_CTA_CTE_VER','WebApp.Clientes','Proveedores: Consultar Cuenta Corriente'),
@@ -47,7 +50,8 @@ as (select * from (values
 ('VENTAS_ANULAR','WebApp.Clientes','Ventas: Anular venta'),
 ('VENTAS_NUEVO','WebApp.Clientes','Ventas: Carga nueva venta'),
 ('VENTAS_VER','WebApp.Clientes','Ventas: Ver ventas'),
-('ZONAS_CRUD','WebApp.Clientes','Zonas: Alta, Baja, Modificación')
+('ZONAS_CRUD','WebApp.Clientes','Zonas: Alta, Baja, Modificación'),
+('DEPOSITOS_CRUD','WebApp.Clientes','Depósitos: Alta, Baja, Modificación')
 --\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 )c([PermisoId],[Scope],[Descripcion]))
 merge	[dbo].[Permiso] as t

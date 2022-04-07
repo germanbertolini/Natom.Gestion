@@ -15,5 +15,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
         public int RangoHorarioId { get; set; }
 	    public string Descripcion { get; set; }
         public bool Activo { get; set; }
+
+        [NotMapped]
+        public int CantidadFiltrados { get; set; }
     }
 }

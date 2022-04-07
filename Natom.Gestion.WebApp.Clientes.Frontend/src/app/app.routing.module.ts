@@ -81,6 +81,18 @@ import { ProveedoresCtaCteVerGuard } from "./guards/proveedores/proveedores.cta-
 import { ProveedoresCtaCteNuevoGuard } from "./guards/proveedores/proveedores.cta-cte-nuevo.guards";
 import { ProveedorCuentaCorrienteComponent } from "./views/proveedores/cta_cte/proveedor-cta-cte.component";
 import { ProveedorCuentaCorrienteNewComponent } from "./views/proveedores/cta_cte/new/proveedor-cta-cte-new.component";
+import { CRUDCategoriasProductosGuard } from "./guards/productos/crud.categorias-productos.guards";
+import { CategoriasProductosComponent } from "./views/categorias-productos/categorias-productos.component";
+import { CategoriaProductoCrudComponent } from "./views/categorias-productos/crud/categoria-producto-crud.component";
+import { CRUDDepositosGuard } from "./guards/stock/crud.depositos.guards";
+import { DepositosComponent } from "./views/depositos/depositos.component";
+import { DepositoCrudComponent } from "./views/depositos/crud/deposito-crud.component";
+import { ABMRangosHorariosGuard } from "./guards/rangos-horarios/abm.rangos-horarios.guards";
+import { RangoHorarioCrudComponent } from "./views/rangos-horarios/crud/rango-horario-crud.component";
+import { RangosHorariosComponent } from "./views/rangos-horarios/rangos-horarios.component";
+import { ABMListasDePreciosGuard } from "./guards/listas-de-precios/abm.listas-de-precios.guards";
+import { ListasDePreciosComponent } from "./views/listas-de-precios/listas-de-precios.component";
+import { ListaDePreciosCrudComponent } from "./views/listas-de-precios/crud/lista-de-precios-crud.component";
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -121,6 +133,18 @@ const appRoutes: Routes = [
     { canActivate: [ AuthGuard, VerProductosGuard ], path: 'productos', component: ProductosComponent },
     { canActivate: [ AuthGuard, CRUDProductosGuard ], path: "productos/new", component: ProductoCrudComponent },
     { canActivate: [ AuthGuard, CRUDProductosGuard ], path: "productos/edit/:id", component: ProductoCrudComponent },
+    { canActivate: [ AuthGuard, CRUDDepositosGuard ], path: 'depositos', component: DepositosComponent },
+    { canActivate: [ AuthGuard, CRUDDepositosGuard ], path: "depositos/new", component: DepositoCrudComponent },
+    { canActivate: [ AuthGuard, CRUDDepositosGuard ], path: "depositos/edit/:id", component: DepositoCrudComponent },
+    { canActivate: [ AuthGuard, ABMListasDePreciosGuard ], path: 'listas-de-precios', component: ListasDePreciosComponent },
+    { canActivate: [ AuthGuard, ABMListasDePreciosGuard ], path: "listas-de-precios/new", component: ListaDePreciosCrudComponent },
+    { canActivate: [ AuthGuard, ABMListasDePreciosGuard ], path: "listas-de-precios/edit/:id", component: ListaDePreciosCrudComponent },
+    { canActivate: [ AuthGuard, ABMRangosHorariosGuard ], path: 'rangos-horarios', component: RangosHorariosComponent },
+    { canActivate: [ AuthGuard, ABMRangosHorariosGuard ], path: "rangos-horarios/new", component: RangoHorarioCrudComponent },
+    { canActivate: [ AuthGuard, ABMRangosHorariosGuard ], path: "rangos-horarios/edit/:id", component: RangoHorarioCrudComponent },
+    { canActivate: [ AuthGuard, CRUDCategoriasProductosGuard ], path: 'categorias-productos', component: CategoriasProductosComponent },
+    { canActivate: [ AuthGuard, CRUDCategoriasProductosGuard ], path: "categorias-productos/new", component: CategoriaProductoCrudComponent },
+    { canActivate: [ AuthGuard, CRUDCategoriasProductosGuard ], path: "categorias-productos/edit/:id", component: CategoriaProductoCrudComponent },
     { canActivate: [ AuthGuard, VerPreciosGuard ], path: "precios", component: PreciosComponent },
     { canActivate: [ AuthGuard, CRUDPreciosGuard ], path: "precios/new", component: PrecioCrudComponent },
     { canActivate: [ AuthGuard, CRUDPreciosGuard ], path: "precios/renew/:id", component: PrecioCrudComponent },
