@@ -14,6 +14,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
         [Key]
         public int UnidadPesoId { get; set; }
 	    public string Descripcion { get; set; }
-        public int Gramos { get; set; }
+        public int? Gramos { get; set; }
+        public int? Mililitros { get; set; }
     }
 }

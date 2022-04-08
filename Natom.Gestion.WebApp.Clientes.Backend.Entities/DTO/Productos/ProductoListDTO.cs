@@ -40,7 +40,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Productos
             Marca = entity.Marca?.Descripcion;
             Activo = entity.Activo;
             Categoria = entity.CategoriaProducto?.Descripcion;
-            PesoUnitarioGramos = Convert.ToInt32(entity.PesoUnitario * entity.UnidadPeso.Gramos);
+            PesoUnitarioGramos = Convert.ToInt32(entity.PesoUnitario * (entity.UnidadPeso.Gramos ?? 0));
 
             return this;
         }

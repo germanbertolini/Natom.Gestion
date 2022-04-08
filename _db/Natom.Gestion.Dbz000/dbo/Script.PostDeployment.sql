@@ -140,11 +140,14 @@ set identity_insert [dbo].[TipoResponsable] off;
 ----------------------------------------------------------------------------------------------------
 set nocount on;
 set identity_insert [dbo].[UnidadPeso] on;
-;with cte_data([UnidadPesoId],[Descripcion],[Gramos])
+;with cte_data([UnidadPesoId],[Descripcion],[Gramos],[Mililitros])
 as (select * from (values
 --//////////////////////////////////////////////////////////////////////////////////////////////////
-(1,'Gr',1),
-(2,'Kg',1000)
+(1,'No aplica',NULL,NULL),
+(2,'Gr',1,NULL),
+(3,'Kg',1000,NULL),
+(4,'Ml',NULL,1),
+(5,'L',NULL,1000)
 --\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 )c([UnidadPesoId],[Descripcion],[Gramos]))
 merge	[dbo].[UnidadPeso] as t

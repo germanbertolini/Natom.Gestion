@@ -1,10 +1,18 @@
 <div class="background"></div>
+<div class="background2 hide-if-mobile"></div>
 
 <div class="container login-container">
+  <div class="row hide-if-mobile">
+    <div class="col-md-12">
+      <br/><br/>
+      <img src="assets/img/IconMedium.png" style="margin: auto; display: block;" height="75" />
+      <br/><br/>
+    </div>
+  </div>
     <div class="row">
       <div class="col-md-6 offset-md-3 login-form">
         <div class="profile-img">
-          <img src="https://electronicssoftware.net/wp-content/uploads/user.png" alt="profile_img" height="140px" width="140px;">
+          <img src="/assets/img/user.png" alt="profile_img" height="140px" width="140px;">
         </div>
         <h3>Identificarse</h3>
         <form>
@@ -13,7 +21,7 @@
                 type="text"
                 class="form-control"
                 name="email"
-                placeholder="ejemplo"
+                placeholder="ejemplo@ejemplo.com"
                 [(ngModel)]="email"
                 (keyup.enter)="passwordField.focus()"
                 autofocus
@@ -34,9 +42,11 @@
             <button type="button" class="btn btn-secondary btn-lg btn-block" (click)="onLoginClick()">Acceder</button>
           </div>
           <div class="form-group forget-password">
-              <a (click)="onRecoverPasswordClick()">¿Olvidó la clave?</a>
+              <a (click)="onRecoverPasswordClick()" style="cursor:pointer;">¿Olvidó la clave?</a>
           </div>
         </form>
       </div>
     </div>
   </div>
+
+<p class="copyright">&copy; 2022 - Natom technologies</p>
