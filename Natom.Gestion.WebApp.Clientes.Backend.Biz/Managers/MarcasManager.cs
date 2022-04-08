@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int marcaId = EncryptionService.Decrypt<int>(marcaDto.EncryptedId);
+                int marcaId = EncryptionService.Decrypt<int, Marca>(marcaDto.EncryptedId);
 
                 if (await _db.Marcas.AnyAsync(m => m.Descripcion.ToLower().Equals(marcaDto.Descripcion.ToLower()) && m.MarcaId != marcaId))
                     throw new HandledException("Ya existe una Marca con misma descripción.");
@@ -95,7 +95,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public Task<List<Marca>> ObtenerMarcasActivasAsync()
         {
-            return _db.Marcas.Where(m => m.Activo).ToListAsync();
+            return _db.Marcas.Where(m => m.Activo).OrderBy(m => m.Descripcion).ToListAsync();
         }
 
         public async Task DesactivarMarcaAsync(int marcaId)

@@ -19,7 +19,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Auth
 
         public PermisoDTO From(Permiso entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.PermisoId);
+            EncryptedId = EncryptionService.Encrypt<Permiso>(entity.PermisoId);
             Descripcion = entity.Descripcion;
 
             return this;

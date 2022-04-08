@@ -46,7 +46,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Cajas
 
         public MovimientoCajaFuerteDTO From(MovimientoCajaFuerte entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.MovimientoCajaFuerteId);
+            EncryptedId = EncryptionService.Encrypt<MovimientoCajaFuerte>(entity.MovimientoCajaFuerteId);
             FechaHora = entity.FechaHora;
             UsuarioNombre = entity.Usuario?.Nombre ?? "Admin";
             Tipo = entity.Tipo.Equals("C") ? "Ingreso" : "Egreso";

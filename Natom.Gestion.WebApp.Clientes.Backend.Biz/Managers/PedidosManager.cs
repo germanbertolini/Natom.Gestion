@@ -190,9 +190,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                                     .Where(d => string.IsNullOrEmpty(d.EncryptedId))
                                     .GroupBy(k => new
                                     {
-                                        ProductoId = EncryptionService.Decrypt<int>(k.ProductoEncryptedId),
+                                        ProductoId = EncryptionService.Decrypt<int, Producto>(k.ProductoEncryptedId),
                                         ProductoDescripcion = k.ProductoDescripcion,
-                                        DepositoId = EncryptionService.Decrypt<int>(k.DepositoEncryptedId),
+                                        DepositoId = EncryptionService.Decrypt<int, Deposito>(k.DepositoEncryptedId),
                                         DepositoDescripcion = k.DepositoDescripcion
                                     },
                                              (k, v) => new
@@ -223,18 +223,18 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             if (_featureFlagsService.FeatureFlags.Pedidos.FechaYHoraEntregaObligatorio && pedidoDto.EntregaEstimadaFecha.HasValue && pedidoDto.EntregaEstimadaFecha.Value.Date < ahora.Date)
                 throw new HandledException("La Fecha estimada de entrega debe ser mayor.");
 
-            var productosIds = pedidoDto.Detalle.Select(d => EncryptionService.Decrypt<int>(d.ProductoEncryptedId)).ToList();
+            var productosIds = pedidoDto.Detalle.Select(d => EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId)).ToList();
             var productos = await _db.Productos.Where(p => productosIds.Contains(p.ProductoId)).ToListAsync();
 
             var numeroPedido = await this.ObtenerSiguienteNumeroAsync();
             pedido = new OrdenDePedido()
             {
                 NumeroPedido = numeroPedido,
-                ClienteId = EncryptionService.Decrypt<int>(pedidoDto.ClienteEncryptedId),
+                ClienteId = EncryptionService.Decrypt<int, Cliente>(pedidoDto.ClienteEncryptedId),
                 FechaHoraPedido = ahora,
                 RetiraPersonalmente = pedidoDto.RetiraPersonalmente,
                 EntregaEstimadaFecha = pedidoDto.EntregaEstimadaFecha,
-                EntregaEstimadaRangoHorarioId = EncryptionService.Decrypt<int?>(pedidoDto.EntregaEstimadaRangoHorarioEncryptedId),
+                EntregaEstimadaRangoHorarioId = EncryptionService.Decrypt<int?, RangoHorario>(pedidoDto.EntregaEstimadaRangoHorarioEncryptedId),
                 EntregaDomicilio = pedidoDto.EntregaDomicilio,
                 EntregaEntreCalles = pedidoDto.EntregaEntreCalles,
                 EntregaLocalidad = pedidoDto.EntregaLocalidad,
@@ -251,27 +251,27 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 PesoTotalEnGramos = pedidoDto.Detalle.Sum(d => d.ProductoPesoGramos * d.Cantidad),
                 MontoTotal = pedidoDto.Detalle.Sum(d => (d.Precio * d.Cantidad) ?? 0),
                 Detalle = pedidoDto.Detalle.Select(d =>
-                                productos.First(p => p.ProductoId == EncryptionService.Decrypt<int>(d.ProductoEncryptedId)).MueveStock == true
+                                productos.First(p => p.ProductoId == EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId)).MueveStock == true
                                                             ? new OrdenDePedidoDetalle
                                                                 {
-                                                                    ProductoId = EncryptionService.Decrypt<int>(d.ProductoEncryptedId),
+                                                                    ProductoId = EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId),
                                                                     Cantidad = d.Cantidad,
-                                                                    DepositoId = EncryptionService.Decrypt<int>(d.DepositoEncryptedId),
+                                                                    DepositoId = EncryptionService.Decrypt<int, Deposito>(d.DepositoEncryptedId),
                                                                     PesoUnitarioEnGramos = d.ProductoPesoGramos,
                                                                     ListaDePreciosId = d.PrecioListaEncryptedId.Equals("-1")
                                                                                             ? (int?)null
-                                                                                            : EncryptionService.Decrypt<int>(d.PrecioListaEncryptedId),
+                                                                                            : EncryptionService.Decrypt<int, ListaDePrecios>(d.PrecioListaEncryptedId),
                                                                     Precio = d.PrecioListaEncryptedId.Equals("-1")
                                                                                             ? (decimal?)null
                                                                                             : d.Precio,
                                                                     MovimientoStock = new MovimientoStock
                                                                     {
-                                                                        ProductoId = EncryptionService.Decrypt<int>(d.ProductoEncryptedId),
+                                                                        ProductoId = EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId),
                                                                         FechaHora = ahora,
                                                                         UsuarioId = usuarioId,
                                                                         Tipo = "E",
                                                                         Cantidad = d.Cantidad,
-                                                                        DepositoId = EncryptionService.Decrypt<int>(d.DepositoEncryptedId),
+                                                                        DepositoId = EncryptionService.Decrypt<int, Deposito>(d.DepositoEncryptedId),
                                                                         Observaciones = $"Pedido N°{numeroPedido.ToString().PadLeft(8, '0')}"
                                                                     }
                                                                 }

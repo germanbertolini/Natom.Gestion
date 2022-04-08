@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int zonaId = EncryptionService.Decrypt<int>(zonaDto.EncryptedId);
+                int zonaId = EncryptionService.Decrypt<int, Zona>(zonaDto.EncryptedId);
 
                 if (await _db.Zonas.AnyAsync(m => m.Descripcion.ToLower().Equals(zonaDto.Descripcion.ToLower()) && m.ZonaId != zonaId))
                     throw new HandledException("Ya existe una Zona con misma descripción.");

@@ -74,12 +74,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Proveedores
 
 		public ProveedorDTO From(Proveedor entity)
 		{
-			EncryptedId = EncryptionService.Encrypt(entity.ProveedorId);
+			EncryptedId = EncryptionService.Encrypt<Proveedor>(entity.ProveedorId);
 			Nombre = entity.Nombre;
 			Apellido = entity.Apellido;
 			RazonSocial = entity.RazonSocial;
 			NombreFantasia = entity.NombreFantasia;
-			TipoDocumentoEncryptedId = EncryptionService.Encrypt(entity.TipoDocumentoId);
+			TipoDocumentoEncryptedId = EncryptionService.Encrypt<TipoDocumento>(entity.TipoDocumentoId);
 			TipoDocumento = entity.TipoDocumento?.Descripcion;
 			NumeroDocumento = entity.NumeroDocumento;
 			Domicilio = entity.Domicilio;

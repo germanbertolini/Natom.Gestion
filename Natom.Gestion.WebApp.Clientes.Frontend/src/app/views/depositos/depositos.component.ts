@@ -144,7 +144,7 @@ export class DepositosComponent implements OnInit {
       },
       columns: [
         { data: 'name' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
   }

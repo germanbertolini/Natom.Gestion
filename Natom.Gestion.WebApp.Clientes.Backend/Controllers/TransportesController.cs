@@ -66,7 +66,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var transporteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var transporteId = EncryptionService.Decrypt<int, Transporte>(Uri.UnescapeDataString(encryptedId));
                     var transporte = await manager.ObtenerTransporteAsync(transporteId);
                     entity = new TransporteDTO().From(transporte);
                 }
@@ -127,7 +127,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var transporteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var transporteId = EncryptionService.Decrypt<int, Transporte>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new TransportesManager(_serviceProvider);
                 await manager.DesactivarTransporteAsync(transporteId);
@@ -157,7 +157,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var transporteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var transporteId = EncryptionService.Decrypt<int, Transporte>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new TransportesManager(_serviceProvider);
                 await manager.ActivarTransporteAsync(transporteId);

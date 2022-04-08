@@ -77,7 +77,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int transporteId = EncryptionService.Decrypt<int>(transporteDto.EncryptedId);
+                int transporteId = EncryptionService.Decrypt<int, Transporte>(transporteDto.EncryptedId);
 
                 if (await _db.Transportes.AnyAsync(m => m.Descripcion.ToLower().Equals(transporteDto.Descripcion.ToLower()) && m.TransporteId != transporteId))
                     throw new HandledException("Ya existe una Transporte con misma descripción.");

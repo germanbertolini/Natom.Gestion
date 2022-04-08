@@ -46,16 +46,16 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
 
         public PedidoDetalleDTO From(OrdenDePedidoDetalle entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoDetalleId);
-            PedidoEncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoId);
-            ProductoEncryptedId = EncryptionService.Encrypt(entity.ProductoId);
+            EncryptedId = EncryptionService.Encrypt<OrdenDePedidoDetalle>(entity.OrdenDePedidoDetalleId);
+            PedidoEncryptedId = EncryptionService.Encrypt<OrdenDePedido>(entity.OrdenDePedidoId);
+            ProductoEncryptedId = EncryptionService.Encrypt<Producto>(entity.ProductoId);
             ProductoDescripcion = entity.Producto.DescripcionCorta;
             ProductoPesoGramos = entity.PesoUnitarioEnGramos;
             Cantidad = entity.Cantidad;
             Entregado = entity.CantidadEntregada;
-            DepositoEncryptedId = EncryptionService.Encrypt(entity.DepositoId);
+            DepositoEncryptedId = EncryptionService.Encrypt<Deposito>(entity.DepositoId);
             DepositoDescripcion = entity.Deposito?.Descripcion;
-            PrecioListaEncryptedId = EncryptionService.Encrypt(entity.ListaDePreciosId);
+            PrecioListaEncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.ListaDePreciosId);
             PrecioDescripcion = entity.ListaDePrecios?.Descripcion ?? "< a definir en Venta >";
             Precio = entity.Precio;
 

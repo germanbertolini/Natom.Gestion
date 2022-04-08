@@ -67,7 +67,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var categoriaProductoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var categoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(Uri.UnescapeDataString(encryptedId));
                     var categoriaProducto = await manager.ObtenerCategoriaProductoAsync(categoriaProductoId);
                     entity = new CategoriaProductoDTO().From(categoriaProducto);
                 }
@@ -128,7 +128,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var categoriaProductoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var categoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new CategoriasProductosManager(_serviceProvider);
                 await manager.DesactivarCategoriaProductoAsync(categoriaProductoId);
@@ -158,7 +158,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var categoriaProductoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var categoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new CategoriasProductosManager(_serviceProvider);
                 await manager.ActivarCategoriaProductoAsync(categoriaProductoId);

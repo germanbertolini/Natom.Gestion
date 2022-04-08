@@ -34,13 +34,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Proveedores.CtaCte
 
         public ProveedorCtaCteMovimientoDTO From(MovimientoCtaCteProveedor entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.MovimientoCtaCteProveedorId);
+            EncryptedId = EncryptionService.Encrypt<MovimientoCtaCteProveedor>(entity.MovimientoCtaCteProveedorId);
             FechaHora = entity.FechaHora;
             UsuarioNombre = entity.Usuario?.Nombre ?? "Admin";
             Tipo = entity.Tipo.Equals("C") ? "Ingreso" : "Egreso";
             Importe = entity.Importe;
             Observaciones = entity.Observaciones;
-            EncryptedProveedorId = EncryptionService.Encrypt(entity.ProveedorId);
+            EncryptedProveedorId = EncryptionService.Encrypt<Proveedor>(entity.ProveedorId);
 
             return this;
         }

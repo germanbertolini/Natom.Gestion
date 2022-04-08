@@ -26,7 +26,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
 
         public ListaDePreciosDTO From(ListaDePrecios entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.ListaDePreciosId);
+            EncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.ListaDePreciosId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
             EsPorcentual = entity.EsPorcentual;

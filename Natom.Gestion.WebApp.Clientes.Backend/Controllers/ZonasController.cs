@@ -66,7 +66,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var zonaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var zonaId = EncryptionService.Decrypt<int, Zona>(Uri.UnescapeDataString(encryptedId));
                     var zona = await manager.ObtenerZonaAsync(zonaId);
                     entity = new ZonaDTO().From(zona);
                 }
@@ -127,7 +127,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var zonaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var zonaId = EncryptionService.Decrypt<int, Zona>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ZonasManager(_serviceProvider);
                 await manager.DesactivarZonaAsync(zonaId);
@@ -157,7 +157,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var zonaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var zonaId = EncryptionService.Decrypt<int, Zona>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ZonasManager(_serviceProvider);
                 await manager.ActivarZonaAsync(zonaId);

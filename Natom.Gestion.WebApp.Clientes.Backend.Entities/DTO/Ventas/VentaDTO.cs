@@ -50,10 +50,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Ventas
 
         public VentaDTO From(Venta entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.VentaId);
+            EncryptedId = EncryptionService.Encrypt<Venta>(entity.VentaId);
             Numero = entity.NumeroVenta.ToString().PadLeft(8, '0');
             FechaHora = entity.FechaHoraVenta;
-            ClienteEncryptedId = EncryptionService.Encrypt(entity.ClienteId);
+            ClienteEncryptedId = EncryptionService.Encrypt<Cliente>(entity.ClienteId);
             Usuario = entity.Usuario?.Nombre ?? "Admin";
             TipoFactura = entity.TipoFactura;
             NumeroFactura = entity.NumeroFactura;

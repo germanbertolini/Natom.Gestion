@@ -67,7 +67,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var rangoHorarioId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var rangoHorarioId = EncryptionService.Decrypt<int, RangoHorario>(Uri.UnescapeDataString(encryptedId));
                     var rangoHorario = await manager.ObtenerRangoHorarioAsync(rangoHorarioId);
                     entity = new RangoHorarioDTO().From(rangoHorario);
                 }
@@ -128,7 +128,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var rangoHorarioId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var rangoHorarioId = EncryptionService.Decrypt<int, RangoHorario>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new RangosHorariosManager(_serviceProvider);
                 await manager.DesactivarRangoHorarioAsync(rangoHorarioId);
@@ -158,7 +158,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var rangoHorarioId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var rangoHorarioId = EncryptionService.Decrypt<int, RangoHorario>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new RangosHorariosManager(_serviceProvider);
                 await manager.ActivarRangoHorarioAsync(rangoHorarioId);

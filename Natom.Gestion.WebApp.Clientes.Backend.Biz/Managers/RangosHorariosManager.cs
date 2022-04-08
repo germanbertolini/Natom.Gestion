@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int rangoHorarioId = EncryptionService.Decrypt<int>(rangoHorarioDto.EncryptedId);
+                int rangoHorarioId = EncryptionService.Decrypt<int, RangoHorario>(rangoHorarioDto.EncryptedId);
 
                 if (await _db.RangosHorario.AnyAsync(m => m.Descripcion.ToLower().Equals(rangoHorarioDto.Descripcion.ToLower()) && m.RangoHorarioId != rangoHorarioId))
                     throw new HandledException("Ya existe una Rango horario con misma descripción.");

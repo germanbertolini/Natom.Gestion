@@ -73,7 +73,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var ventaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var ventaId = EncryptionService.Decrypt<int, Venta>(Uri.UnescapeDataString(encryptedId));
                     var venta = await manager.ObtenerVentaAsync(ventaId);
                     entity = new VentaDTO().From(venta);
                     numeroVenta = entity.Numero;
@@ -186,7 +186,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDeVentaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDeVentaId = EncryptionService.Decrypt<int, Venta>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new VentasManager(_serviceProvider);
                 var pedidos = await manager.AnularVentaAsync((int)(_accessToken?.UserId ?? 0), ordenDeVentaId);
@@ -219,7 +219,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(encryptedId);
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(encryptedId);
                 var manager = new VentasManager(_serviceProvider);
 
                 var data = manager.ObtenerDataVentaReport(ordenDePedidoId);

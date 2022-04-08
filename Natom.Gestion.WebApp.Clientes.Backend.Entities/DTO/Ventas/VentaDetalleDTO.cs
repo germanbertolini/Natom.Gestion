@@ -55,21 +55,21 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Ventas
 
         public VentaDetalleDTO From(VentaDetalle entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.VentaDetalleId);
-            VentaEncryptedId = EncryptionService.Encrypt(entity.VentaId);
-            ProductoEncryptedId = EncryptionService.Encrypt(entity.ProductoId);
+            EncryptedId = EncryptionService.Encrypt<VentaDetalle>(entity.VentaDetalleId);
+            VentaEncryptedId = EncryptionService.Encrypt<Venta>(entity.VentaId);
+            ProductoEncryptedId = EncryptionService.Encrypt<Producto>(entity.ProductoId);
             ProductoDescripcion = entity.Producto?.DescripcionCorta;
             ProductoPesoGramos = entity.PesoUnitarioEnGramos;
             Cantidad = entity.Cantidad;
-            DepositoEncryptedId = EncryptionService.Encrypt(entity.DepositoId);
+            DepositoEncryptedId = EncryptionService.Encrypt<Deposito>(entity.DepositoId);
             DepositoDescripcion = entity.Deposito?.Descripcion;
             PedidoNumero = entity.OrdenDePedido?.NumeroPedido.ToString().PadLeft(8, '0');
-            PrecioListaEncryptedId = EncryptionService.Encrypt(entity.ListaDePreciosId);
+            PrecioListaEncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.ListaDePreciosId);
             PrecioDescripcion = entity.ListaDePrecios?.Descripcion ?? "";
             NumeroRemito = entity.NumeroRemito;
             Precio = entity.Precio;
-            OrdenDePedidoEncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoId);
-            OrdenDePedidoDetalleEncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoDetalleId);
+            OrdenDePedidoEncryptedId = EncryptionService.Encrypt<OrdenDePedido>(entity.OrdenDePedidoId);
+            OrdenDePedidoDetalleEncryptedId = EncryptionService.Encrypt<OrdenDePedidoDetalle>(entity.OrdenDePedidoDetalleId);
             return this;
         }
     }

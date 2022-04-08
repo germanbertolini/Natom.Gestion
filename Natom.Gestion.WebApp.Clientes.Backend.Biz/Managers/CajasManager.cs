@@ -111,7 +111,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             if (movimientoDto.Tipo == "C" && movimientoDto.EsCtaCte)
             {
                 var ctaCteManager = new CuentasCorrientesManager(_serviceProvider);
-                var clienteId = EncryptionService.Decrypt<int>(movimientoDto.ClienteEncryptedId);
+                var clienteId = EncryptionService.Decrypt<int, Cliente>(movimientoDto.ClienteEncryptedId);
                 var monto = await ctaCteManager.ObtenerMontoActualCtaCteClienteAsync(clienteId);
 
                 if (monto == 0)
@@ -246,7 +246,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             if (movimientoDto.Tipo == "D" && movimientoDto.EsCtaCte)
             {
                 var ctaCteManager = new CuentasCorrientesManager(_serviceProvider);
-                var proveedorId = EncryptionService.Decrypt<int>(movimientoDto.ProveedorEncryptedId);
+                var proveedorId = EncryptionService.Decrypt<int, Proveedor>(movimientoDto.ProveedorEncryptedId);
                 var monto = await ctaCteManager.ObtenerMontoActualCtaCteProveedorAsync(proveedorId);
 
                 if (monto == 0)

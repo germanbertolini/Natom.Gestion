@@ -5,6 +5,7 @@ import { DataTableDirective } from "angular-datatables/src/angular-datatables.di
 import { NotifierService } from "angular-notifier";
 import { ProductoListDTO } from "src/app/classes/dto/productos/producto-list.dto";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { DataTableDTO } from '../../classes/data-table-dto';
@@ -27,8 +28,9 @@ export class ProductosComponent implements OnInit {
               private authService: AuthService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
-                
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
+    this.filterStatusValue = "ACTIVOS";
   }
 
   onFiltroEstadoChange(newValue: string) {
@@ -40,6 +42,10 @@ export class ProductosComponent implements OnInit {
 
   onEditClick(id: string) {
     this.routerService.navigate(['/productos/edit/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("Producto", id);
   }
 
   onEnableClick(id: string) {

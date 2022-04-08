@@ -149,19 +149,20 @@ as (select * from (values
 (4,'Ml',NULL,1),
 (5,'L',NULL,1000)
 --\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-)c([UnidadPesoId],[Descripcion],[Gramos]))
+)c([UnidadPesoId],[Descripcion],[Gramos],[Mililitros]))
 merge	[dbo].[UnidadPeso] as t
 using	cte_data as s
 on		1=1 and t.[UnidadPesoId] = s.[UnidadPesoId]
 when matched then
 	update set
-	[Descripcion] = s.[Descripcion],[Gramos] = s.[Gramos]
+	[Descripcion] = s.[Descripcion],[Gramos] = s.[Gramos],[Mililitros] = s.[Mililitros]
 when not matched by target then
-	insert([UnidadPesoId],[Descripcion],[Gramos])
-	values(s.[UnidadPesoId],s.[Descripcion],s.[Gramos])
+	insert([UnidadPesoId],[Descripcion],[Gramos],[Mililitros])
+	values(s.[UnidadPesoId],s.[Descripcion],s.[Gramos],s.[Mililitros])
 when not matched by source then
 	delete;
 set identity_insert [dbo].[UnidadPeso] off;
+
 
 
 --dbo.Zona------------------------------------------------------------------------------------------

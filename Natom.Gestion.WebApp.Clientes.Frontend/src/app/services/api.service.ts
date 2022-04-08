@@ -23,9 +23,10 @@ export class ApiService {
     }
 
     public OpenNewTab(relativeUrl: string) {
+        this.SetTempAuthCookie();
         window.open(this.jsonAppConfig.baseURL + relativeUrl, "_blank");
     }
-
+    
     public DoGETWithObservable(relativeUrl: string, headers: HttpHeaders = null) : Observable<Object> {
         headers = this.SetAPIHeaders(headers);
         return this.httpClient.get(this.jsonAppConfig.baseURL + relativeUrl, { headers: headers });
@@ -123,5 +124,18 @@ export class ApiService {
             headers = headers.append("Authorization", "Bearer " + token.substring(1, token.length - 1));
 
         return headers;
+    }
+
+    SetTempAuthCookie() {
+        let token = atob(this.cookieService.get('Auth.Current.Token'));
+        let domain = this.jsonAppConfig.baseURL.split('://')[1];
+        domain = domain.split(':')[0];
+        var path = '/';
+        var expires = (function(seconds){
+            let date = new Date();
+            date.setTime(date.getTime() + (seconds * 1000));
+            return date;
+        })(2);
+        this.cookieService.set("Authorization", "Bearer " + token.substring(1, token.length - 1), expires, path, domain);
     }
 }

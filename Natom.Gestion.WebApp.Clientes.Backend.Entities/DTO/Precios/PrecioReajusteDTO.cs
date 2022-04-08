@@ -34,13 +34,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
 
 		public PrecioReajusteDTO From(HistoricoReajustePrecio entity)
 		{
-			EncryptedId = EncryptionService.Encrypt(entity.HistoricoReajustePrecioId);
+			EncryptedId = EncryptionService.Encrypt<HistoricoReajustePrecio>(entity.HistoricoReajustePrecioId);
 			Usuario = entity.Usuario?.Nombre;
 			EsIncremento = entity.EsIncremento;
 			EsPorcentual = entity.EsPorcentual;
 			Valor = entity.Valor;
-			AplicoMarcaEncryptedId = EncryptionService.Encrypt(entity.AplicoMarcaId);
-			AplicoListaDePreciosEncryptedId = EncryptionService.Encrypt(entity.AplicoListaDePreciosId);
+			AplicoMarcaEncryptedId = EncryptionService.Encrypt<Marca>(entity.AplicoMarcaId);
+			AplicoListaDePreciosEncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.AplicoListaDePreciosId);
 
 			return this;
 		}

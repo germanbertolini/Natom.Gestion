@@ -67,7 +67,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var depositoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var depositoId = EncryptionService.Decrypt<int, Deposito>(Uri.UnescapeDataString(encryptedId));
                     var deposito = await manager.ObtenerDepositoAsync(depositoId);
                     entity = new DepositoDTO().From(deposito);
                 }
@@ -128,7 +128,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var depositoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var depositoId = EncryptionService.Decrypt<int, Deposito>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new DepositosManager(_serviceProvider);
                 await manager.DesactivarDepositoAsync(depositoId);
@@ -158,7 +158,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var depositoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var depositoId = EncryptionService.Decrypt<int, Deposito>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new DepositosManager(_serviceProvider);
                 await manager.ActivarDepositoAsync(depositoId);

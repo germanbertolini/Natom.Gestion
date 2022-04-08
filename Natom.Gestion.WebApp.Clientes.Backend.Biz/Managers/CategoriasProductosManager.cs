@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int categoriaProductoId = EncryptionService.Decrypt<int>(categoriaProductoDto.EncryptedId);
+                int categoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(categoriaProductoDto.EncryptedId);
 
                 if (await _db.CategoriasProducto.AnyAsync(m => m.Descripcion.ToLower().Equals(categoriaProductoDto.Descripcion.ToLower()) && m.CategoriaProductoId != categoriaProductoId))
                     throw new HandledException("Ya existe una Categoria de producto con misma descripción.");

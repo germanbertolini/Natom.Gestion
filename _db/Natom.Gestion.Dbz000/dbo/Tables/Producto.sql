@@ -10,7 +10,7 @@
     [Activo]              BIT             DEFAULT ((1)) NOT NULL,
     [ProveedorId]         INT             NULL,
     [CostoUnitario]       DECIMAL (18, 2) DEFAULT ((0)) NULL,
-    [CategoriaProductoId] NVARCHAR (40)   NULL,
+    [CategoriaProductoId] INT             NOT NULL,
     PRIMARY KEY CLUSTERED ([ProductoId] ASC),
     FOREIGN KEY ([MarcaId]) REFERENCES [dbo].[Marca] ([MarcaId]),
     FOREIGN KEY ([UnidadPesoId]) REFERENCES [dbo].[UnidadPeso] ([UnidadPesoId])

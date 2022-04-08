@@ -100,7 +100,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var productoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var productoId = EncryptionService.Decrypt<int, Producto>(Uri.UnescapeDataString(encryptedId));
                     var producto = await manager.ObtenerProductoAsync(productoId);
                     entity = new ProductoDTO().From(producto);
                 }
@@ -168,7 +168,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var productoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var productoId = EncryptionService.Decrypt<int, Producto>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ProductosManager(_serviceProvider);
                 await manager.DesactivarProductoAsync(productoId);
@@ -198,7 +198,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var productoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var productoId = EncryptionService.Decrypt<int, Producto>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ProductosManager(_serviceProvider);
                 await manager.ActivarProductoAsync(productoId);

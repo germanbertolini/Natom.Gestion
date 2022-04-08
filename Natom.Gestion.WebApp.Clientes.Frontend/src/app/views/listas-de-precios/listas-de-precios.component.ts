@@ -6,6 +6,7 @@ import { NotifierService } from "angular-notifier";
 import { MarcaDTO } from "src/app/classes/dto/marca.dto";
 import { ListaDePreciosDTO } from "src/app/classes/dto/precios/lista-de-precios.dto";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { DataTableDTO } from '../../classes/data-table-dto';
 import { ConfirmDialogService } from "../../components/confirm-dialog/confirm-dialog.service";
@@ -26,7 +27,8 @@ export class ListasDePreciosComponent implements OnInit {
   constructor(private apiService: ApiService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
     this.filterStatusValue = "ACTIVOS";
   }
 
@@ -39,6 +41,10 @@ export class ListasDePreciosComponent implements OnInit {
 
   onEditClick(id: string) {
     this.routerService.navigate(['/listas-de-precios/edit/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("ListaDePrecios", id);
   }
 
   onEnableClick(id: string) {
@@ -144,7 +150,7 @@ export class ListasDePreciosComponent implements OnInit {
       },
       columns: [
         { data: 'name' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
   }

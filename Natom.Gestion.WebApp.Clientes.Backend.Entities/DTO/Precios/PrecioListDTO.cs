@@ -1,4 +1,5 @@
-﻿using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results;
+﻿using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
+using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using Newtonsoft.Json;
 using System;
@@ -34,7 +35,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
 
         public PrecioListDTO From(spPreciosListResult entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.ProductoPrecioId);
+            EncryptedId = EncryptionService.Encrypt<ProductoPrecio>(entity.ProductoPrecioId);
             Producto = entity.ProductoDescripcion;
             Precio = entity.Precio;
             ListaDePrecios = entity.ListaDePrecioDescripcion;

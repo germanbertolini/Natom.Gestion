@@ -36,11 +36,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             {
                 int? zonaId = null;
                 if (!string.IsNullOrEmpty(zona))
-                    zonaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(zona));
+                    zonaId = EncryptionService.Decrypt<int, Zona>(Uri.UnescapeDataString(zona));
 
                 int? transporteId = null;
                 if (!string.IsNullOrEmpty(transporte))
-                    transporteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(transporte));
+                    transporteId = EncryptionService.Decrypt<int, Transporte>(Uri.UnescapeDataString(transporte));
 
                 var manager = new PedidosManager(_serviceProvider);
                 var pedidosCount = await manager.ObtenerPedidosCountAsync();
@@ -75,7 +75,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int pedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(id));
+                int pedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(id));
 
                 var manager = new PedidosManager(_serviceProvider);
                 var pedido = await manager.ObtenerPedidoAsync(pedidoId);
@@ -143,7 +143,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var pedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var pedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
                     var pedido = await manager.ObtenerPedidoAsync(pedidoId);
                     entity = new PedidoDTO().From(pedido);
                     numeroPedido = entity.Numero;
@@ -227,7 +227,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(encryptedId);
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(encryptedId);
                 var manager = new PedidosManager(_serviceProvider);
 
                 var data = manager.ObtenerDataOrdenDePedidoReport(ordenDePedidoId);
@@ -259,7 +259,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(encryptedId);
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(encryptedId);
                 var manager = new PedidosManager(_serviceProvider);
 
                 var data = manager.ObtenerDataRemitoReport(ordenDePedidoId);
@@ -294,7 +294,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             {
                 var manager = new PedidosManager(_serviceProvider);
 
-                var clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedId));
                 var pedidos = await manager.ObtenerPedidosPendientesDeFacturacionAsync(clienteId);
 
                 return Ok(new ApiResultDTO<dynamic>
@@ -353,7 +353,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.MarcarInicioPreparacionAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId);
@@ -383,7 +383,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.MarcarCancelacionPreparacionAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId);
@@ -413,7 +413,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.MarcarFinalizacionPreparacionAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId);
@@ -443,7 +443,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.AnularPedidoAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId);
@@ -473,8 +473,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
-                var _transporteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(transporteId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
+                var _transporteId = EncryptionService.Decrypt<int, Transporte>(Uri.UnescapeDataString(transporteId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.MarcarDespachoAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId, _transporteId);
@@ -507,11 +507,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 var detalleEntrega = detalle
-                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int>(x.EncryptedId), x.Entregado.Value))
+                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Entregado.Value))
                                         .ToDictionary(x => x.Key, x => x.Value);
                 var conDevoluciones = await manager.MarcarEntregaAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId, detalleEntrega);
 
@@ -544,11 +544,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 var detalleModificacion = detalle
-                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int>(x.EncryptedId), x.Cantidad))
+                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Cantidad))
                                         .ToDictionary(x => x.Key, x => x.Value);
                 await manager.ModificarCantidadesAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId, detalleModificacion);
 
@@ -577,7 +577,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PedidosManager(_serviceProvider);
                 await manager.MarcarRegresoPedidoAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId);

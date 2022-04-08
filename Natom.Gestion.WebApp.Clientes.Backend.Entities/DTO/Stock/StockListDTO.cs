@@ -1,4 +1,5 @@
-﻿using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results;
+﻿using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
+using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using Newtonsoft.Json;
 using System;
@@ -43,7 +44,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Stock
 
         public StockListDTO From(spMovimientosStockListResult entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.MovimientoStockId);
+            EncryptedId = EncryptionService.Encrypt<MovimientoStock>(entity.MovimientoStockId);
             FechaHora = entity.FechaHora;
             Deposito = entity.Deposito;
             Producto = entity.Producto;

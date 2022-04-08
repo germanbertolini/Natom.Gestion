@@ -85,13 +85,20 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
                 else
                 {
                     var headerValuesForAuthorization = context.HttpContext.Request.Headers["Authorization"];
-                    if (headerValuesForAuthorization.Count() == 0 || string.IsNullOrEmpty(headerValuesForAuthorization.ToString()))
+                    var cookieValuesForAuthorization = context.HttpContext.Request.Cookies["Authorization"];
+                    var authorization = string.Empty;
+
+                    if (!(headerValuesForAuthorization.Count() == 0 || string.IsNullOrEmpty(headerValuesForAuthorization.ToString())))
+                        authorization = headerValuesForAuthorization.ToString();
+                    else if (!(cookieValuesForAuthorization == null || cookieValuesForAuthorization.Count() == 0 || string.IsNullOrEmpty(cookieValuesForAuthorization.ToString())))
+                        authorization = cookieValuesForAuthorization.ToString();
+
+                    if (string.IsNullOrEmpty(authorization))
                         throw new HandledException("Se debe enviar el 'Authorization'.");
 
-                    if (!headerValuesForAuthorization.ToString().StartsWith("Bearer"))
+                    if (!authorization.StartsWith("Bearer"))
                         throw new HandledException("'Authorization' inválido.");
 
-                    var authorization = headerValuesForAuthorization.ToString();
                     var accessTokenWithPermissions = await _authService.DecodeAndValidateTokenAsync(_accessToken, authorization);
 
                     _transaction.UserId = _accessToken.UserId;

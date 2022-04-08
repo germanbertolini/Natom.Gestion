@@ -170,9 +170,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                                     .Where(d => string.IsNullOrEmpty(d.EncryptedId))
                                     .GroupBy(k => new
                                     {
-                                        ProductoId = EncryptionService.Decrypt<int>(k.ProductoEncryptedId),
+                                        ProductoId = EncryptionService.Decrypt<int, Producto>(k.ProductoEncryptedId),
                                         ProductoDescripcion = k.ProductoDescripcion,
-                                        DepositoId = EncryptionService.Decrypt<int>(k.DepositoEncryptedId),
+                                        DepositoId = EncryptionService.Decrypt<int, Deposito>(k.DepositoEncryptedId),
                                         DepositoDescripcion = k.DepositoDescripcion
                                     },
                                              (k, v) => new
@@ -207,7 +207,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             venta = new Venta()
             {
                 NumeroVenta = numeroVenta,
-                ClienteId = EncryptionService.Decrypt<int>(ventaDto.ClienteEncryptedId),
+                ClienteId = EncryptionService.Decrypt<int, Cliente>(ventaDto.ClienteEncryptedId),
                 FechaHoraVenta = ahora,
                 UsuarioId = usuarioId,
                 NumeroFactura = ventaDto.NumeroFactura,
@@ -220,16 +220,16 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 MontoTotal = ventaDto.Detalle.Sum(d => (d.Precio * d.Cantidad) ?? 0),
                 Detalle = ventaDto.Pedidos.Select(d => new VentaDetalle
                                                         {
-                                                            ProductoId = EncryptionService.Decrypt<int>(d.ProductoEncryptedId),
+                                                            ProductoId = EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId),
                                                             Cantidad = d.Cantidad,
-                                                            DepositoId = EncryptionService.Decrypt<int>(d.DepositoEncryptedId),
+                                                            DepositoId = EncryptionService.Decrypt<int, Deposito>(d.DepositoEncryptedId),
                                                             PesoUnitarioEnGramos = d.ProductoPesoGramos,
                                                             NumeroRemito = d.NumeroRemito,
-                                                            OrdenDePedidoId = EncryptionService.Decrypt<int>(d.OrdenDePedidoEncryptedId),
-                                                            OrdenDePedidoDetalleId = EncryptionService.Decrypt<int>(d.OrdenDePedidoDetalleEncryptedId),
+                                                            OrdenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(d.OrdenDePedidoEncryptedId),
+                                                            OrdenDePedidoDetalleId = EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(d.OrdenDePedidoDetalleEncryptedId),
                                                             ListaDePreciosId = (d.PrecioListaEncryptedId?.Equals("-1") ?? true)
                                                                                         ? (int?)null
-                                                                                        : EncryptionService.Decrypt<int>(d.PrecioListaEncryptedId),
+                                                                                        : EncryptionService.Decrypt<int, ListaDePrecios>(d.PrecioListaEncryptedId),
                                                             Precio = (decimal)d.Precio
                                                         }
                                             ).ToList()
@@ -242,11 +242,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 {
                     venta.Detalle.Add(new VentaDetalle
                     {
-                        ProductoId = EncryptionService.Decrypt<int>(d.ProductoEncryptedId),
+                        ProductoId = EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId),
                         Cantidad = d.Cantidad,
-                        DepositoId = EncryptionService.Decrypt<int>(d.DepositoEncryptedId),
+                        DepositoId = EncryptionService.Decrypt<int, Deposito>(d.DepositoEncryptedId),
                         PesoUnitarioEnGramos = d.ProductoPesoGramos,
-                        ListaDePreciosId = EncryptionService.Decrypt<int>(d.PrecioListaEncryptedId),
+                        ListaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(d.PrecioListaEncryptedId),
                         Precio = (decimal)d.Precio
                     });
                 }
@@ -291,14 +291,14 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 {
                     _db.MovimientosStock.Add(new MovimientoStock
                     {
-                        ProductoId = EncryptionService.Decrypt<int>(d.ProductoEncryptedId),
+                        ProductoId = EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId),
                         FechaHora = ahora,
                         UsuarioId = usuarioId,
                         Tipo = "E",
                         Cantidad = d.Cantidad,
                         ConfirmacionFechaHora = ahora,
                         ConfirmacionUsuarioId = usuarioId,
-                        DepositoId = EncryptionService.Decrypt<int>(d.DepositoEncryptedId),
+                        DepositoId = EncryptionService.Decrypt<int, Deposito>(d.DepositoEncryptedId),
                         Observaciones = $"Venta N°{venta.NumeroVenta.ToString().PadLeft(8, '0')}"
                     });
                 }
@@ -308,7 +308,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             ///VINCULAMOS LAS ORDENES DE PEDIDO A LA VENTA
             var ordenesDePedidoId = ventaDto.Pedidos
                                                 .Where(d => !string.IsNullOrEmpty(d.OrdenDePedidoEncryptedId) && d.OrdenDePedidoEncryptedId != "-1")
-                                                .Select(d => EncryptionService.Decrypt<int>(d.OrdenDePedidoEncryptedId))
+                                                .Select(d => EncryptionService.Decrypt<int, OrdenDePedido>(d.OrdenDePedidoEncryptedId))
                                                 .ToList();
             var ordenesDePedido = await _db.OrdenesDePedido
                                                 .Include(op => op.Detalle).ThenInclude(d => d.MovimientoStock)

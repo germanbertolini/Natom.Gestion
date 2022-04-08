@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Stock
 
         public DepositoDTO From(Deposito entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.DepositoId);
+            EncryptedId = EncryptionService.Encrypt<Deposito>(entity.DepositoId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
 

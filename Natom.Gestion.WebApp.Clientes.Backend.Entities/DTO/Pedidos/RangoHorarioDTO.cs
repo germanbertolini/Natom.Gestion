@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
 
         public RangoHorarioDTO From(RangoHorario entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.RangoHorarioId);
+            EncryptedId = EncryptionService.Encrypt<RangoHorario>(entity.RangoHorarioId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
 

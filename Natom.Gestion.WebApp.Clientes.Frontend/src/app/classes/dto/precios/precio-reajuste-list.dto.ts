@@ -7,4 +7,5 @@ export class PrecioReajusteListDTO {
     public aplicoMarca: string;
     public aplicoListaDePrecios: string;
     public aplicaDesdeFechaHora: Date;
+    public anulado: boolean;
 }

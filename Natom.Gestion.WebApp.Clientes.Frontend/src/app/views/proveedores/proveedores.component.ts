@@ -5,6 +5,7 @@ import { DataTableDirective } from "angular-datatables/src/angular-datatables.di
 import { NotifierService } from "angular-notifier";
 import { ProveedorDTO } from "src/app/classes/dto/proveedores/proveedor.dto";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { DataTableDTO } from '../../classes/data-table-dto';
@@ -27,7 +28,8 @@ export class ProveedoresComponent implements OnInit {
               private authService: AuthService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
                 
   }
 
@@ -44,6 +46,10 @@ export class ProveedoresComponent implements OnInit {
 
   onVerCtaCteClick(id: string) {
     this.routerService.navigate(['/proveedores/cta_cte/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("Proveedor", id);
   }
 
   onEnableClick(id: string) {
@@ -151,7 +157,7 @@ export class ProveedoresComponent implements OnInit {
         { data: 'proveedor' },
         { data: 'documento' },
         { data: 'localidad' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
   }

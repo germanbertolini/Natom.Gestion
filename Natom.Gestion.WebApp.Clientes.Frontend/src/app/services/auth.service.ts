@@ -93,8 +93,8 @@ export class AuthService {
                           this.cookieService.set('Auth.Current.User', btoa(JSON.stringify(this._current_user)));
                           this.cookieService.set('Auth.Current.Token', btoa(JSON.stringify(this._current_token)));
                           this.cookieService.set('Auth.Current.Permissions', btoa(JSON.stringify(this._current_permissions)));
-                          this.cookieService.set('Authorization', 'Bearer ' + this._current_token, null, "/");
-
+                          this.cookieService.delete('Authorization', "/");
+                          
                           onSuccess();
                         }
                       },

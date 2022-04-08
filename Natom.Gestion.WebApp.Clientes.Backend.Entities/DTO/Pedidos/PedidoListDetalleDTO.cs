@@ -31,7 +31,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
 
         public PedidoListDetalleDTO From(OrdenDePedidoDetalle entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoDetalleId);
+            EncryptedId = EncryptionService.Encrypt<OrdenDePedidoDetalle>(entity.OrdenDePedidoDetalleId);
             Codigo = entity.Producto.Codigo;
             Descripcion = entity.Producto.DescripcionCorta;
             Deposito = entity.Deposito.Descripcion;

@@ -67,7 +67,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var listaDePreciosId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(Uri.UnescapeDataString(encryptedId));
                     var listaDePrecios = await manager.ObtenerListaDePrecioAsync(listaDePreciosId);
                     entity = new ListaDePreciosDTO().From(listaDePrecios);
                 }
@@ -128,7 +128,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var listaDePreciosId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ListasDePreciosManager(_serviceProvider);
                 await manager.DesactivarListaDePrecioAsync(listaDePreciosId);
@@ -158,7 +158,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var listaDePreciosId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ListasDePreciosManager(_serviceProvider);
                 await manager.ActivarListaDePrecioAsync(listaDePreciosId);

@@ -74,9 +74,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             ProductoPrecio precio = new ProductoPrecio()
             {
                 AplicaDesdeFechaHora = DateTime.Now,
-                ListaDePreciosId = EncryptionService.Decrypt<int>(precioDto.ListaDePreciosEncryptedId),
+                ListaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(precioDto.ListaDePreciosEncryptedId),
                 Precio = precioDto.Precio,
-                ProductoId = EncryptionService.Decrypt<int>(precioDto.ProductoEncryptedId)
+                ProductoId = EncryptionService.Decrypt<int, Producto>(precioDto.ProductoEncryptedId)
             };
 
             _db.ProductosPrecios.Add(precio);
@@ -105,7 +105,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public Task<List<ListaDePrecios>> ObtenerListasDePreciosAsync()
         {
-            return _db.ListasDePrecios.ToListAsync();
+            return _db.ListasDePrecios.Where(u => u.Activo).OrderBy(l => l.Descripcion).ToListAsync();
         }
 
         public async Task<List<HistoricoReajustePrecio>> ObtenerPreciosReajustesDataTableAsync(int start, int size, string filter, int sortColumnIndex, string sortDirection, string statusFilter, string listaFilter)
@@ -132,7 +132,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             //FILTRO DE LISTA DE PRECIOS
             if (!string.IsNullOrEmpty(listaFilter))
             {
-                int listaDePreciosId = EncryptionService.Decrypt<int>(listaFilter);
+                int listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(listaFilter);
                 queryable = queryable.Where(p => p.AplicoListaDePreciosId.Equals(listaDePreciosId));
             }
 
@@ -189,8 +189,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
         public async Task<HistoricoReajustePrecio> GuardarReajustePrecioAsync(int usuarioId, PrecioReajusteDTO precioReajusteDto)
         {
             var todasLasListasDePreciosIds = await _db.ListasDePrecios.Where(l => l.Activo).Select(l => l.ListaDePreciosId).ToListAsync();
-            var listasDePreciosId = precioReajusteDto.AplicoListaDePreciosEncryptedId == "-1" ? todasLasListasDePreciosIds : new List<int> { EncryptionService.Decrypt<int>(precioReajusteDto.AplicoListaDePreciosEncryptedId) };
-            var marcaId = EncryptionService.Decrypt<int>(precioReajusteDto.AplicoMarcaEncryptedId);
+            var listasDePreciosId = precioReajusteDto.AplicoListaDePreciosEncryptedId == "-1" ? todasLasListasDePreciosIds : new List<int> { EncryptionService.Decrypt<int, ListaDePrecios>(precioReajusteDto.AplicoListaDePreciosEncryptedId) };
+            var marcaId = EncryptionService.Decrypt<int, Marca>(precioReajusteDto.AplicoMarcaEncryptedId);
             var preciosActuales = await _db.ProductosPrecios
                                             .Where(p => listasDePreciosId.Contains(p.ListaDePreciosId.Value)
                                                             && p.Producto.MarcaId == marcaId
@@ -200,7 +200,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             var reajustePrecio = new HistoricoReajustePrecio
             {
                 AplicaDesdeFechaHora = DateTime.Now,
-                AplicoListaDePreciosId = precioReajusteDto.AplicoListaDePreciosEncryptedId == "-1" ? null /*TODAS*/ : EncryptionService.Decrypt<int>(precioReajusteDto.AplicoListaDePreciosEncryptedId),
+                AplicoListaDePreciosId = precioReajusteDto.AplicoListaDePreciosEncryptedId == "-1" ? null /*TODAS*/ : EncryptionService.Decrypt<int, ListaDePrecios>(precioReajusteDto.AplicoListaDePreciosEncryptedId),
                 AplicoMarcaId = marcaId,
                 EsIncremento = precioReajusteDto.EsIncremento,
                 EsPorcentual = precioReajusteDto.EsPorcentual,

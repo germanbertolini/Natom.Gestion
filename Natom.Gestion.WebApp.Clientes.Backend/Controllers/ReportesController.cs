@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
+using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using System;
 using System.Collections.Generic;
@@ -31,10 +32,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 int? _proveedorId = null;
 
                 if (!string.IsNullOrEmpty(productoId))
-                    _productoId = EncryptionService.Decrypt<int>(productoId);
+                    _productoId = EncryptionService.Decrypt<int, Producto>(productoId);
 
                 if (!string.IsNullOrEmpty(proveedorId))
-                    _proveedorId = EncryptionService.Decrypt<int>(proveedorId);
+                    _proveedorId = EncryptionService.Decrypt<int, Proveedor>(proveedorId);
 
                 DateTime _desde = DateTime.ParseExact(desde, "d/M/yyyy", CultureInfo.InvariantCulture);
                 DateTime _hasta = DateTime.ParseExact(hasta, "d/M/yyyy", CultureInfo.InvariantCulture);
@@ -278,7 +279,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int listaDePreciosId = EncryptionService.Decrypt<int>(encryptedId);
+                int listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(encryptedId);
 
                 var manager = new ReportingManager(_serviceProvider);
                 var data = manager.ObtenerDataListaDePreciosReport(listaDePreciosId);
@@ -310,7 +311,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int? depositoId = EncryptionService.Decrypt<int?>(encryptedId);
+                int? depositoId = EncryptionService.Decrypt<int?, Deposito>(encryptedId);
 
                 var manager = new ReportingManager(_serviceProvider);
                 var data = manager.ObtenerDataListaStockReport(depositoId);

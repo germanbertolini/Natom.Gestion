@@ -96,33 +96,26 @@
           </div>
       </div>
     </div>
-    <div class="col-md-2">
+
+    <div class="col-md-4">
       <div class="form-group">
-          <label for="formGroupExampleInput">Peso unitario</label>
-          <div class="input-group">
-          <input
-              type="number"
-              class="form-control"
-              placeholder="0,00"
-              onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
-              required
-              [(ngModel)]="crud.model.pesoUnitario" />
-          </div>
-      </div>
-    </div>
-    
-    <div class="col-md-2">
-      <div class="form-group">
-          <label for="formGroupExampleInput">Unidad de medida</label>
-          <div class="input-group">
-            <select
+        <label for="formGroupExampleInput">Medida</label>
+        <div class="input-group">
+          <select
               size="1"
               class="form-control"
               [(ngModel)]="crud.model.unidadPeso_encrypted_id">
                 <option value="" disabled selected>Seleccione...</option>
                 <option *ngFor="let unidad of unidades; let i = index" value="{{ unidad.encrypted_id }}">{{ unidad.descripcion }}</option>
             </select>
-          </div>
+            <input
+                type="number"
+                class="form-control"
+                placeholder="0,00"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+                required
+                [(ngModel)]="crud.model.pesoUnitario" />
+        </div>
       </div>
     </div>
 

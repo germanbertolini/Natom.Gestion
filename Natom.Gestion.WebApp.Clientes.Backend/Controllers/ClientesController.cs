@@ -70,7 +70,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedId));
                     var cliente = await manager.ObtenerClienteAsync(clienteId);
                     entity = new ClienteDTO().From(cliente);
                 }
@@ -170,7 +170,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ClientesManager(_serviceProvider);
                 await manager.DesactivarClienteAsync(clienteId);
@@ -200,7 +200,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ClientesManager(_serviceProvider);
                 await manager.ActivarClienteAsync(clienteId);
@@ -230,7 +230,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedClienteId));
+                int clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedClienteId));
 
                 DateTime dt;
                 DateTime? dtFilter = null;
@@ -279,7 +279,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             {
                 ClienteCtaCteResumeDTO resume = null;
 
-                int clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedClienteId));
+                int clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedClienteId));
 
                 var clienteMgr = new ClientesManager(_serviceProvider);
                 var cliente = await clienteMgr.ObtenerClienteAsync(clienteId);
@@ -349,7 +349,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new CuentasCorrientesManager(_serviceProvider);
                 var monto = await manager.ObtenerMontoActualCtaCteClienteAsync(clienteId);

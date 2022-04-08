@@ -79,12 +79,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Clientes
 
 		public ClienteDTO From(Cliente entity)
 		{
-			EncryptedId = EncryptionService.Encrypt(entity.ClienteId);
+			EncryptedId = EncryptionService.Encrypt<Cliente>(entity.ClienteId);
 			Nombre = entity.Nombre;
 			Apellido = entity.Apellido;
 			RazonSocial = entity.RazonSocial;
 			NombreFantasia = entity.NombreFantasia;
-			TipoDocumentoEncryptedId = EncryptionService.Encrypt(entity.TipoDocumentoId);
+			TipoDocumentoEncryptedId = EncryptionService.Encrypt<TipoDocumento>(entity.TipoDocumentoId);
 			TipoDocumento = entity.TipoDocumento?.Descripcion;
 			NumeroDocumento = entity.NumeroDocumento;
 			Domicilio = entity.Domicilio;
@@ -99,8 +99,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Clientes
 			Activo = entity.Activo;
 			MontoCtaCte = entity.MontoCtaCte;
 			Zona = entity.Zona?.Descripcion;
-			ZonaEncryptedId = EncryptionService.Encrypt(entity.ZonaId) ?? "";
-			ListaDePreciosEncryptedId = EncryptionService.Encrypt(entity.ListaDePreciosId) ?? "";
+			ZonaEncryptedId = EncryptionService.Encrypt<Zona>(entity.ZonaId) ?? "";
+			ListaDePreciosEncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.ListaDePreciosId) ?? "";
 
 			return this;
 		}

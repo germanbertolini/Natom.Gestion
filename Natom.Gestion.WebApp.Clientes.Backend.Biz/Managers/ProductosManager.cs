@@ -114,11 +114,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     Codigo = productoDto.Codigo?.ToUpper(),
                     DescripcionCorta = productoDto.DescripcionCorta,
                     DescripcionLarga = productoDto.DescripcionLarga,
-                    MarcaId = EncryptionService.Decrypt<int>(productoDto.MarcaEncryptedId),
+                    MarcaId = EncryptionService.Decrypt<int, Marca>(productoDto.MarcaEncryptedId),
                     MueveStock = productoDto.MueveStock,
                     PesoUnitario = productoDto.PesoUnitario,
-                    UnidadPesoId = EncryptionService.Decrypt<int>(productoDto.UnidadPesoEncryptedId),
-                    CategoriaProductoId = EncryptionService.Decrypt<string>(productoDto.CategoriaEncryptedId),
+                    UnidadPesoId = EncryptionService.Decrypt<int, UnidadPeso>(productoDto.UnidadPesoEncryptedId),
+                    CategoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(productoDto.CategoriaEncryptedId),
                     CostoUnitario = productoDto.CostoUnitario,
                     Activo = true
                 };
@@ -128,7 +128,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int productoId = EncryptionService.Decrypt<int>(productoDto.EncryptedId);
+                int productoId = EncryptionService.Decrypt<int, Producto>(productoDto.EncryptedId);
 
                 if (!string.IsNullOrEmpty(productoDto.Codigo))
                     if (await _db.Productos.AnyAsync(m => m.Codigo.ToLower().Equals(productoDto.Codigo.ToLower()) && m.ProductoId != productoId))
@@ -141,11 +141,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 producto.Codigo = productoDto.Codigo?.ToUpper();
                 producto.DescripcionCorta = productoDto.DescripcionCorta;
                 producto.DescripcionLarga = productoDto.DescripcionLarga;
-                producto.MarcaId = EncryptionService.Decrypt<int>(productoDto.MarcaEncryptedId);
+                producto.MarcaId = EncryptionService.Decrypt<int, Marca>(productoDto.MarcaEncryptedId);
                 producto.MueveStock = productoDto.MueveStock;
                 producto.PesoUnitario = productoDto.PesoUnitario;
-                producto.UnidadPesoId = EncryptionService.Decrypt<int>(productoDto.UnidadPesoEncryptedId);
-                producto.CategoriaProductoId = EncryptionService.Decrypt<string>(productoDto.CategoriaEncryptedId);
+                producto.UnidadPesoId = EncryptionService.Decrypt<int, UnidadPeso>(productoDto.UnidadPesoEncryptedId);
+                producto.CategoriaProductoId = EncryptionService.Decrypt<int, CategoriaProducto>(productoDto.CategoriaEncryptedId);
                 producto.CostoUnitario = productoDto.CostoUnitario;
 
                 await _db.SaveChangesAsync();
@@ -188,6 +188,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public Task<List<UnidadPeso>> ObtenerUnidadesPesoAsync()
                         => _db.UnidadesPeso
+                                .OrderBy(u => u.Mililitros).ThenBy(u => u.Gramos)
                                 .ToListAsync();
     }
 }

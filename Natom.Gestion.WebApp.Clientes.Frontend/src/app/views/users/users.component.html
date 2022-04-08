@@ -29,9 +29,10 @@
             <td>{{ user.registered_at  |  date:'dd/MM/yyyy' }}</td>
             <td>{{ user.status }}</td>
             <td>
-              <a class="btn btn-warning btn-sm edit-smt-btn" (click)="onRecoverClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Recuperar clave"><i class="fa fa-key" aria-hidden="true"></i></a>
-              <a class="btn btn-primary btn-sm edit-smt-btn spacingLeft" (click)="onEditClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit" aria-hidden="true"></i></a>
-              <a class="btn btn-danger btn-sm delete-smt-btn spacingLeft" (click)="onDeleteClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a *ngIf="user.status !== 'Inactivo'" class="btn btn-warning btn-sm edit-smt-btn" (click)="onRecoverClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Recuperar clave"><i class="fa fa-key" aria-hidden="true"></i></a>
+              <a *ngIf="user.status !== 'Inactivo'" class="btn btn-primary btn-sm edit-smt-btn spacingLeft" (click)="onEditClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit" aria-hidden="true"></i></a>
+              <a *ngIf="user.status !== 'Inactivo'" class="btn btn-danger btn-sm delete-smt-btn spacingLeft" (click)="onDeleteClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Eliminar"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <!-- <a class="btn btn-warning btn-sm historico-smt-btn spacingLeft" (click)="onVerHistoricoCambiosClick(user.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Ver histórico de cambios"><i class="fa fa-history" aria-hidden="true"></i></a> -->
             </td>
           </tr>
         </tbody>

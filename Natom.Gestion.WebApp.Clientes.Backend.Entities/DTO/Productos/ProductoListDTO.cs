@@ -34,7 +34,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Productos
 
         public ProductoListDTO From(Producto entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.ProductoId);
+            EncryptedId = EncryptionService.Encrypt<Producto>(entity.ProductoId);
             Codigo = entity.Codigo;
             Descripcion = entity.DescripcionCorta;
             Marca = entity.Marca?.Descripcion;

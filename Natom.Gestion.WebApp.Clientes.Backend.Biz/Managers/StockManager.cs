@@ -32,8 +32,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public async Task GuardarMovimientoAsync(int usuarioId, MovimientoStockDTO movimientoDto)
         {
-            var productoId = EncryptionService.Decrypt<int>(movimientoDto.ProductoEncryptedId);
-            var depositoId = EncryptionService.Decrypt<int>(movimientoDto.DepositoEncryptedId);
+            var productoId = EncryptionService.Decrypt<int, Producto>(movimientoDto.ProductoEncryptedId);
+            var depositoId = EncryptionService.Decrypt<int, Deposito>(movimientoDto.DepositoEncryptedId);
             
             if (movimientoDto.Tipo == "E")
             {

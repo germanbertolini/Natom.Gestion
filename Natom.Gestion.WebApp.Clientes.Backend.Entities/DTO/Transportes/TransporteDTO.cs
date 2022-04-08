@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Transportes
 
         public TransporteDTO From(Transporte entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.TransporteId);
+            EncryptedId = EncryptionService.Encrypt<Transporte>(entity.TransporteId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
 

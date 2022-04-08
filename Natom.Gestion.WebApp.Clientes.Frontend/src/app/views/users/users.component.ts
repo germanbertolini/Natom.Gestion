@@ -6,6 +6,7 @@ import { NotifierService } from "angular-notifier";
 import { DataTableDTO } from "src/app/classes/data-table-dto";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
 import { UserDTO } from "src/app/classes/dto/user.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { ConfirmDialogService } from "../../components/confirm-dialog/confirm-dialog.service";
 
@@ -25,12 +26,17 @@ export class UsersComponent implements OnInit {
   constructor(private apiService: ApiService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
                 
   }
 
   onEditClick(id: string) {
     this.routerService.navigate(['/users/edit/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("Usuario", id);
   }
 
   onDeleteClick(id: string) {
@@ -142,7 +148,7 @@ export class UsersComponent implements OnInit {
         { data: "email" },
         { data: 'registered_at' },
         { data: 'status' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
 

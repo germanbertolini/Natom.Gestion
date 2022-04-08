@@ -5,6 +5,7 @@ import { DataTableDirective } from "angular-datatables/src/angular-datatables.di
 import { NotifierService } from "angular-notifier";
 import { ClienteDTO } from "src/app/classes/dto/clientes/cliente.dto";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
 import { DataTableDTO } from '../../classes/data-table-dto';
@@ -27,8 +28,9 @@ export class ClientesComponent implements OnInit {
               private authService: AuthService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
-                
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
+    this.filterStatusValue = "ACTIVOS";
   }
 
   onFiltroEstadoChange(newValue: string) {
@@ -44,6 +46,10 @@ export class ClientesComponent implements OnInit {
 
   onVerCtaCteClick(id: string) {
     this.routerService.navigate(['/clientes/cta_cte/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("Cliente", id);
   }
 
   onEnableClick(id: string) {
@@ -152,7 +158,7 @@ export class ClientesComponent implements OnInit {
         { data: 'documento' },
         { data: 'domicilio' },
         { data: 'localidad' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
   }

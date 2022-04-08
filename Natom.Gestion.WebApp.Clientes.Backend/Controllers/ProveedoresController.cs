@@ -68,7 +68,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(encryptedId));
                     var proveedor = await manager.ObtenerProveedorAsync(proveedorId);
                     entity = new ProveedorDTO().From(proveedor);
                 }
@@ -160,7 +160,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ProveedoresManager(_serviceProvider);
                 await manager.DesactivarProveedorAsync(proveedorId);
@@ -190,7 +190,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new ProveedoresManager(_serviceProvider);
                 await manager.ActivarProveedorAsync(proveedorId);
@@ -220,7 +220,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedProveedorId));
+                int proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(encryptedProveedorId));
 
                 DateTime dt;
                 DateTime? dtFilter = null;
@@ -294,7 +294,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new CuentasCorrientesManager(_serviceProvider);
                 var monto = await manager.ObtenerMontoActualCtaCteProveedorAsync(proveedorId);

@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Zonas
 
         public ZonaDTO From(Zona entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.ZonaId);
+            EncryptedId = EncryptionService.Encrypt<Zona>(entity.ZonaId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
 

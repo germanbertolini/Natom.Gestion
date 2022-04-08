@@ -86,6 +86,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Services
         /// <summary>
         /// Desencripta un dato
         /// </summary>
+        public static TResult Decrypt2<TResult>(string cipherText, string entityName)
+                        => Decrypt<TResult>(cipherText, BuildSecretCompuesta(_secretKey, entityName));
+
+
+        /// <summary>
+        /// Desencripta un dato
+        /// </summary>
         public static TResult Decrypt<TResult, TEntity>(string cipherText)
                         => Decrypt<TResult>(cipherText, BuildSecretCompuesta(_secretKey, typeof(TEntity).Name));
 

@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Marcas
 
         public MarcaDTO From(Marca entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.MarcaId);
+            EncryptedId = EncryptionService.Encrypt<Marca>(entity.MarcaId);
             Descripcion = entity.Descripcion;
             Activo = entity.Activo;
 

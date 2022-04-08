@@ -35,7 +35,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 
 		public bool Activo { get; set; }
 
-		public string CategoriaProductoId { get; set; }
+		public int CategoriaProductoId { get; set; }
 		public CategoriaProducto CategoriaProducto { get; set; }
 
 		[NotMapped]

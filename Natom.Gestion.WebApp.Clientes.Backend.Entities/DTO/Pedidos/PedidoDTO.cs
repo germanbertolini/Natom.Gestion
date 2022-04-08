@@ -73,12 +73,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
 
         public PedidoDTO From(OrdenDePedido entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoId);
+            EncryptedId = EncryptionService.Encrypt<OrdenDePedido>(entity.OrdenDePedidoId);
             Numero = entity.NumeroPedido.ToString().PadLeft(8, '0');
             FechaHora = entity.FechaHoraPedido;
-            ClienteEncryptedId = EncryptionService.Encrypt(entity.ClienteId);
+            ClienteEncryptedId = EncryptionService.Encrypt<Cliente>(entity.ClienteId);
             EntregaEstimadaFecha = entity.EntregaEstimadaFecha;
-            EntregaEstimadaRangoHorarioEncryptedId = EncryptionService.Encrypt(entity.EntregaEstimadaRangoHorarioId);
+            EntregaEstimadaRangoHorarioEncryptedId = EncryptionService.Encrypt<RangoHorario>(entity.EntregaEstimadaRangoHorarioId);
             EntregaObservaciones = entity.EntregaObservaciones;
             Usuario = entity.Usuario?.Nombre ?? "Admin";
             NumeroRemito = entity.NumeroRemito;

@@ -4,6 +4,7 @@ using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.DataTable;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Stock;
+using Natom.Gestion.WebApp.Clientes.Backend.Entities.Model;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using System;
 using System.Linq;
@@ -31,8 +32,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 int? productoId = null;
                 DateTime? fecha = null;
 
-                if (!string.IsNullOrEmpty(depositoFilter)) depositoId = EncryptionService.Decrypt<int>(depositoFilter);
-                if (!string.IsNullOrEmpty(productoFilter)) productoId = EncryptionService.Decrypt<int>(productoFilter);
+                if (!string.IsNullOrEmpty(depositoFilter)) depositoId = EncryptionService.Decrypt<int, Deposito>(depositoFilter);
+                if (!string.IsNullOrEmpty(productoFilter)) productoId = EncryptionService.Decrypt<int, Producto>(productoFilter);
                 if (!string.IsNullOrEmpty(filtroFecha)) fecha = Convert.ToDateTime(filtroFecha);
 
                 var movimientos = manager.ObtenerMovimientosStockDataTable(request.Start, request.Length, request.Search.Value, depositoId, productoId, fecha);
@@ -101,11 +102,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int productoId = EncryptionService.Decrypt<int>(producto);
+                int productoId = EncryptionService.Decrypt<int, Producto>(producto);
                 int? depositoId = null;
 
                 if (!string.IsNullOrEmpty(deposito))
-                    depositoId = EncryptionService.Decrypt<int>(deposito);
+                    depositoId = EncryptionService.Decrypt<int, Deposito>(deposito);
 
 
                 var manager = new StockManager(_serviceProvider);
@@ -162,7 +163,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int movimientoStockId = EncryptionService.Decrypt<int>(encryptedId);
+                int movimientoStockId = EncryptionService.Decrypt<int, MovimientoStock>(encryptedId);
 
                 var manager = new StockManager(_serviceProvider);
                 await manager.MarcarMovimientosComoControladoAsync((int)(_accessToken?.UserId ?? 0), movimientoStockId);

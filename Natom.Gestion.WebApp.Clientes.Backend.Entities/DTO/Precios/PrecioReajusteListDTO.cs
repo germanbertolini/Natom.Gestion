@@ -35,9 +35,12 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
         [JsonProperty("aplicaDesdeFechaHora")]
         public DateTime AplicaDesdeFechaHora { get; set; }
 
+        [JsonProperty("anulado")]
+        public bool Anulado { get; set; }
+
         public PrecioReajusteListDTO From(HistoricoReajustePrecio entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.HistoricoReajustePrecioId);
+            EncryptedId = EncryptionService.Encrypt<HistoricoReajustePrecio>(entity.HistoricoReajustePrecioId);
             Usuario = entity.Usuario?.Nombre ?? "Admin";
             TipoReajuste = $"{(entity.EsIncremento ? "Aumento" : "Decremento")} - {(entity.EsPorcentual ? "Porcentaje" : "Monto")}";
             EsPorcentual = entity.EsPorcentual;
@@ -45,6 +48,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
             AplicoMarca = entity.AplicoMarca?.Descripcion;
             AplicoListaDePrecios = entity.AplicoListaDePrecios?.Descripcion ?? "Todas";
             AplicaDesdeFechaHora = entity.AplicaDesdeFechaHora;
+            Anulado = entity.FechaHoraBaja.HasValue;
 
             return this;
         }

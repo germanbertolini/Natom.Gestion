@@ -49,7 +49,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Ventas
 
         public VentaListDTO From(Venta entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.VentaId);
+            EncryptedId = EncryptionService.Encrypt<Venta>(entity.VentaId);
             Numero = entity.NumeroVenta.ToString().PadLeft(8, '0');
             FechaHora = entity.FechaHoraVenta;
             NumeroVenta = entity.NumeroVenta.ToString().PadLeft(8, '0');

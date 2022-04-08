@@ -28,10 +28,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Precios
 
         public PrecioDTO From(ProductoPrecio entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.ProductoPrecioId);
+            EncryptedId = EncryptionService.Encrypt<ProductoPrecio>(entity.ProductoPrecioId);
             Producto = entity.Producto != null ? $"({entity.Producto?.Codigo}) {entity.Producto?.DescripcionCorta}" : "";
-            ProductoEncryptedId = EncryptionService.Encrypt(entity.ProductoId);
-            ListaDePreciosEncryptedId = EncryptionService.Encrypt(entity.ListaDePreciosId);
+            ProductoEncryptedId = EncryptionService.Encrypt<Producto>(entity.ProductoId);
+            ListaDePreciosEncryptedId = EncryptionService.Encrypt<ListaDePrecios>(entity.ListaDePreciosId);
             Precio = entity.Precio;
 
             return this;

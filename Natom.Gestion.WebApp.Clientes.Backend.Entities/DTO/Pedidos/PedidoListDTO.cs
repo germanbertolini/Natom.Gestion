@@ -70,10 +70,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
 
         public PedidoListDTO From(OrdenDePedido entity)
         {
-            EncryptedId = EncryptionService.Encrypt(entity.OrdenDePedidoId);
+            EncryptedId = EncryptionService.Encrypt<OrdenDePedido>(entity.OrdenDePedidoId);
             Numero = entity.NumeroPedido.ToString().PadLeft(8, '0');
             FechaHora = entity.FechaHoraPedido;
-            VentaEncryptedId = EncryptionService.Encrypt(entity.VentaId);
+            VentaEncryptedId = EncryptionService.Encrypt<Venta>(entity.VentaId);
             NumeroVenta = entity.Venta == null ? null : entity.Venta.NumeroVenta.ToString().PadLeft(8, '0');
             Remito = string.IsNullOrEmpty(entity.NumeroRemito) ? null : "RTO " + entity.NumeroRemito;
             Factura = string.IsNullOrEmpty(entity.Venta?.NumeroFactura) ? null : entity.Venta.TipoFactura + " " + entity.Venta.NumeroFactura;

@@ -93,7 +93,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public async Task<MovimientoCtaCteCliente> GuardarMovimientoCtaCteClienteAsync(ClienteCtaCteMovimientoDTO movimientoDto, int usuarioId)
         {
-            int clienteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(movimientoDto.EncryptedClienteId));
+            int clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(movimientoDto.EncryptedClienteId));
 
             if (movimientoDto.Tipo == "D")
             {
@@ -200,7 +200,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
 
         public async Task<MovimientoCtaCteProveedor> GuardarMovimientoCtaCteProveedorAsync(ProveedorCtaCteMovimientoDTO movimientoDto, int usuarioId)
         {
-            int proveedorId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(movimientoDto.EncryptedProveedorId));
+            int proveedorId = EncryptionService.Decrypt<int, Proveedor>(Uri.UnescapeDataString(movimientoDto.EncryptedProveedorId));
 
             if (movimientoDto.Tipo == "D")
             {

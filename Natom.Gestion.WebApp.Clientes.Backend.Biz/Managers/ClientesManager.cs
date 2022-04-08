@@ -115,8 +115,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                     ContactoTelefono2 = clienteDto.ContactoTelefono2,
                     ContactoObservaciones = clienteDto.ContactoObservaciones,
                     MontoCtaCte = clienteDto.MontoCtaCte,
-                    ZonaId = EncryptionService.Decrypt<int>(clienteDto.ZonaEncryptedId),
-                    ListaDePreciosId = EncryptionService.Decrypt<int?>(clienteDto.ListaDePreciosEncryptedId),
+                    ZonaId = EncryptionService.Decrypt<int, Zona>(clienteDto.ZonaEncryptedId),
+                    ListaDePreciosId = EncryptionService.Decrypt<int?, ListaDePrecios>(clienteDto.ListaDePreciosEncryptedId),
                     Activo = true
                 };
 
@@ -125,7 +125,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int clienteId = EncryptionService.Decrypt<int>(clienteDto.EncryptedId);
+                int clienteId = EncryptionService.Decrypt<int, Cliente>(clienteDto.EncryptedId);
 
                 if (!_featureFlagsService.FeatureFlags.Clientes.ValidarSoloDomicilio)
                 {
@@ -152,8 +152,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 cliente.ContactoTelefono1 = clienteDto.ContactoTelefono1;
                 cliente.ContactoTelefono2 = clienteDto.ContactoTelefono2;
                 cliente.ContactoObservaciones = clienteDto.ContactoObservaciones;
-                cliente.ZonaId = EncryptionService.Decrypt<int>(clienteDto.ZonaEncryptedId);
-                cliente.ListaDePreciosId = EncryptionService.Decrypt<int?>(clienteDto.ListaDePreciosEncryptedId);
+                cliente.ZonaId = EncryptionService.Decrypt<int, Zona>(clienteDto.ZonaEncryptedId);
+                cliente.ListaDePreciosId = EncryptionService.Decrypt<int?, ListaDePrecios>(clienteDto.ListaDePreciosEncryptedId);
                 cliente.MontoCtaCte = clienteDto.MontoCtaCte;
 
                 await _db.SaveChangesAsync();

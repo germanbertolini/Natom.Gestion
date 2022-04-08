@@ -89,6 +89,7 @@
           id="proveedorSearch"
           type="text"
           class="form-control"
+          [readonly]="!crud.model.esCtaCte"
           [(ngModel)]="proveedor_search"
           placeholder="Buscar por CUIT o Razón social..." />
         <ul class="input-autocomplete-options">

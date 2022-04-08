@@ -5,6 +5,7 @@ import { DataTableDirective } from "angular-datatables/src/angular-datatables.di
 import { NotifierService } from "angular-notifier";
 import { ApiResult } from "src/app/classes/dto/shared/api-result.dto";
 import { TransporteDTO } from "src/app/classes/dto/transportes/transporte.dto";
+import { HistoricoCambiosService } from "src/app/components/historico-cambios/historico-cambios.service";
 import { ApiService } from "src/app/services/api.service";
 import { DataTableDTO } from '../../classes/data-table-dto';
 import { ConfirmDialogService } from "../../components/confirm-dialog/confirm-dialog.service";
@@ -25,7 +26,8 @@ export class TransportesComponent implements OnInit {
   constructor(private apiService: ApiService,
               private routerService: Router,
               private notifierService: NotifierService,
-              private confirmDialogService: ConfirmDialogService) {
+              private confirmDialogService: ConfirmDialogService,
+              private historicoCambiosService: HistoricoCambiosService) {
     this.filterStatusValue = "ACTIVOS";
   }
 
@@ -38,6 +40,10 @@ export class TransportesComponent implements OnInit {
 
   onEditClick(id: string) {
     this.routerService.navigate(['/transportes/edit/' + encodeURIComponent(id)]);
+  }
+
+  onVerHistoricoCambiosClick(id: string) {
+    this.historicoCambiosService.show("Transporte", id);
   }
 
   onEnableClick(id: string) {
@@ -143,7 +149,7 @@ export class TransportesComponent implements OnInit {
       },
       columns: [
         { data: 'name' },
-        { data: '' } //BOTONERA
+        { data: '', orderable: false } //BOTONERA
       ]
     };
   }

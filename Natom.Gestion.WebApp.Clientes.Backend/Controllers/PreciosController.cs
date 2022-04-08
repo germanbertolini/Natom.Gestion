@@ -30,7 +30,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             {
                 int? listaDePreciosId = null;
                 if (!string.IsNullOrEmpty(lista))
-                    listaDePreciosId = EncryptionService.Decrypt<int>(lista);
+                    listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(lista);
 
                 var manager = new PreciosManager(_serviceProvider);
                 var precios = manager.ObtenerPreciosDataTable(request.Start, request.Length, request.Search.Value, request.Order.First().ColumnIndex, request.Order.First().Direction, listaDePreciosId);
@@ -78,7 +78,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var productoPrecioId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var productoPrecioId = EncryptionService.Decrypt<int, ProductoPrecio>(Uri.UnescapeDataString(encryptedId));
                     var precio = await manager.ObtenerPrecioAsync(productoPrecioId);
                     entity = new PrecioDTO().From(precio);
 
@@ -196,7 +196,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var marcaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var marcaId = EncryptionService.Decrypt<int, Marca>(Uri.UnescapeDataString(encryptedId));
                     var precioReajuste = await manager.ObtenerPreciosReajusteAsync(marcaId);
                     entity = new PrecioReajusteDTO().From(precioReajuste);
                 }
@@ -262,7 +262,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var reajusteId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var reajusteId = EncryptionService.Decrypt<int, HistoricoReajustePrecio>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new PreciosManager(_serviceProvider);
                 await manager.EliminarReajusteAsync(reajusteId);
@@ -292,11 +292,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                int productoId = EncryptionService.Decrypt<int>(producto);
+                int productoId = EncryptionService.Decrypt<int, Producto>(producto);
                 int listaDePreciosId = 0;
 
                 if (!string.IsNullOrEmpty(lista))
-                    listaDePreciosId = EncryptionService.Decrypt<int>(lista);
+                    listaDePreciosId = EncryptionService.Decrypt<int, ListaDePrecios>(lista);
                 else
                     throw new HandledException("Falta la Lista de precios");
 

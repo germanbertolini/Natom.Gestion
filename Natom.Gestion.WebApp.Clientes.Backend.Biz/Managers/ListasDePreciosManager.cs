@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int listaDePrecioId = EncryptionService.Decrypt<int>(listaDePrecioDto.EncryptedId);
+                int listaDePrecioId = EncryptionService.Decrypt<int, ListaDePrecios>(listaDePrecioDto.EncryptedId);
 
                 if (await _db.ListasDePrecios.AnyAsync(m => m.Descripcion.ToLower().Equals(listaDePrecioDto.Descripcion.ToLower()) && m.ListaDePreciosId != listaDePrecioId))
                     throw new HandledException("Ya existe una ListaDePrecio con misma descripción.");

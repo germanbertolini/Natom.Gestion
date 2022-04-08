@@ -22,7 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Productos
 
 		public CategoriaProductoDTO From(CategoriaProducto entity)
 		{
-			EncryptedId = EncryptionService.Encrypt(entity.CategoriaProductoId);
+			EncryptedId = EncryptionService.Encrypt<CategoriaProducto>(entity.CategoriaProductoId);
 			Descripcion = entity.Descripcion;
 			Activo = !entity.Eliminado;
 

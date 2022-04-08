@@ -55,7 +55,7 @@
             <td>{{ reajuste.aplicaDesdeFechaHora  |  date:'dd/MM/yyyy' }}</td>
             <td>{{ reajuste.usuario }}</td>
             <td>
-              <a class="btn btn-danger btn-sm delete-smt-btn" (click)="onDeleteClick(reajuste.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Anular"><i class="fa fa-times" aria-hidden="true"></i></a>
+              <a *ngIf="!reajuste.anulado" class="btn btn-danger btn-sm delete-smt-btn" (click)="onDeleteClick(reajuste.encrypted_id)" data-toggle="tooltip" data-placement="top" title="Anular"><i class="fa fa-times" aria-hidden="true"></i></a>
             </td>
           </tr>
         </tbody>

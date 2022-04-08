@@ -113,7 +113,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int proveedorId = EncryptionService.Decrypt<int>(proveedorDto.EncryptedId);
+                int proveedorId = EncryptionService.Decrypt<int, Proveedor>(proveedorDto.EncryptedId);
 
                 if (await _db.Proveedores.AnyAsync(m => m.NumeroDocumento.ToLower().Equals(proveedorDto.NumeroDocumento.ToLower()) && m.ProveedorId != proveedorId))
                     throw new HandledException($"Ya existe un Proveedor con ese {(proveedorDto.EsEmpresa ? "CUIT" : "DNI")}.");

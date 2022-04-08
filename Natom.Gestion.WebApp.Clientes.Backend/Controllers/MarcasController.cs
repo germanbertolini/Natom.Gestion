@@ -66,7 +66,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 if (!string.IsNullOrEmpty(encryptedId))
                 {
-                    var marcaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                    var marcaId = EncryptionService.Decrypt<int, Marca>(Uri.UnescapeDataString(encryptedId));
                     var marca = await manager.ObtenerMarcaAsync(marcaId);
                     entity = new MarcaDTO().From(marca);
                 }
@@ -127,7 +127,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var marcaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var marcaId = EncryptionService.Decrypt<int, Marca>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new MarcasManager(_serviceProvider);
                 await manager.DesactivarMarcaAsync(marcaId);
@@ -157,7 +157,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var marcaId = EncryptionService.Decrypt<int>(Uri.UnescapeDataString(encryptedId));
+                var marcaId = EncryptionService.Decrypt<int, Marca>(Uri.UnescapeDataString(encryptedId));
 
                 var manager = new MarcasManager(_serviceProvider);
                 await manager.ActivarMarcaAsync(marcaId);

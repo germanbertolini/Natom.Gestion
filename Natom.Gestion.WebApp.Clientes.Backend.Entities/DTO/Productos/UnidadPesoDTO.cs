@@ -19,7 +19,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Productos
 
 		public UnidadPesoDTO From(UnidadPeso entity)
 		{
-			EncryptedId = EncryptionService.Encrypt(entity.UnidadPesoId);
+			EncryptedId = EncryptionService.Encrypt<UnidadPeso>(entity.UnidadPesoId);
 			Descripcion = entity.Descripcion;
 
 			return this;

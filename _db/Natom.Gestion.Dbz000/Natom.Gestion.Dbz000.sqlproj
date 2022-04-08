@@ -118,4 +118,7 @@
   <ItemGroup>
     <PostDeploy Include="dbo\Script.PostDeployment.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SqlSchemaCompareToDb_z001.scmp" />
+  </ItemGroup>
 </Project>

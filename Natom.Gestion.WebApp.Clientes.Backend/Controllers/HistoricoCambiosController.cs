@@ -27,7 +27,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             try
             {
                 var manager = new BaseManager(_serviceProvider);
-                var historico = await manager.ConsultarHistoricoCambiosAsync(EncryptionService.Decrypt<int>(encrypted_id), entity);
+                var historico = await manager.ConsultarHistoricoCambiosAsync(EncryptionService.Decrypt2<int>(encrypted_id, entity), entity);
 
                 return Ok(new ApiResultDTO<List<HistoricoListDTO>>
                 {

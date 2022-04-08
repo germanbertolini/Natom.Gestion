@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             }
             else //EDICION
             {
-                int depositoId = EncryptionService.Decrypt<int>(depositoDto.EncryptedId);
+                int depositoId = EncryptionService.Decrypt<int, Deposito>(depositoDto.EncryptedId);
 
                 if (await _db.Depositos.AnyAsync(m => m.Descripcion.ToLower().Equals(depositoDto.Descripcion.ToLower()) && m.DepositoId != depositoId))
                     throw new HandledException("Ya existe una Deposito con misma descripción.");
