@@ -19,7 +19,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Stock
         public string Tipo { get; set; }
 
         [JsonProperty("cantidad")]
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
 
         [JsonProperty("usuario_encrypted_id")]
         public string UsuarioEncryptedId { get; set; }

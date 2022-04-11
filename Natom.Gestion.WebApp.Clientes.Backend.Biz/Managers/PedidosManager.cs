@@ -206,7 +206,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                                     .ToList();
             foreach (var item in stockAValidar)
             {
-                int cantidad = await stockManager.ObtenerStockActualAsync(item.ProductoId, item.DepositoId);
+                decimal cantidad = await stockManager.ObtenerStockActualAsync(item.ProductoId, item.DepositoId);
                 if (cantidad < item.Cantidad)
                     throw new HandledException($"No hay stock disponible para '{item.ProductoDescripcion}' en '{item.DepositoDescripcion}'. Cantidad pedido: {item.Cantidad} / Cantidad disponible actual: {cantidad}");
             }
@@ -363,7 +363,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             return _db.SaveChangesAsync();
         }
 
-        public async Task<bool> MarcarEntregaAsync(int usuarioId, int ordenDePedidoId, Dictionary<int, int> detalleEntrega)
+        public async Task<bool> MarcarEntregaAsync(int usuarioId, int ordenDePedidoId, Dictionary<int, decimal> detalleEntrega)
         {
             var conDevoluciones = false;
             var ahora = DateTime.Now;
@@ -401,7 +401,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             return conDevoluciones;
         }
 
-        public async Task ModificarCantidadesAsync(int usuarioId, int ordenDePedidoId, Dictionary<int, int> detalleCantidades)
+        public async Task ModificarCantidadesAsync(int usuarioId, int ordenDePedidoId, Dictionary<int, decimal> detalleCantidades)
         {
             var ahora = DateTime.Now;
             var ordenDePedido = this._db.OrdenesDePedido.Find(ordenDePedidoId);

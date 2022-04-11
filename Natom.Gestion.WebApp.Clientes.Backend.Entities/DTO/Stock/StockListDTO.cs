@@ -31,13 +31,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Stock
         public string Tipo { get; set; }
 
         [JsonProperty("movido")]
-        public int? Movido { get; set; }
+        public decimal? Movido { get; set; }
 
         [JsonProperty("reservado")]
-        public int? Reservado { get; set; }
+        public decimal? Reservado { get; set; }
 
         [JsonProperty("stock")]
-        public int Stock { get; set; }
+        public decimal Stock { get; set; }
 
         [JsonProperty("observaciones")]
         public string Observaciones { get; set; }

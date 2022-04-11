@@ -23,7 +23,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 		public int? UsuarioId { get; set; }
 
 		public string Tipo { get; set; } //(I) NGRESO / (E) GRESO
-		public int Cantidad { get; set; }
+		public decimal Cantidad { get; set; }
 
 		public int DepositoId { get; set; }
 		public Deposito Deposito { get; set; }

@@ -34,7 +34,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
 
 		public decimal MontoTotal { get; set; }
 
-		public int PesoTotalEnGramos { get; set; }
+		public decimal PesoTotalEnGramos { get; set; }
 
 		public List<VentaDetalle> Detalle { get; set; }
 

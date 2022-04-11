@@ -51,7 +51,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
         public bool Prepared { get; set; }
 
         [JsonProperty("peso_total_gramos")]
-        public int PesoTotalGramos { get; set; }
+        public decimal PesoTotalGramos { get; set; }
 
         [JsonProperty("fechaHoraPreparado")]
         public DateTime? FechaHoraPreparado { get; set; }

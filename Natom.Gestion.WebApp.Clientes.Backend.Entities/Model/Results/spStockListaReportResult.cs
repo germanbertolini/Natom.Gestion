@@ -13,8 +13,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results
         public string Deposito { get; set; }
         public string Categoria { get; set; }
         public string Producto { get; set; }
-        public int Confirmado { get; set; }
-        public int Reservado { get; set; }
-        public int Real { get; set; }
+        public decimal Confirmado { get; set; }
+        public decimal Reservado { get; set; }
+        public decimal Real { get; set; }
     }
 }

@@ -5,7 +5,7 @@ CREATE FUNCTION fnCalcularStockAlMovimiento
 	@DepositoId INT,
 	@ProductoId INT
 )
-RETURNS INT
+RETURNS DECIMAL(18,2)
 AS
 BEGIN
 

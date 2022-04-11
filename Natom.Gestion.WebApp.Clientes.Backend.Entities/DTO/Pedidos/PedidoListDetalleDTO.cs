@@ -24,10 +24,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Pedidos
         public string Deposito { get; set; }
 
         [JsonProperty("cantidad")]
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
 
         [JsonProperty("entregado")]
-        public int? Entregado { get; set; }
+        public decimal? Entregado { get; set; }
 
         public PedidoListDetalleDTO From(OrdenDePedidoDetalle entity)
         {

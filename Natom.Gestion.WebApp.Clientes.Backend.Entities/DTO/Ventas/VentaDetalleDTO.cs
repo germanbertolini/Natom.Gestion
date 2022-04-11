@@ -26,7 +26,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Ventas
         public string PedidoNumero { get; set; }
 
         [JsonProperty("cantidad")]
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
 
         [JsonProperty("deposito_encrypted_id")]
         public string DepositoEncryptedId { get; set; }

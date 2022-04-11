@@ -16,10 +16,10 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results
         public string Deposito { get; set; }
         public string Producto { get; set; }
         public string Tipo { get; set; }
-        public int? Movido { get; set; }
-        public int? Reservado { get; set; }
+        public decimal? Movido { get; set; }
+        public decimal? Reservado { get; set; }
         public string Observaciones { get; set; }
-        public int Stock { get; set; }
+        public decimal Stock { get; set; }
         public int CantidadRegistros { get; set; }
         public int CantidadFiltrados { get; set; }
     }

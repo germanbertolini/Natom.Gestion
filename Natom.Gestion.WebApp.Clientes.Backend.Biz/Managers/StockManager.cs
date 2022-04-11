@@ -71,11 +71,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
             await _db.SaveChangesAsync();
         }
 
-        public Task<int> ObtenerStockActualAsync(int productoId, int? depositoId)
+        public Task<decimal> ObtenerStockActualAsync(int productoId, int? depositoId)
         {
             return _db.MovimientosStock
                         .Where(m => m.ProductoId == productoId && m.DepositoId == (depositoId ?? m.DepositoId))
-                        .SumAsync(m => (int?)(m.Tipo == "I" ? m.Cantidad : m.Cantidad * -1) ?? 0);
+                        .SumAsync(m => (decimal?)(m.Tipo == "I" ? m.Cantidad : m.Cantidad * -1) ?? 0);
         }
 
         public async Task MarcarMovimientosComoControladoAsync(int usuarioId, int movimientoStockId)

@@ -15,8 +15,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model
         public int ProductoId { get; set; }
         public Producto Producto { get; set; }
 
-        public int Cantidad { get; set; }
-        public int? CantidadEntregada { get; set; }
+        public decimal Cantidad { get; set; }
+        public decimal? CantidadEntregada { get; set; }
 
         public int DepositoId { get; set; }
         public Deposito Deposito { get; set; }

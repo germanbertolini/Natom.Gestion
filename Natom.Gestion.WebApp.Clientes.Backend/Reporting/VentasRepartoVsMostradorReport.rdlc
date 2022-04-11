@@ -1114,7 +1114,7 @@
                               <Style>
                                 <FontSize>11pt</FontSize>
                                 <FontWeight>Bold</FontWeight>
-                                <Format>'$'#,0.00</Format>
+                                <Format>#,0.00</Format>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -1132,7 +1132,6 @@
                         <PaddingRight>2pt</PaddingRight>
                         <PaddingTop>2pt</PaddingTop>
                         <PaddingBottom>2pt</PaddingBottom>
-                        <rd:FormatSymbolCulture>es-AR</rd:FormatSymbolCulture>
                       </Style>
                     </Textbox>
                     <ColSpan>2</ColSpan>
@@ -1171,7 +1170,7 @@
         <Top>2.05909cm</Top>
         <Left>0.43604cm</Left>
         <Height>2.29417cm</Height>
-        <Width>19.00999cm</Width>
+        <Width>19.01cm</Width>
         <ZIndex>3</ZIndex>
         <Style>
           <Border>

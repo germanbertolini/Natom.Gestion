@@ -30,7 +30,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results
 		public string DetalleCodigo { get; set; }
 		public string DetalleDescripcion { get; set; }
 		public string DetalleRemito { get; set; }
-		public int DetalleCantidad { get; set; }
+		public decimal DetalleCantidad { get; set; }
 		public decimal DetallePesoUnitarioEnKilogramos { get; set; }
 		public decimal DetallePrecioUnitario { get; set; }
 		public decimal DetallePesoTotalEnKilogramos { get; set; }

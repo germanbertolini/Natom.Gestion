@@ -529,7 +529,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var manager = new PedidosManager(_serviceProvider);
                 var detalleEntrega = detalle
-                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Entregado.Value))
+                                        .Select(x => new KeyValuePair<int, decimal>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Entregado.Value))
                                         .ToDictionary(x => x.Key, x => x.Value);
                 var conDevoluciones = await manager.MarcarEntregaAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId, detalleEntrega);
 
@@ -566,7 +566,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var manager = new PedidosManager(_serviceProvider);
                 var detalleModificacion = detalle
-                                        .Select(x => new KeyValuePair<int, int>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Cantidad))
+                                        .Select(x => new KeyValuePair<int, decimal>(EncryptionService.Decrypt<int, OrdenDePedidoDetalle>(x.EncryptedId), x.Cantidad))
                                         .ToDictionary(x => x.Key, x => x.Value);
                 await manager.ModificarCantidadesAsync((int)(_accessToken?.UserId ?? 0), ordenDePedidoId, detalleModificacion);
 

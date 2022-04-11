@@ -19,7 +19,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results
         public string ComprobanteVenta { get; set; }
         public string Proveedor { get; set; }
         public string Producto { get; set; }
-        public int Cantidad { get; set; }
+        public decimal Cantidad { get; set; }
         public decimal MontoTotal { get; set; }
     }
 }

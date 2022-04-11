@@ -186,7 +186,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                                     .ToList();
             foreach (var item in stockAValidar)
             {
-                int cantidad = await stockManager.ObtenerStockActualAsync(item.ProductoId, item.DepositoId);
+                decimal cantidad = await stockManager.ObtenerStockActualAsync(item.ProductoId, item.DepositoId);
                 if (cantidad < item.Cantidad)
                     throw new HandledException($"No hay stock disponible para '{item.ProductoDescripcion}' en '{item.DepositoDescripcion}'. Cantidad pedido: {item.Cantidad} / Cantidad disponible actual: {cantidad}");
             }
