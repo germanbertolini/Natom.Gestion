@@ -111,9 +111,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
             }
             catch (InvalidTokenException ex)
             {
-                bool logOnDiscord = !ex.Message.Contains("Token vencido");
-
-                _loggerService.LogBounce(_transaction?.TraceTransactionId, ex.Message, _accessToken, logOnDiscord);
+                _loggerService.LogBounce(_transaction?.TraceTransactionId, ex.Message, _accessToken, logOnDiscord: false);
 
                 context.HttpContext.Response.StatusCode = 403;
                 context.Result = new ContentResult()

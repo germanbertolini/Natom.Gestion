@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,7 +28,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Entities.Model.Results
 		public string EntregaTelefono1 { get; set; }
 		public string EntregaTelefono2 { get; set; }
 		public string EntregaObservaciones { get; set; }
-		public string CargadoPor { get; set; }
+		public int CargadoPorUsuarioId { get; set; }
+		[NotMapped] public string CargadoPor { get; set; }
 		public string Observaciones { get; set; }
 		public string Anulado { get; set; }
 		public string Facturado { get; set; }

@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
+using Natom.Extensions.Auth.Services;
 using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
@@ -23,8 +24,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
     [Route("[controller]/[action]")]
     public class PedidosController : BaseController
     {
+        private AuthService _authService;
+
         public PedidosController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
+            _authService = (AuthService)serviceProvider.GetService(typeof(AuthService));
         }
 
         // POST: pedidos/list?status={status}
@@ -232,6 +236,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var data = manager.ObtenerDataOrdenDePedidoReport(ordenDePedidoId);
 
+                var usuariosIds = data.Count == 0 ? new List<int>() : data.Select(u => u.CargadoPorUsuarioId).GroupBy(k => k, (k, v) => k).ToList();
+                var usuarios = await _authService.ListUsersByIds(usuariosIds);
+                data.ForEach(u => {
+                    var usuario = usuarios.FirstOrDefault(k => k.UsuarioId == u.CargadoPorUsuarioId);
+                    u.CargadoPor = $"{usuario.Nombre} {usuario.Apellido}";
+                });
+
                 string mimtype = "";
                 int extension = 1;
                 Dictionary<string, string> parameters = new Dictionary<string, string>();
@@ -263,6 +274,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var manager = new PedidosManager(_serviceProvider);
 
                 var data = manager.ObtenerDataRemitoReport(ordenDePedidoId);
+
+                var usuariosIds = data.Count == 0 ? new List<int>() : data.Select(u => u.CargadoPorUsuarioId).GroupBy(k => k, (k, v) => k).ToList();
+                var usuarios = await _authService.ListUsersByIds(usuariosIds);
+                data.ForEach(u => {
+                    var usuario = usuarios.FirstOrDefault(k => k.UsuarioId == u.CargadoPorUsuarioId);
+                    u.CargadoPor = $"{usuario.Nombre} {usuario.Apellido}";
+                });
 
                 string mimtype = "";
                 int extension = 1;

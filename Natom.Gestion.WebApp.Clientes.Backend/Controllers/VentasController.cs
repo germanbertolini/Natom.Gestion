@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
+using Natom.Extensions.Auth.Services;
 using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
@@ -22,8 +23,11 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
     [Route("[controller]/[action]")]
     public class VentasController : BaseController
     {
+        private AuthService _authService;
+
         public VentasController(IServiceProvider serviceProvider) : base(serviceProvider)
         {
+            _authService = (AuthService)serviceProvider.GetService(typeof(AuthService));
         }
 
         // POST: ventas/list?status={status}
@@ -219,10 +223,17 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
-                var ordenDePedidoId = EncryptionService.Decrypt<int, OrdenDePedido>(encryptedId);
+                var ordenDePedidoId = EncryptionService.Decrypt<int, Venta>(Uri.UnescapeDataString(encryptedId));
                 var manager = new VentasManager(_serviceProvider);
 
                 var data = manager.ObtenerDataVentaReport(ordenDePedidoId);
+
+                var usuariosIds = data.Count == 0 ? new List<int>() : data.Select(u => u.FacturadoPorUsuarioId).GroupBy(k => k, (k, v) => k).ToList();
+                var usuarios = await _authService.ListUsersByIds(usuariosIds);
+                data.ForEach(u => {
+                    var usuario = usuarios.FirstOrDefault(k => k.UsuarioId == u.FacturadoPorUsuarioId);
+                    u.FacturadoPor = $"{usuario.Nombre} {usuario.Apellido}";
+                });
 
                 string mimtype = "";
                 int extension = 1;

@@ -27,7 +27,7 @@ BEGIN
 		C.Domicilio AS ClienteDomicilio,
 		C.Localidad AS ClienteLocalidad,
 		dbo.fnVentaGetRemitos(V.VentaId) AS Remitos,
-		CASE WHEN V.UsuarioId = 0 THEN 'Admin' ELSE CONCAT(U.Nombre, ' ', U.Apellido) END AS FacturadoPor,
+		V.UsuarioId AS FacturadoPorUsuarioId,
 		V.Observaciones,
 		CASE WHEN V.Activo = 0 THEN 'ANULADA' ELSE '' END AS Anulado,
 		V.MontoTotal,
@@ -44,7 +44,6 @@ BEGIN
 	FROM
 		Venta V WITH(NOLOCK)
 		INNER JOIN Cliente C WITH(NOLOCK) ON C.ClienteId = V.ClienteId
-		LEFT JOIN Usuario U WITH(NOLOCK) ON U.UsuarioId = V.UsuarioId
 		INNER JOIN VentaDetalle D WITH(NOLOCK) ON D.VentaId = V.VentaId
 		LEFT JOIN OrdenDePedidoDetalle OPD WITH(NOLOCK) ON OPD.OrdenDePedidoDetalleId = D.OrdenDePedidoDetalleId
 		LEFT JOIN OrdenDePedido OP WITH(NOLOCK) ON OP.OrdenDePedidoId = OPD.OrdenDePedidoId AND OP.NumeroRemito IS NOT NULL AND OP.NumeroRemito != ''

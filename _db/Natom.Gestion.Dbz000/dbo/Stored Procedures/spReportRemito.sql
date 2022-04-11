@@ -22,7 +22,7 @@ BEGIN
 		OP.EntregaTelefono1 AS EntregaTelefono1,
 		OP.EntregaTelefono2 AS EntregaTelefono2,
 		OP.EntregaObservaciones,
-		CASE WHEN OP.UsuarioId = 0 THEN 'Admin' ELSE CONCAT(U.Nombre, ' ', U.Apellido) END AS CargadoPor,
+		OP.UsuarioId AS CargadoPorUsuarioId,
 		OP.Observaciones,
 		CASE WHEN OP.Activo = 0 THEN 'ANULADO' ELSE '' END AS Anulado,
 		CASE WHEN V.VentaId = 1 THEN 'FACTURADO' ELSE '' END AS Facturado,
@@ -43,7 +43,6 @@ BEGIN
 		LEFT JOIN RangoHorario RH WITH(NOLOCK) ON RH.RangoHorarioId = OP.EntregaEstimadaRangoHorarioId
 		INNER JOIN Cliente C WITH(NOLOCK) ON C.ClienteId = OP.ClienteId
 		LEFT JOIN Venta V WITH(NOLOCK) ON V.VentaId = OP.VentaId AND V.Activo = 1
-		LEFT JOIN Usuario U WITH(NOLOCK) ON U.UsuarioId = OP.UsuarioId
 		INNER JOIN OrdenDePedidoDetalle D WITH(NOLOCK) ON D.OrdenDePedidoId = OP.OrdenDePedidoId
 		INNER JOIN Producto P WITH(NOLOCK) ON P.ProductoId = D.ProductoId
 		INNER JOIN Deposito DEPO WITH(NOLOCK) ON DEPO.DepositoId = D.DepositoId

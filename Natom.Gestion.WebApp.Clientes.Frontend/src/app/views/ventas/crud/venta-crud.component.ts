@@ -540,7 +540,7 @@ export class VentaCrudComponent implements OnInit {
       }
       else
       {
-        for (var i = 0; i < this.depositos.length; i++) {
+        for (var i = 0; i < this.listasDePrecios.length; i++) {
           if (this.listasDePrecios[i].encrypted_id === this.detalle_listaDePrecios_encrypted_id) {
             this.detalle_listaDePrecios = this.listasDePrecios[i].descripcion;
           }
