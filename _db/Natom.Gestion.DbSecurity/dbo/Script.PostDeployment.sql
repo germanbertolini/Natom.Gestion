@@ -9,6 +9,7 @@ as (select * from (values
 ('abm_clientes_usuarios', 'WebApp.Admin', 'ABM Usuarios de clientes'),
 
 ('*','WebApp.Clientes','Permiso total'),
+('_NEGOCIO_CONFIGURACION','WebApp.Clientes','Configurar datos del negocio'),
 ('ABM_MARCAS','WebApp.Clientes','ABM Marcas'),
 ('ABM_USUARIOS','WebApp.Clientes','ABM Usuarios'),
 ('CAJA_DIARIA_NUEVO_MOVIMIENTO','WebApp.Clientes','Caja diaria: Registrar movimientos'),

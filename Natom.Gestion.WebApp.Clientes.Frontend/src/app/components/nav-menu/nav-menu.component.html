@@ -4,7 +4,7 @@
   >
     <div class="container-fluid">
       <a class="navbar-brand" [routerLink]="['/']">
-        <img src="assets/img/logo.png" />
+        <img src="{{ appConfigService.current.negocio_config.logo_base64 }}" height="50" style="top:3px" />
       </a>
       <button
         class="navbar-toggler-button"
@@ -150,6 +150,7 @@
               Usuario
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a *ngIf="authService.can('_NEGOCIO_CONFIGURACION')" class="dropdown-item" [routerLink]="['/negocio/config']"><i class="fa fa-cog" aria-hidden="true"></i> Mi negocio</a>
               <a class="dropdown-item" (click)="authService.logout()"><i class="fa fa-sign-out" aria-hidden="true"></i> Cerrar sesión</a>
             </div>
           </li>

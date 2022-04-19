@@ -93,6 +93,8 @@ import { RangosHorariosComponent } from "./views/rangos-horarios/rangos-horarios
 import { ABMListasDePreciosGuard } from "./guards/listas-de-precios/abm.listas-de-precios.guards";
 import { ListasDePreciosComponent } from "./views/listas-de-precios/listas-de-precios.component";
 import { ListaDePreciosCrudComponent } from "./views/listas-de-precios/crud/lista-de-precios-crud.component";
+import { NegocioConfigComponent } from "./views/negocio/negocio-config.component";
+import { NegocioConfigGuard } from "./guards/negocio/negocio.config.guards";
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent, pathMatch: 'full' },
@@ -156,6 +158,7 @@ const appRoutes: Routes = [
     { canActivate: [ AuthGuard, NuevoPedidoGuard ], path: "pedidos/new", component: PedidoCrudComponent },
     { canActivate: [ AuthGuard, VerVentasGuard ], path: "ventas", component: VentasComponent },
     { canActivate: [ AuthGuard, NuevoVentasGuard ], path: "ventas/new", component: VentaCrudComponent },
+    { canActivate: [ AuthGuard, NegocioConfigGuard ], path: "negocio/config", component: NegocioConfigComponent },
     { canActivate: [ AuthGuard, VentasPorProductoVendedorGuard ], path: "reportes/listados/ventas-por-producto-vendedor", component: ReportesListadosVentasPorProductoProveedorComponent },
     { canActivate: [ AuthGuard, ClientesQueNoCompranDesdeFechaGuard ], path: "reportes/listados/clientes-que-no-compran-desde-fecha", component: ClientesQueNoCompranDesdeFechaComponent },
     { canActivate: [ AuthGuard, KilosCompradosPorProveedorGuard ], path: "reportes/estadistica/kilos-comprados-por-cada-proveedor", component: KilosCompradosPorCadaProveedorComponent },

@@ -9,7 +9,7 @@ import { ZonaDTO } from "src/app/classes/dto/zonas/zona.dto";
 import { CRUDView } from "src/app/classes/views/crud-view.classes";
 import { ConfirmDialogService } from "src/app/components/confirm-dialog/confirm-dialog.service";
 import { ApiService } from "src/app/services/api.service";
-import { FeatureFlagsService } from "src/app/services/feature-flags.service";
+import { AppConfigService } from "src/app/services/app.config.service";
 
 @Component({
   selector: 'app-cliente-crud',
@@ -28,7 +28,7 @@ export class ClienteCrudComponent implements OnInit {
               private routeService: ActivatedRoute,
               private notifierService: NotifierService,
               private confirmDialogService: ConfirmDialogService,
-              private featureFlagsService: FeatureFlagsService) {
+              private appConfigService: AppConfigService) {
                 
     this.crud = new CRUDView<ClienteDTO>(routeService);
     this.crud.model = new ClienteDTO();
@@ -45,7 +45,7 @@ export class ClienteCrudComponent implements OnInit {
 
   onSaveClick() {
     //TAB GENERAL
-    if (!this.featureFlagsService.current.clientes.validar_solo_domicilio) {
+    if (!this.appConfigService.current.feature_flags.clientes.validar_solo_domicilio) {
       if (this.crud.model.esEmpresa) {
         if (this.crud.model.razonSocial === undefined || this.crud.model.razonSocial.length === 0)
         {
@@ -105,7 +105,7 @@ export class ClienteCrudComponent implements OnInit {
       return;
     }
 
-    if (!this.featureFlagsService.current.clientes.validar_solo_domicilio) {
+    if (!this.appConfigService.current.feature_flags.clientes.validar_solo_domicilio) {
       // if (this.crud.model.entreCalles === undefined || this.crud.model.entreCalles.length === 0)
       // {
       //   this.confirmDialogService.showError("Debes ingresar las Entre calles.");

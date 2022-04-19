@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
+using Natom.Extensions;
 using Natom.Extensions.Auth.Services;
 using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
@@ -241,6 +242,22 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "VentaReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
+                var negocioConfigManager = new NegocioManager(_serviceProvider);
+                var negocioConfig = negocioConfigManager.GetConfig();
+
+                parameters.Add("RazonSocial", negocioConfig.RazonSocial);
+                parameters.Add("Documento", negocioConfig.TipoDocumento + " " + negocioConfig.NumeroDocumento);
+                parameters.Add("Domicilio", negocioConfig.Domicilio);
+                parameters.Add("Localidad", negocioConfig.Localidad);
+                parameters.Add("Telefono", negocioConfig.Telefono);
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }

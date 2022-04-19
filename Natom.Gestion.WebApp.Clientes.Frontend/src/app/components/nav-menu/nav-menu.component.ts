@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Output, EventEmitter } from '@angular/core'; 
+import { AppConfigService } from 'src/app/services/app.config.service';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,7 +10,8 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavMenuComponent {
   
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService,
+              private appConfigService: AppConfigService) {
     
   }
 

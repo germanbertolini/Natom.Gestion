@@ -19,7 +19,7 @@ import { CRUDView } from "src/app/classes/views/crud-view.classes";
 import { ConfirmDialogService } from "src/app/components/confirm-dialog/confirm-dialog.service";
 import { ApiService } from "src/app/services/api.service";
 import { AuthService } from "src/app/services/auth.service";
-import { FeatureFlagsService } from "src/app/services/feature-flags.service";
+import { AppConfigService } from "src/app/services/app.config.service";
 import { DataTableDTO } from "../../../classes/data-table-dto";
 
 @Component({
@@ -62,7 +62,7 @@ export class PedidoCrudComponent implements OnInit {
               private routeService: ActivatedRoute,
               private notifierService: NotifierService,
               private confirmDialogService: ConfirmDialogService,
-              private featureFlagsService: FeatureFlagsService) {
+              private appConfigService: AppConfigService) {
     this.cliente_cta_cte = null;
     this.crud = new CRUDView<PedidoDTO>(routeService);
     this.crud.model = new PedidoDTO();
@@ -172,7 +172,7 @@ export class PedidoCrudComponent implements OnInit {
       return;
     }
 
-    if (this.detalle_cantidad > this.detalle_stock_actual && !this.featureFlagsService.current.stock.permitir_venta_con_stock_negativo)
+    if (this.detalle_cantidad > this.detalle_stock_actual && !this.appConfigService.current.feature_flags.stock.permitir_venta_con_stock_negativo)
     {
       this.confirmDialogService.showError("No hay stock disponible para esa cantidad.");
       return;
@@ -345,7 +345,7 @@ export class PedidoCrudComponent implements OnInit {
       return;
     }
 
-    if (this.featureFlagsService.current.pedidos.fecha_y_hora_entrega_obligatorio) {
+    if (this.appConfigService.current.feature_flags.pedidos.fecha_y_hora_entrega_obligatorio) {
       if (this.crud.model.entrega_estimada_fecha === undefined || this.crud.model.entrega_estimada_fecha === null)
       {
         this.confirmDialogService.showError("Debes seleccionar una Fecha estimada de entrega.");

@@ -114,6 +114,7 @@
     <Build Include="dbo\Stored Procedures\spEstadisticaGananciasReport.sql" />
     <Build Include="dbo\Stored Procedures\spEstadisticaComprasReport.sql" />
     <Build Include="dbo\Stored Procedures\spClientesQueNoCompranDesdeFechaReport.sql" />
+    <Build Include="dbo\Tables\NegocioConfig.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="dbo\Script.PostDeployment.sql" />

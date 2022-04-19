@@ -3,7 +3,7 @@
     [OrdenDePedidoId]        INT             NOT NULL,
     [MovimientoStockId]      INT             NULL,
     [ProductoId]             INT             NOT NULL,
-    [Cantidad]               INT             NOT NULL,
+    [Cantidad]               DECIMAL(18, 2)  NOT NULL,
     [DepositoId]             INT             NOT NULL,
     [PesoUnitarioEnGramos]   INT             NOT NULL,
     [ListaDePreciosId]       INT             NULL,

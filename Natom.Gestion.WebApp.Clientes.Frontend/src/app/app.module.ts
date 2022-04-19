@@ -77,8 +77,7 @@ import { TransportesComponent } from './views/transportes/transportes.component'
 import { TransporteCrudComponent } from './views/transportes/crud/transporte-crud.component';
 import { ProveedorCuentaCorrienteComponent } from './views/proveedores/cta_cte/proveedor-cta-cte.component';
 import { ProveedorCuentaCorrienteNewComponent } from './views/proveedores/cta_cte/new/proveedor-cta-cte-new.component';
-import { FeatureFlagsService } from './services/feature-flags.service';
-import { FeatureFlags } from './classes/feature-flags';
+import { AppConfigService } from './services/app.config.service';
 import { CategoriasProductosComponent } from './views/categorias-productos/categorias-productos.component';
 import { CategoriaProductoCrudComponent } from './views/categorias-productos/crud/categoria-producto-crud.component';
 import { DepositosComponent } from './views/depositos/depositos.component';
@@ -87,12 +86,14 @@ import { RangosHorariosComponent } from './views/rangos-horarios/rangos-horarios
 import { RangoHorarioCrudComponent } from './views/rangos-horarios/crud/rango-horario-crud.component';
 import { ListasDePreciosComponent } from './views/listas-de-precios/listas-de-precios.component';
 import { ListaDePreciosCrudComponent } from './views/listas-de-precios/crud/lista-de-precios-crud.component';
+import { NegocioConfigComponent } from './views/negocio/negocio-config.component';
+import { AppConfigBackend } from './classes/app-config-backend';
 
 
-export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsService: FeatureFlagsService) {
+export function OnInit(jsonAppConfigService: JsonAppConfigService, appConfigService: AppConfigService) {
   return () => {
     return jsonAppConfigService.load()
-            .then(() => featureFlagsService.load());
+            .then(() => appConfigService.load());
   };
 }
 
@@ -156,6 +157,7 @@ export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsS
     RangoHorarioCrudComponent,
     ListasDePreciosComponent,
     ListaDePreciosCrudComponent,
+    NegocioConfigComponent,
     NgbdDatepickerPopup
   ],
   imports: [
@@ -189,14 +191,14 @@ export function OnInit(jsonAppConfigService: JsonAppConfigService, featureFlagsS
       useExisting: JsonAppConfigService
     },
     {
-      provide: FeatureFlags,
+      provide: AppConfigBackend,
       deps: [HttpClient],
-      useExisting: FeatureFlagsService
+      useExisting: AppConfigService
     },
     {
       provide: APP_INITIALIZER,
       multi: true,
-      deps: [JsonAppConfigService, FeatureFlagsService],
+      deps: [JsonAppConfigService, AppConfigService],
       useFactory: OnInit
     },
     { provide: NgbDateParserFormatter,

@@ -2,7 +2,7 @@
     [VentaDetalleId]         INT             IDENTITY (1, 1) NOT NULL,
     [VentaId]                INT             NOT NULL,
     [ProductoId]             INT             NOT NULL,
-    [Cantidad]               INT             NOT NULL,
+    [Cantidad]               DECIMAL(18, 2)  NOT NULL,
     [DepositoId]             INT             NOT NULL,
     [OrdenDePedidoId]        INT             NULL,
     [OrdenDePedidoDetalleId] INT             NULL,

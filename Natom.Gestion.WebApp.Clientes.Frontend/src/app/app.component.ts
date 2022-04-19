@@ -23,7 +23,7 @@ export class AppComponent {
         this.isLoggedIn = authService.getCurrentUser() !== null;
 
         //SETEAMOS EL TITULO DEL TAB
-        this.titleService.setTitle("MundoMascota .:. Gestión");
+        this.titleService.setTitle("Natom .:. Gestión");
 
         //SI HAY CAMBIO DE URL
         (<any>$('[data-toggle="tooltip"]')).tooltip('dispose');

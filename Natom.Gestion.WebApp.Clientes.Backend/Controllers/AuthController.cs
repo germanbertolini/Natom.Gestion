@@ -2,9 +2,11 @@
 using Natom.Extensions.Auth.Entities.Models;
 using Natom.Extensions.Auth.Services;
 using Natom.Extensions.Common.Exceptions;
+using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Services;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Auth;
+using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO.Negocio;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.Services;
 using System;
 using System.Collections.Generic;
@@ -132,30 +134,6 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             else
             {
                 throw new HandledException("No se pudo obtener el client y secret");
-            }
-        }
-
-        // GET: auth/feature_flags
-        [HttpGet]
-        [ActionName("feature_flags")]
-        public async Task<IActionResult> GetFeatureFlagsAsync()
-        {
-            try
-            {
-                return Ok(new ApiResultDTO<FeatureFlagsDTO>
-                {
-                    Success = true,
-                    Data = _featureFlagsService.FeatureFlags
-                });
-            }
-            catch (HandledException ex)
-            {
-                return Ok(new ApiResultDTO { Success = false, Message = ex.Message });
-            }
-            catch (Exception ex)
-            {
-                _loggerService.LogException(_transaction.TraceTransactionId, ex);
-                return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
     }

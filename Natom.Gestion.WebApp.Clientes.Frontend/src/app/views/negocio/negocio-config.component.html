@@ -1,0 +1,122 @@
+<div class="container-fluid" id="title-crud">
+  <div class="row">
+    <div class="col-md-12">
+      <h3>Mi negocio</h3>
+    </div>
+  </div>
+  <hr class="divider" />
+  <div class="row">
+    <div class="col-md-12">
+      <div class="alert alert-info" role="alert">
+        <i class="fa fa-info-circle" aria-hidden="true"></i>&nbsp;&nbsp;<b>Estos datos son los visibles en la impresión de los comprobantes</b>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Razón social</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.razon_social" />
+      </div>
+    </div>
+    <div class="col-md-5">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nombre fantasía</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.nombre_fantasia" />
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Membresía</label>
+        <input
+          type="text"
+          class="form-control"
+          readonly
+          value="{{ model.fecha_membresia  |  date:'dd/MM/yyyy' }}" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-1">
+        <div class="form-group">
+          <label for="formGroupExampleInput">Tipo</label>
+          <input
+            type="text"
+            class="form-control"
+            [(ngModel)]="model.tipo_documento" />
+        </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Nro documento</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.numero_documento" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Domicilio</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.domicilio" />
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Localidad</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.localidad" />
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Teléfono</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.telefono" />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="formGroupExampleInput">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="model.email" />
+      </div>
+    </div>
+  </div>
+  <hr>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Logo</h2>
+      <div class="card-container">
+        <img src="{{ImageBaseData}}" alt="Actual" height="200" width="200">
+      </div>
+      <br/>
+      <div class="card-container">
+        <input type="file" id="FUImage" name="FUImage" accept=".png, .jpg, .jpeg" (change)="handleFileInput($event.target.files)">
+      </div>
+    </div>
+  </div>
+  
+  <div class="row crud-footer">
+    <div class="col-md-12">
+      <button class="btn btn-primary btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-floppy-o"></i></button>
+    </div>
+  </div>
+</div>

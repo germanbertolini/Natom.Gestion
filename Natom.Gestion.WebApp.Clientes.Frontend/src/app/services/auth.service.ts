@@ -9,6 +9,7 @@ import { UserDTO } from "../classes/dto/user.dto";
 import { ApiService } from './api.service';
 import { Router } from '@angular/router';
 import { ConfirmDialogService } from '../components/confirm-dialog/confirm-dialog.service';
+import { AppConfigService } from './app.config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ export class AuthService {
   private _current_permissions: Array<string>;
   
   constructor(private cookieService: CookieService,
+              private appConfigService: AppConfigService,
               private apiService: ApiService,
               private routerService: Router,
               private confirmDialogService: ConfirmDialogService) {
@@ -94,6 +96,8 @@ export class AuthService {
                           this.cookieService.set('Auth.Current.Token', btoa(JSON.stringify(this._current_token)));
                           this.cookieService.set('Auth.Current.Permissions', btoa(JSON.stringify(this._current_permissions)));
                           this.cookieService.delete('Authorization', "/");
+                          
+                          this.appConfigService.load();
                           
                           onSuccess();
                         }

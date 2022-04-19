@@ -9,7 +9,7 @@
     [Activo]            BIT             NULL,
     [Observaciones]     NVARCHAR (200)  NULL,
     [MontoTotal]        DECIMAL (18, 2) NOT NULL,
-    [PesoTotalEnGramos] INT             NOT NULL,
+    [PesoTotalEnGramos] DECIMAL (18, 2) NOT NULL,
     [PagoReferencia]    NVARCHAR (50)   NULL,
     [MedioDePago]       NVARCHAR (30)   NULL,
     PRIMARY KEY CLUSTERED ([VentaId] ASC),

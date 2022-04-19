@@ -50,7 +50,9 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
                 _loggerService.LogInfo(_transaction.TraceTransactionId, "Inicio de transacción");
 
                 //VALIDACIONES DE SEGURIDAD
-                if (_controller.Equals("auth") || (_controller.Equals("users") && (_action.Equals("confirm") || _action.Equals("recover"))))
+                if (_controller.Equals("auth")
+                        || (_controller.Equals("users") && (_action.Equals("confirm") || _action.Equals("recover")))
+                        || (_controller.Equals("negocio") && _action.Equals("logo")))
                 {
                     _loggerService.LogInfo(_transaction.TraceTransactionId, "Operación sin token permitida");
 
@@ -103,7 +105,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
 
                     _transaction.UserId = _accessToken.UserId;
 
-                    ValidatePermission(accessTokenWithPermissions.Permissions, _actionRequested);
+                    if (!_controller.Equals("negocio") && !_action.Equals("config"))
+                        ValidatePermission(accessTokenWithPermissions.Permissions, _actionRequested);
 
 
                     _loggerService.LogInfo(_transaction.TraceTransactionId, "Token autorizado");

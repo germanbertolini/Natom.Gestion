@@ -15,6 +15,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz
         public DbSet<HistoricoCambiosMotivo> HistoricosCambiosMotivos { get; set; }
         public DbSet<HistoricoReajustePrecio> HistoricosReajustePrecios { get; set; }
         public DbSet<ListaDePrecios> ListasDePrecios { get; set; }
+        public DbSet<NegocioConfig> NegocioConfig { get; set; }
         public DbSet<Marca> Marcas { get; set; }
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<Transporte> Transportes { get; set; }

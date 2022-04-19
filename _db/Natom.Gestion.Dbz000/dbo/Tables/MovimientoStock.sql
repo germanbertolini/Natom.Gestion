@@ -4,7 +4,7 @@
     [FechaHora]             DATETIME        NOT NULL,
     [UsuarioId]             INT             NULL,
     [Tipo]                  CHAR (1)        NOT NULL,
-    [Cantidad]              INT             NOT NULL,
+    [Cantidad]              DECIMAL (18, 2) NOT NULL,
     [ConfirmacionFechaHora] DATETIME        NULL,
     [ConfirmacionUsuarioId] INT             NULL,
     [DepositoId]            INT             NOT NULL,

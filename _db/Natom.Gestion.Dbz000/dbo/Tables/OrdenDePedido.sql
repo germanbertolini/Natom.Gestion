@@ -24,7 +24,7 @@
     [DespachoUsuarioId]             INT             NULL,
     [MarcoEntregaFechaHora]         DATETIME        NULL,
     [MarcoEntregaUsuarioId]         INT             NULL,
-    [PesoTotalEnGramos]             INT             NOT NULL,
+    [PesoTotalEnGramos]             DECIMAL (18, 2) NOT NULL,
     [MontoTotal]                    DECIMAL (18, 2) NULL,
     [DespachoTransporteId]          INT             NULL,
     [PagoReferencia]                NVARCHAR (50)   NULL,

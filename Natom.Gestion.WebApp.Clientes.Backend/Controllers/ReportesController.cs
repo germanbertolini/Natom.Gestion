@@ -1,5 +1,6 @@
 ﻿using AspNetCore.Reporting;
 using Microsoft.AspNetCore.Mvc;
+using Natom.Extensions;
 using Natom.Extensions.Common.Exceptions;
 using Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers;
 using Natom.Gestion.WebApp.Clientes.Backend.Entities.DTO;
@@ -49,6 +50,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "VentasPorProductoProveedorReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -81,6 +89,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "ClientesQueNoCompranDesdeFechaReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -116,6 +131,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "KilosCompradosPorProveedorReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -151,6 +173,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "VentasRepartoVsMostradorReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -186,6 +215,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "TotalVendidoPorListaDePreciosReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -222,6 +258,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "EstadisticaComprasReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -258,6 +301,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "EstadisticaGananciasReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -290,6 +340,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "ListaDePreciosImprimirReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
@@ -322,6 +379,14 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "ListaStockImprimirReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
+
+                report.EnableExternalImages();
+
+                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+
+
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
             }
