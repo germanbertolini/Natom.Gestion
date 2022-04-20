@@ -14,6 +14,7 @@ using Natom.Extensions.Auth.Entities;
 using Natom.Extensions.Auth.Services;
 using Natom.Extensions.Logger.Services;
 using Natom.Extensions.Logger.Entities;
+using Natom.Extensions.Configuration.Services;
 
 namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
 {
@@ -21,6 +22,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
     {
         private readonly IServiceProvider _serviceProvider;
         private readonly IHttpContextAccessor _accessor;
+        private readonly ConfigurationService _configurationService;
         private readonly LoggerService _loggerService;
         private readonly AuthService _authService;
         private readonly AccessToken _accessToken;
@@ -40,6 +42,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
             _accessor = (IHttpContextAccessor)serviceProvider.GetService(typeof(IHttpContextAccessor));
             _transaction = (Transaction)serviceProvider.GetService(typeof(Transaction));
             _accessToken = (AccessToken)serviceProvider.GetService(typeof(AccessToken));
+            _configurationService = (ConfigurationService)serviceProvider.GetService(typeof(ConfigurationService));
         }
 
         public async Task OnAuthorizationAsync(AuthorizationFilterContext context)
@@ -96,7 +99,13 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
                         authorization = cookieValuesForAuthorization.ToString();
 
                     if (string.IsNullOrEmpty(authorization))
-                        throw new HandledException("Se debe enviar el 'Authorization'.");
+                    {
+                        string appUrl = _configurationService.GetValueAsync("WebApp.Clientes.URL").GetAwaiter().GetResult();
+                        context.HttpContext.Response.StatusCode = 307;
+                        context.Result = new RedirectResult(appUrl);
+                        return;
+                    }
+
 
                     if (!authorization.StartsWith("Bearer"))
                         throw new HandledException("'Authorization' inválido.");
