@@ -21,7 +21,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.DTO.Clientes
 
 		public ClienteMontoDTO From(ClienteMonto entity)
 		{
-			EncryptedId = EncryptionService.Encrypt<ClienteMonto>(entity.ClienteId);
+			EncryptedId = EncryptionService.Encrypt<ClienteMonto>(entity.ClienteMontoId);
 			Monto = entity.Monto;
 			Desde = entity.Desde;
 
