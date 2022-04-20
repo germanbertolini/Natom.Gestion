@@ -125,9 +125,17 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
 
                 var esAlta = string.IsNullOrEmpty(clienteDto.EncryptedId);
                 var manager = new ClientesManager(_serviceProvider);
-                var cliente = await manager.GuardarClienteAsync(clienteDto.ToModel());
+                var cliente = await manager.GuardarClienteAsync(clienteDto.ToModel(), _accessToken.UserId.Value);
 
-                await RegistrarAccionAsync(clienteId: 0, cliente.ClienteId, nameof(Cliente), esAlta ? "Alta" : "Edición");
+                var nuevoMontoMensualidad = clienteDto.Montos.OrderBy(m => m.Desde).FirstOrDefault(m => string.IsNullOrEmpty(m.EncryptedId));
+
+                string accion = esAlta ? "Alta" :
+                                nuevoMontoMensualidad != null ? "Edición con actualización de mensualidad" :
+                                "Edición";
+
+                await RegistrarAccionAsync(clienteId: 0, cliente.ClienteId, nameof(Cliente), accion);
+
+                
 
                 if (esAlta)
                 {
@@ -154,7 +162,10 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Controllers
                 }
 
                 if (esAlta)
-                    _ = _discordService.LogInfoAsync(":tada: NUEVO CLIENTE :partying_face:", _transaction.TraceTransactionId, new { Cliente = (cliente.EsEmpresa ? cliente.RazonSocial : $"{cliente.Nombre} {cliente.Apellido}"), Tipo = (cliente.EsEmpresa ? "Empresa" : "Particular") });
+                    _ = _discordService.LogInfoAsync(":tada: NUEVO CLIENTE :partying_face:", _transaction.TraceTransactionId, new { Cliente = (cliente.EsEmpresa ? cliente.RazonSocial : $"{cliente.Nombre} {cliente.Apellido}"), Tipo = (cliente.EsEmpresa ? "Empresa" : "Particular"), Mensualidad = new { Monto = nuevoMontoMensualidad.Monto, Desde = nuevoMontoMensualidad.Desde.ToString("dd/MM/yyyy"), Por = _accessToken.UserFullName } });
+                
+                else if (nuevoMontoMensualidad != null)
+                    _ = _discordService.LogInfoAsync(":dollar: ACTUALIZACIÓN DE MENSUALIDAD :dollar:", _transaction.TraceTransactionId, new { Cliente = (cliente.EsEmpresa ? cliente.RazonSocial : $"{cliente.Nombre} {cliente.Apellido}"), Tipo = (cliente.EsEmpresa ? "Empresa" : "Particular"), Mensualidad = new { Monto = nuevoMontoMensualidad.Monto, Desde = nuevoMontoMensualidad.Desde.ToString("dd/MM/yyyy"), Por = _accessToken.UserFullName } });
 
                 return Ok(new ApiResultDTO<ClienteDTO>
                 {

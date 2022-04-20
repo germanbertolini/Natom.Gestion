@@ -13,6 +13,8 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Zona> Zonas { get; set; }
         public DbSet<TipoDocumento> TiposDocumento { get; set; }
+        public DbSet<ClienteMonto> ClientesMontos { get; set; }
+        public DbSet<ClienteCobranza> ClientesCobranzas { get; set; }
 
 
 

@@ -40,6 +40,9 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Entities.Models
 
 		public bool Activo { get; set; }
 
+		public List<ClienteMonto> Montos { get; set; }
+		public List<ClienteCobranza> Cobranzas { get; set; }
+
 		[NotMapped]
 		public int CantidadFiltrados { get; set; }
 	}

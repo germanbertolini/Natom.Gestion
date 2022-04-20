@@ -76,7 +76,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
             return result;
         }
 
-        public async Task<Cliente> GuardarClienteAsync(Cliente clienteDto)
+        public async Task<Cliente> GuardarClienteAsync(Cliente clienteDto, int usuarioId)
         {
             Cliente cliente = null;
             if (clienteDto.ClienteId == 0) //NUEVO
@@ -106,6 +106,15 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
                     RegisterAt = DateTime.Now
                 };
 
+                cliente.Montos = new List<ClienteMonto>();
+                foreach (var mensualidad in clienteDto.Montos)
+                    cliente.Montos.Add(new ClienteMonto()
+                    {
+                        Desde = mensualidad.Desde,
+                        Monto = mensualidad.Monto,
+                        UsuarioId = usuarioId
+                    });
+
                 _db.Clientes.Add(cliente);
                 await _db.SaveChangesAsync();
             }
@@ -115,6 +124,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
                     throw new HandledException($"Ya existe un Cliente con ese {(clienteDto.EsEmpresa ? "CUIT" : "DNI")}.");
 
                 cliente = await _db.Clientes
+                                    .Include(c => c.Montos)
                                     .FirstAsync(u => u.ClienteId.Equals(clienteDto.ClienteId));
 
                 _db.Entry(cliente).State = EntityState.Modified;
@@ -134,6 +144,23 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
                 cliente.ContactoTelefono2 = clienteDto.ContactoTelefono2;
                 cliente.ContactoObservaciones = clienteDto.ContactoObservaciones;
                 cliente.ZonaId = clienteDto.ZonaId;
+
+
+                var anulados = cliente.Montos.Where(m => !m.FechaHoraAnulado.HasValue && !clienteDto.Montos.Select(m => m.ClienteMontoId).Contains(m.ClienteMontoId)).ToList();
+                foreach (var anulado in anulados)
+                {
+                    _db.Entry(anulado).State = EntityState.Modified;
+                    anulado.FechaHoraAnulado = DateTime.Now;
+                }
+
+
+                foreach (var mensualidad in clienteDto.Montos.Where(m => m.ClienteMontoId == 0))
+                    cliente.Montos.Add(new ClienteMonto()
+                    {
+                        Desde = mensualidad.Desde,
+                        Monto = mensualidad.Monto,
+                        UsuarioId = usuarioId
+                    });
 
                 await _db.SaveChangesAsync();
             }
@@ -171,6 +198,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
                         => _db.Clientes
                                 .Include(d => d.TipoDocumento)
                                 .Include(d => d.Zona)
+                                .Include(d => d.Montos)
                                 .FirstAsync(u => u.ClienteId.Equals(clienteId));
 
         public Task<List<Cliente>> BuscarClientesAsync(int size, string filter)

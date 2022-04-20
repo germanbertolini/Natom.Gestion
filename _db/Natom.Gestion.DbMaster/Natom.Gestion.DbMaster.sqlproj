@@ -65,6 +65,8 @@
     <Build Include="dbo\Tables\Cliente.sql" />
     <Build Include="dbo\Tables\Zona.sql" />
     <Build Include="dbo\Tables\TipoDocumento.sql" />
+    <Build Include="dbo\Tables\ClienteMonto.sql" />
+    <Build Include="dbo\Tables\ClienteCobranza.sql" />
   </ItemGroup>
   <ItemGroup>
     <SqlCmdVariable Include="DB_SECURITY">

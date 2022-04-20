@@ -1,3 +1,5 @@
+import { ClienteMontoDTO } from "./cliente.monto.dto";
+
 export class ClienteDTO {
     public encrypted_id: string;
 	public nombre: string;
@@ -18,4 +20,5 @@ export class ClienteDTO {
 	public contactoEmail1: string;
 	public contactoEmail2: string;
 	public contactoObservaciones: string;
+	public montos: Array<ClienteMontoDTO>;
 }

@@ -70,6 +70,9 @@ namespace Natom.Gestion.WebApp.Admin.Backend.DTO.Clientes
 		[JsonProperty("activo")]
 		public bool Activo { get; set; }
 
+		[JsonProperty("montos")]
+		public List<ClienteMontoDTO> Montos { get; set; }
+
 		public ClienteDTO From(Cliente entity)
 		{
 			EncryptedId = EncryptionService.Encrypt<Cliente>(entity.ClienteId);
@@ -92,6 +95,7 @@ namespace Natom.Gestion.WebApp.Admin.Backend.DTO.Clientes
 			Activo = entity.Activo;
 			Zona = entity.Zona?.Descripcion;
 			ZonaEncryptedId = EncryptionService.Encrypt<Zona>(entity.ZonaId) ?? "";
+			Montos = entity.Montos?.Where(m => !m.FechaHoraAnulado.HasValue).Select(m => new ClienteMontoDTO().From(m)).ToList();
 
 			return this;
 		}
@@ -117,8 +121,9 @@ namespace Natom.Gestion.WebApp.Admin.Backend.DTO.Clientes
 				ContactoEmail2 = ContactoEmail2,
 				ContactoObservaciones = ContactoObservaciones,
 				Activo = Activo,
-				ZonaId = EncryptionService.Decrypt<int, Zona>(ZonaEncryptedId)
-		};
+				ZonaId = EncryptionService.Decrypt<int, Zona>(ZonaEncryptedId),
+				Montos = Montos?.Select(m => m.ToModel()).ToList()
+			};
 		}
 	}
 }
