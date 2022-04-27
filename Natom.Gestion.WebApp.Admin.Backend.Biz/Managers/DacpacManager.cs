@@ -27,6 +27,8 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
             var dacpacPath = await _configurationService.GetValueAsync("WebApp.Admin.NewDeployment.DACPAC.Path");
             var newDatabaseName = await _configurationService.GetValueAsync("WebApp.Admin.NewDeployment.NewDB.Name");
             var targetServerName = await _configurationService.GetValueAsync("WebApp.Admin.NewDeployment.TargetServerName");
+            var sqlUserName = await _configurationService.GetValueAsync("WebApp.Admin.NewDeployment.SqlUserName");
+            var sqlPassword = await _configurationService.GetValueAsync("WebApp.Admin.NewDeployment.SqlPassword");
 
             newDatabaseName = newDatabaseName.Replace("XXX", cliente.ClienteId.ToString().PadLeft(3, '0'));
 
@@ -37,7 +39,11 @@ namespace Natom.Gestion.WebApp.Admin.Backend.Biz.Managers
             processStartInfo.UseShellExecute = false;
             processStartInfo.FileName = sqlpackageExePath;
             processStartInfo.WorkingDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            processStartInfo.Arguments = $"/Action:Publish /SourceFile:\"{dacpacPath}\" /TargetDatabaseName:\"{newDatabaseName}\" /TargetServerName:\"{targetServerName}\"";
+
+            if (string.IsNullOrEmpty(sqlUserName))
+                processStartInfo.Arguments = $"/Action:Publish /SourceFile:\"{dacpacPath}\" /TargetDatabaseName:\"{newDatabaseName}\" /TargetServerName:\"{targetServerName}\"";
+            else
+                processStartInfo.Arguments = $"/Action:Publish /SourceFile:\"{dacpacPath}\" /TargetConnectionString:\"Server={targetServerName};Database={newDatabaseName};User Id={sqlUserName};Password={sqlPassword};\"";
 
             var p = new Process();
             p.StartInfo = processStartInfo;

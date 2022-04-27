@@ -222,6 +222,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         [ActionName("imprimir/comprobante")]
         public async Task<IActionResult> GetImprimirComprobanteAsync([FromQuery] string encryptedId)
         {
+            Dictionary<string, string> parameters = new Dictionary<string, string>();
+
             try
             {
                 var ordenDePedidoId = EncryptionService.Decrypt<int, Venta>(Uri.UnescapeDataString(encryptedId));
@@ -238,14 +240,14 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 string mimtype = "";
                 int extension = 1;
-                Dictionary<string, string> parameters = new Dictionary<string, string>();
+
                 var path = Path.Combine(_hostingEnvironment.ContentRootPath, "Reporting", "VentaReport.rdlc");
                 var report = new LocalReport(path);
                 report.AddDataSource("DataSet1", data);
 
                 report.EnableExternalImages();
 
-                var backendUrl = $"{HttpContext.Request.Scheme}://{HttpContext.Request.Host}";
+                var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
                 parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
 
@@ -267,7 +269,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                _loggerService.LogException(_transaction.TraceTransactionId, ex);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex, new { ReportParameters = parameters });
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
