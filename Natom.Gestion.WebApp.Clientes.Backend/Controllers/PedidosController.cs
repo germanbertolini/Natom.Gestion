@@ -256,7 +256,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -302,18 +302,21 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 report.EnableExternalImages();
 
+
+                //var negocioConfigManager = new NegocioManager(_serviceProvider);
+                //var negocioConfig = negocioConfigManager.GetConfig();
+
+                //parameters.Add("RazonSocial", negocioConfig.RazonSocial ?? "");
+                //parameters.Add("Documento", negocioConfig.TipoDocumento + " " + negocioConfig.NumeroDocumento);
+                //parameters.Add("Domicilio", negocioConfig.Domicilio ?? "");
+                //parameters.Add("Localidad", negocioConfig.Localidad ?? "");
+                //parameters.Add("Telefono", negocioConfig.Telefono ?? "");
+
+
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
-                var negocioConfigManager = new NegocioManager(_serviceProvider);
-                var negocioConfig = negocioConfigManager.GetConfig();
-
-                parameters.Add("RazonSocial", negocioConfig.RazonSocial);
-                parameters.Add("Documento", negocioConfig.TipoDocumento + " " + negocioConfig.NumeroDocumento);
-                parameters.Add("Domicilio", negocioConfig.Domicilio);
-                parameters.Add("Localidad", negocioConfig.Localidad);
-                parameters.Add("Telefono", negocioConfig.Telefono);
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");

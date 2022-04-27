@@ -55,7 +55,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Filters
                 //VALIDACIONES DE SEGURIDAD
                 if (_controller.Equals("auth")
                         || (_controller.Equals("users") && (_action.Equals("confirm") || _action.Equals("recover")))
-                        || (_controller.Equals("negocio") && _action.Equals("logo")))
+                        || (_controller.Equals("negocio") && _action.StartsWith("logo")))
                 {
                     _loggerService.LogInfo(_transaction.TraceTransactionId, "Operación sin token permitida");
 

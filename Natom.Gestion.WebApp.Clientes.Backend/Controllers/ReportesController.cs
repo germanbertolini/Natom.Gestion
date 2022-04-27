@@ -57,7 +57,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -98,7 +98,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -142,7 +142,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -186,7 +186,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -230,7 +230,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -275,7 +275,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -320,7 +320,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -361,7 +361,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);
                 return File(result.MainStream, "application/pdf");
@@ -402,7 +402,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
 
                 var backendUrl = await _configurationService.GetValueAsync("WebApp.Clientes.Backend.URL");
                 var encryptedClienteId = EncryptionService.Encrypt<Cliente>(_accessToken.ClientId);
-                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo?clienteEncryptedId={Uri.EscapeDataString(encryptedClienteId)}");
+                parameters.Add("ImageURL", $"{backendUrl}/negocio/logo2/{_accessToken.ClientId}");
 
 
                 var result = report.Execute(RenderType.Pdf, extension, parameters, mimtype);

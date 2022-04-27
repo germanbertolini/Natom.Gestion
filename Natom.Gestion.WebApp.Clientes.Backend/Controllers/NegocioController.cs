@@ -123,6 +123,8 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
         {
             try
             {
+                clienteEncryptedId = clienteEncryptedId.Split('\"').First(); //FIX BUG NETCORE REPORTING
+
                 var clienteId = EncryptionService.Decrypt<int, Cliente>(Uri.UnescapeDataString(clienteEncryptedId));
 
                 var connectionString = _configurationService.GetValueAsync("ConnectionStrings.DbzXXX").GetAwaiter().GetResult();
@@ -154,7 +156,48 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Controllers
             }
             catch (Exception ex)
             {
-                _loggerService.LogException(_transaction.TraceTransactionId, ex);
+                _loggerService.LogException(_transaction.TraceTransactionId, ex, new { clienteEncryptedId });
+                return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
+            }
+        }
+
+        // GET: negocio/logo2/{clienteId}
+        [HttpGet]
+        [ActionName("logo2/{clienteId}")]
+        public async Task<IActionResult> GetLogoAsync([FromRoute]int clienteId)
+        {
+            try
+            {
+                var connectionString = _configurationService.GetValueAsync("ConnectionStrings.DbzXXX").GetAwaiter().GetResult();
+                connectionString = connectionString.Replace("XXX", clienteId.ToString().PadLeft(3, '0'));
+
+                var optionsBuilder = new DbContextOptionsBuilder<BizDbContext>();
+                optionsBuilder.UseSqlServer(connectionString);
+
+                var db = new BizDbContext(optionsBuilder.Options);
+
+                var negocioConfigManager = new NegocioManager(_serviceProvider);
+                var negocioConfig = negocioConfigManager.GetCustomConfig(db);
+
+                byte[] bytes = Convert.FromBase64String(negocioConfig.LogoBase64.Split(',').Last());
+                Image image;
+                using (MemoryStream ms = new MemoryStream(bytes))
+                {
+                    image = Image.FromStream(ms);
+                }
+
+                ImageCodecInfo[] codecs = ImageCodecInfo.GetImageEncoders();
+                var contentType = codecs.First(codec => codec.FormatID == image.RawFormat.Guid).MimeType;
+
+                return File(bytes, contentType);
+            }
+            catch (HandledException ex)
+            {
+                return Ok(new ApiResultDTO { Success = false, Message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                _loggerService.LogException(_transaction.TraceTransactionId, ex, new { clienteId });
                 return Ok(new ApiResultDTO { Success = false, Message = "Se ha producido un error interno." });
             }
         }
