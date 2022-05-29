@@ -248,7 +248,7 @@ namespace Natom.Gestion.WebApp.Clientes.Backend.Biz.Managers
                 MedioDePago = pedidoDto.MedioDePago,
                 PagoReferencia = pedidoDto.PagoReferencia,
                 Observaciones = pedidoDto.Observaciones,
-                PesoTotalEnGramos = pedidoDto.Detalle.Sum(d => d.ProductoPesoGramos * d.Cantidad),
+                PesoTotalEnGramos = (int)pedidoDto.Detalle.Sum(d => d.ProductoPesoGramos * d.Cantidad),
                 MontoTotal = pedidoDto.Detalle.Sum(d => (d.Precio * d.Cantidad) ?? 0),
                 Detalle = pedidoDto.Detalle.Select(d =>
                                 productos.First(p => p.ProductoId == EncryptionService.Decrypt<int, Producto>(d.ProductoEncryptedId)).MueveStock == true
