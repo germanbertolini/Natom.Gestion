@@ -316,6 +316,19 @@
                 onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
                 [(ngModel)]="detalle_cantidad" />
           </div>
+          <br/>
+          <div class="input-group input-group-sm">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Descuento</span>
+            </div>
+            <input type="number" 
+                class="form-control"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+                [(ngModel)]="detalle_descuento" />
+                <div class="input-group-prepend">
+                  <span class="input-group-text">%</span>
+                </div>
+          </div>
         </div>
         <div class="col-md-2">
           <button class="btn btn-sm btn-success" (click)="onAgregarDetalleClick()">[+] Agregar</button>
@@ -359,15 +372,32 @@
 
   </div>
 
-
   <div class="row crud-footer">
-    <div class="form-group col-md-2 offset-md-4">
+    <div class="form-group col-md-1 offset-md-2">
       <label for="exampleInputEmail1">Monto total</label>
       <div class="input-group input-group-sm">
         <input type="text" class="form-control" value="{{ totalizador_monto | currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly>
       </div>
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-2 offset-md-1">
+      <label for="exampleInputEmail1">Monto total con descuento</label>
+      <div class="input-group input-group-sm">
+        <input type="text" class="form-control" value="{{ descuento_total !== 0 ? totalizador_monto * ((100 - descuento_total)/100) : totalizador_monto| currency:'ARS':'symbol':'1.2-2':'es-AR' }}" readonly>
+      </div>
+    </div>
+    <div class="form-group col-md-1 offset-md-1">
+      <label for="exampleInputEmail1">Descuento</label>
+      <div class="input-group input-group-sm">
+        <input type="number" 
+                class="form-control"
+                onkeypress="return (event.charCode >= 48 && event.charCode <= 57) || event.charCode === 44"
+                [(ngModel)]="descuento_total" />
+                <div class="input-group-prepend">
+                  <span class="input-group-text">%</span>
+                </div>
+      </div>
+    </div>
+    <div class="form-group col-md-1 offset-md-1">
       <label for="exampleInputEmail1">Peso total</label>
       <div class="input-group input-group-sm">
         <input type="text" class="form-control" value="{{ (totalizador_peso_gramos / 1000).toFixed(2).replace('.', ',') }}" readonly>
@@ -376,8 +406,6 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="row crud-footer">
     <div class="col-md-12">
       <button class="btn btn-danger btn-circular left" (click)="onCancelClick()" data-toggle="tooltip" data-placement="right" title="Cancelar"><i class="fa fa-times"></i></button>
       <button class="btn btn-success btn-circular right" (click)="onSaveClick()" data-toggle="tooltip" data-placement="left" title="Guardar"><i class="fa fa-check"></i></button>
@@ -402,7 +430,7 @@
           <div class="input-group-prepend">
             <span class="input-group-text" id="basic-addon1">Lista de precios</span>
           </div>
-          <select
+          <select>
                 class="form-control"
                 size="1"
                 [(ngModel)]="cambiar_precio_lista_encrypted_id"

@@ -56,6 +56,8 @@ export class VentaCrudComponent implements OnInit {
   detalle_producto_encrypted_id: string;
   detalle_producto: string;
   detalle_cantidad: number;
+  detalle_descuento: number;
+  descuento_total: number;
   detalle_stock_actual: number;
   detalle_peso_unitario_gramos: number;
 
@@ -83,6 +85,8 @@ export class VentaCrudComponent implements OnInit {
     this.detalle_listaDePrecios_encrypted_id = "";
     this.detalle_deposito_encrypted_id = "";
     this.cambiar_precio_index = 0;
+    this.detalle_descuento = 0;
+    this.descuento_total = 0;
   }
 
   onClienteSearchSelectItem (cliente: ClienteDTO) {
@@ -255,6 +259,7 @@ export class VentaCrudComponent implements OnInit {
   }
 
   onSaveClick() {
+
     if (this.crud.model.cliente_encrypted_id === undefined || this.crud.model.cliente_encrypted_id.length === 0)
     {
       this.confirmDialogService.showError("Debes buscar un Cliente.");
@@ -285,6 +290,11 @@ export class VentaCrudComponent implements OnInit {
       return;
     }
 
+    if(this.descuento_total < 0 || this.descuento_total > 100 || this.descuento_total === undefined){
+      this.confirmDialogService.showError("El descuento es inválido.");
+      return;
+    }
+
     for (let i = 0; i < this.crud.model.pedidos.length; i ++) {
       if (this.crud.model.pedidos[i].precio === null) {
         this.confirmDialogService.showError("Quedan precios sin definir en 'Pedidos'.");
@@ -293,6 +303,9 @@ export class VentaCrudComponent implements OnInit {
     }
 
     this.confirmDialogService.showConfirm("¿Ya está todo? Una vez guardado no se podrá modificar la Facturación.", () => {
+      this.crud.model.detalle.forEach(pedido => {
+        pedido.precio = this.descuento_total !== 0 ? pedido.precio * ((100 - this.descuento_total)/100) : pedido.precio;
+      });
       this.apiService.DoPOST<ApiResult<PedidoDTO>>("ventas/save", this.crud.model, /*headers*/ null,
             (response) => {
               if (!response.success) {
@@ -478,6 +491,11 @@ export class VentaCrudComponent implements OnInit {
       return;
     }
 
+    if(this.detalle_descuento < 0 || this.detalle_descuento > 100 || this.detalle_descuento === undefined){
+      this.confirmDialogService.showError("El descuento es inválido.");
+      return;
+    }
+
     this.crud.model.detalle.push(<VentaDetalleDTO>{
       encrypted_id: "",
       pedido_encrypted_id: "",
@@ -491,7 +509,7 @@ export class VentaCrudComponent implements OnInit {
       deposito_descripcion: this.detalle_deposito,
       precio_lista_encrypted_id: this.detalle_listaDePrecios_encrypted_id,
       precio_descripcion: this.detalle_listaDePrecios,
-      precio: this.detalle_precio,
+      precio: this.detalle_descuento !== 0 ? this.detalle_precio * ((100 - this.detalle_descuento)/100) : this.detalle_precio,
       numero_remito: ""
     });
 
